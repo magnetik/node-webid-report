@@ -5,6 +5,7 @@
 
 #warning {
 	width: 100%
+	text-align: center;
 }
 
 #container { 
@@ -13,6 +14,7 @@
 	margin:0px auto; 
 	position:relative;
 }
+/* TABLE OF CONTENTS */
 #toc { 
 	width:200px; 
 	position:fixed; 
@@ -21,9 +23,10 @@
 	border: 1px solid #CACACA;
 	box-shadow: 0 0 4px rgba(0,0,0,0.1);
 	
-	padding: 3px;
+	padding: 5px;
 }
-#toc h1 {
+#toc img { float: right; }
+#toc p {
 	text-align: center;
 	font-size: 18px;
 }
@@ -35,11 +38,7 @@
 #toc a[title=H2] { font-size:14px;}
 #toc a[title=H3] { font-size:10px;}
 
-.sidenote {
-	position: absolute;
-}
-.sidenote:before { content: '← '; }
-
+/* PAGE */
 
 #page {
 	margin-left: auto;
@@ -103,3 +102,11 @@
   clear: both;
   visibility: hidden;
 }
+
+/* SIDE NOTES */
+sup { font-size: 11px; }
+div[id^="sidenote"] {
+	position: absolute;
+	font-size: 12px;
+}
+div[id^="sidenote"]:before { content: '← '; }

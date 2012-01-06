@@ -25,7 +25,7 @@ function generateSideNotes() {
 		}
 		
 		current.append("<sup>" + (i+1) + "</sup>");
-		$("body").append("<div id='sidenote" + i + "' class='sidenote'>" + text + "</div>");
+		$("body").append("<div id='sidenote" + i + "'>" + text + "</div>");
 		
 		// Ajust position
 		$("#sidenote" + i).css("left", leftPos); 
