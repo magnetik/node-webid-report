@@ -17,11 +17,11 @@ function generateSideNotes() {
 		var title = current.attr("title");
 		
 		if(title && cite) {
-			text+="<a href=\""+url+"\">"+title+"</a>";
+			text+="<a href=\""+cite+"\">"+title+"</a>";
 		} else if(title) {
 			text+=title;
 		} else if(cite) {
-			text+="<a href=\""+url+"\">"+url+"</a>";
+			text+="<a href=\""+cite+"\">"+cite+"</a>";
 		}
 		
 		current.append("<sup>" + (i+1) + "</sup>");
