@@ -24,6 +24,9 @@
 	box-shadow: 0 0 4px rgba(0,0,0,0.1);
 	
 	padding: 5px;
+
+	background-color: #EEEEEE;
+	background-color: rgba(238, 238, 238, 0.8);
 }
 #toc img { float: right; }
 #toc p {
@@ -57,21 +60,6 @@
 	
 	padding: 35px 30px 35px 30px;
 }
-#first {
-	height: 600px;
-}
-#right { 
-	float: right; 
-	text-align: right;
-}
-#left { float: left; }
-#first #middle { 
-	margin-top: 50px;
-	width: 100%;
-	
-	text-align: center;
-	font-size: 35px;
-}
 
 #page h1{
     counter-increment:title1;
@@ -95,6 +83,23 @@
 
 #page p {
 	text-align: justify;
+}
+
+/* FIRST PAGE */
+#page #first {
+	height: 600px;
+}
+#page #first #top #right { 
+	float: right; 
+	text-align: right;
+}
+#page #first #top #left { float: left; }
+#page #first #middle { 
+	margin-top: 50px;
+	width: 100%;
+	
+	text-align: center;
+	font-size: 35px;
 }
 
 /* OTHER */
