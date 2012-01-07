@@ -1,55 +1,104 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
 		<title>Project report</title>
 		
 		<meta name="author" lang="fr" content="Baptiste LAFONTAINE" />
 		<meta name="author" lang="fr" content="Julie GARRONE" />
 		
+		<!-- Loading jquery -->
 		<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>  
+		
+		<!-- Load own Javascript -->
 		<script type="text/javascript" src="js/toc.js"></script> 
 		<script type="text/javascript" src="js/sidenotes.js"></script> 
+		<script type="text/javascript" src="js/references.js"></script>
 		<script type="text/javascript">
 			 $(document).ready(function() {
 				setTimeout(function() {
 									generateTOC();
 									generateSideNotes();
+									generateReference();
 				} , 100);
 				// Timeout to fix some issues
 			 });
 		</script>
 		
+		<!-- Loading syntax highlighter script -->
+		<link href="css/sh/shCore.css" rel="stylesheet" type="text/css" />
+		<link href="css/sh/shThemeEclipse.css" rel="stylesheet" type="text/css" />
+		
+		<!-- Own style -->
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 		<link href="css/print.css" rel="stylesheet" type="text/css" media="print" />
 		
 	</head>
 	<body>
-		<div id="toc">
-			<img src="img/reduce.png" id="tocSlider" />
-			<p id="tocTitle">Table Of Content</p>
-			<div id="tocContent"><!-- Automatically filled-in with TOC --></div>
-		</div>
 		<div id="page">
 			<div id="first">
 				<div id="top">
-					<p id="left"><img src="img/tsp.jpg" id="tocSlider"/><p>
+					<p id="left"><img src="img/tsp.jpg" alt="Telecom SudParis Logo"/></p>
 					<p id="right">Julie Garrone<br />Baptiste Lafontaine<p>
 					<hr class="clear" />
 				</div>
 				<div id="middle">WebID provider using Node.JS</div>
 			</div>
+			<div id="toc">
+				<img src="img/reduce.png" id="tocSlider" alt="Toggle TOC" />
+				<p id="tocTitle">Table Of Content</p>
+				<div id="tocContent"><!-- Automatically filled-in with TOC (see js/toc.js) --></div>
+			</div>
 			<h1>Introduction</h1>
 				<p></p>
 			<h1>Domain analysis</h1>
 				<h2>WebID</h2>
-				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames <span title="Another note">ac turpis egestas</span>. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+					<h3>Comparison</h3>
+					<table>
+						<thead>
+							<tr>
+								<th></th>
+								<th>WebID</th>
+								<th>BrowserID</th>
+								<th>OpenID</th>
+							<tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th></th>
+							</tr>
+						</tbody>
+					</table>
+					<h3>W3</h3>
+						<p>Getting the status of a <q cite="http://www.w3.org/standards/about.html">W3C Standard</q> permits to help a technology to develop quickly and in a good shape. During one year from January 2011, WebID was developed through an <a href="http://www.w3.org/2005/Incubator/webid/" target="_blank">Incubator Group (XG)</a> which is the first step in the recommendation redaction process. Incubator Groups are authorized to use W3C infrastructures (such as mailing-list, wiki, bug tracker, ...) and permits to gather experts or all people interested in a technology in one location.</p>
+						<p>On January 2012, WebID XG will be turned in a <a href="http://www.w3.org/community">Community Group</a> (CG). It's not any kind of evolution but the W3C is deleting the concept of XG to CG.</p>
+						<p></p>
 				<h2>Node.js</h2>
-				<p><a href="http://www.nodejs.org" target="_blank">Node.js</a> (No) is a software system which aims to produce <strong>highly scalable application</strong>. Programs are written in <span title="ECMAScript - ECMA-262, 5th edition">JavaScript</span>. Node is based on the <a href="http://code.google.com/p/v8/" target="_blank">V8 engine</a> wich is the open source javascript engine by google, used for instance in Google Chrome.</p>
-				<p>To be highly scalable, Node uses <strong>event based</strong> programmation</p>
-			<h1>Implementation</h1>
+					<p><a href="http://www.nodejs.org" target="_blank">Node.js</a> (Node) is a software system which aims to produce <strong>highly scalable application</strong>. Programs are written in <span title="ECMAScript - ECMA-262, 5th edition">JavaScript</span>. Node is built ontop of google's <a href="http://code.google.com/p/v8/" target="_blank">V8 engine</a> which is the open source JavaScript engine used for instance in Google Chrome.</p>
+					<p>To be highly scalable, Node uses <strong>event based</strong> programmings</p>
+					<figure>
+						<img src="img/thread.png" title="Thread based programming" />
+						<figcaption>This image shows a single thread: when a client is connected, the thread is blocked (represented in red) while the final result is not ready. Thus, Apache thread is blocked waiting (doing nothing) during long I/O operations such as writing to disk or database.</figcaption>
+					</figure>
+					<p>Traditional servers such as Apache spawns a new thread (or uses one of a pool) to handle each request. This approach does not provide good performance because of the memory cost of thread or process management. In order to scale well, this kind of server must uses lot of threads.</p>
+					<figure>
+						<img src="img/event.png" title="Event base programming" />
+						<figcaption>Node.js <aside>Mixu, <em>Intro to Node.JS for .NET Developers</em> http://www.aaronstannard.com/post/2011/12/14/Intro-to-NodeJS-for-NET-Developers.aspx</aside></figcaption>
+					</figure>
+					<p>Node works differently: it uses mainly an event loop that execute your code in a single thread. This loop handle all incoming connections, that's why potentially long operations (such as network or disk I/O, database queries, etc) must be executed asynchronously (with the use of callback) on workers threads.</p>
+					<p>Many features of JavaScript helps to do event-driven programs effectively (with a minimum of line of code). Moreover, they way that Node is coded allows to do painlessly: there is no thread management nor synchronization functions...</p>
+					<p>Node is under heavy development;  </p>
+					<p><a href="http://npmjs.org" target="_blank">npm</a> is Node's package manager which permits to install packages (with the additional possibility to add your own c++ wrappers if needed), and even to publish your own package on a centralized platform. On January 7th 2012, there are more than six thousand package available which are covering a wide range of functionalities such as template engines, web pages parsing, certificate management...</p>
+			<h1>Work done</h1>
+				<p>We have chosen to uses the platform <a href="http://www.github.com" target="_blank">GitHub</a> to store our git repositories because of 2 main reasons:</p>
+				<ul>
+					<li>Our aim is to encourage re-usability of our code: GitHub allows anybody to contribute by proposing addition or correction.</li>
+					<li>GitHub is used for the code of Node.js and almost all npm packages.</li>
+				</ul>
+				
 			<h1>Conclusion</h1>
-			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+			<h1>List of figures</h1>
 			<h1>References</h1>
-			<div id="references"></div>
+				<div id="listRef"><!-- Automatically filled-in with list of references (see js/references.js) --></div>
 		</div>
 	</body>
 </html>

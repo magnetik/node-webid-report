@@ -1,6 +1,11 @@
 ﻿body {
 	background-color: #EBEBEB;
 	font-family: Arial;
+	color: #000000;
+}
+
+aside {
+	display: inline;
 }
 
 #warning {
@@ -14,11 +19,110 @@
 	margin:0px auto; 
 	position:relative;
 }
+
+/* PAGE */
+
+#page {
+	margin-left: auto;
+	margin-right: auto;
+	
+	width:730px;
+	
+	background-color: #FFFFFF;
+
+	border: 1px solid #CACACA;
+	box-shadow: 0 0 4px rgba(0,0,0,0.1);
+	
+	counter-reset:title1 1;
+	counter-reset:title2 1;
+	counter-reset:title3 1;
+	counter-reset:figure 1;
+	
+	padding: 35px 30px 35px 30px;
+}
+#page a {
+	color: #000000;
+}
+
+#page h1{
+	 counter-increment:title1;
+}
+#page h2{
+	 counter-increment:title2;
+}
+#page h3{
+	 counter-increment:title3;
+}
+
+#page h1::before{
+	 content: counter(title1)"- ";
+}
+#page h2::before{
+	 content: counter(title1)"."counter(title2)"- ";
+}
+#page h3::before{
+	 content: counter(title1)"."counter(title2)"."counter(title3)"- ";
+}
+
+#page p {
+	text-align: justify;
+}
+#page ul {
+	margin: 0;
+}
+
+/* PAGE FIGURES */
+/* Inspired from : http://labo.mypixelfactory.net/figure.php?id=html5-1&montype=html5 */
+#page figure {
+	padding: 6px;
+	background: white; 
+	margin: 11px 0 11px 0;
+	border: solid 1px #888888;	
+	border-radius: 8px;
+
+}
+#page figure img {
+	width: 100%;
+}
+#page figcaption {
+	counter-increment:figure;
+	font-size: .8em;
+	padding: 6px 8px;
+	background: #dddddd; 
+	display: block;
+	text-align: center;
+	font-style: italic;
+	border-radius: 0 0 7px 7px;
+}
+#page figcaption::before {
+	content: "Figure "counter(figure)": ";
+}
+
+/* FIRST PAGE */
+#page #first {
+	height: 600px;
+}
+#page #first #top #right { 
+	float: right; 
+	text-align: right;
+}
+#page #first #top #left { float: left; }
+#page #first #middle { 
+	margin-top: 50px;
+	width: 100%;
+	
+	text-align: center;
+	font-size: 35px;
+}
+
 /* TABLE OF CONTENTS */
 #toc { 
 	width:200px; 
 	position:fixed; 
 	float:left;
+	
+	top: 15px;
+	left: 15px;
 
 	border: 1px solid #CACACA;
 	box-shadow: 0 0 4px rgba(0,0,0,0.1);
@@ -40,67 +144,6 @@
 #toc a[title=H1] { font-size:18px;}
 #toc a[title=H2] { font-size:14px;}
 #toc a[title=H3] { font-size:10px;}
-
-/* PAGE */
-
-#page {
-	margin-left: auto;
-	margin-right: auto;
-	
-	width:730px;
-	
-	background-color: #FFFFFF;
-
-	border: 1px solid #CACACA;
-	box-shadow: 0 0 4px rgba(0,0,0,0.1);
-	
-	counter-reset:title1 1;
-	counter-reset:title2 1;
-	counter-reset:title3 1;
-	
-	padding: 35px 30px 35px 30px;
-}
-
-#page h1{
-    counter-increment:title1;
-}
-#page h2{
-    counter-increment:title2;
-}
-#page h3{
-    counter-increment:title3;
-}
-
-#page h1::before{
-    content: counter(title1)"- ";
-}
-#page h2::before{
-    content: counter(title1)"."counter(title2)"- ";
-}
-#page h3::before{
-    content: counter(title1)"."counter(title2)"."counter(title3)"- ";
-}
-
-#page p {
-	text-align: justify;
-}
-
-/* FIRST PAGE */
-#page #first {
-	height: 600px;
-}
-#page #first #top #right { 
-	float: right; 
-	text-align: right;
-}
-#page #first #top #left { float: left; }
-#page #first #middle { 
-	margin-top: 50px;
-	width: 100%;
-	
-	text-align: center;
-	font-size: 35px;
-}
 
 /* OTHER */
 .clear {
