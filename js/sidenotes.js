@@ -5,7 +5,7 @@
  */
  
 function generateSideNotes() {
-	$("span[title],q[cite],q[title],blockquote[cite],blockquote[title]").addClass("footnote");
+	$("span[title],span[cite],q[cite],q[title],blockquote[cite],blockquote[title]").addClass("footnote");
 	$(".footnote").each(function(i) {
 		var current = $(this);
 		var text = "";

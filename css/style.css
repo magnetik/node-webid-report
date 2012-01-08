@@ -33,22 +33,23 @@ aside {
 	border: 1px solid #CACACA;
 	box-shadow: 0 0 4px rgba(0,0,0,0.1);
 	
-	counter-reset:title1 1;
-	counter-reset:title2 1;
-	counter-reset:title3 1;
-	counter-reset:figure 1;
+	counter-reset:title1;
 	
 	padding: 35px 30px 35px 30px;
 }
 #page a {
 	color: #000000;
+	text-decoration: none;
+	border-bottom:1px dashed;
 }
 
 #page h1{
 	 counter-increment:title1;
+	 counter-reset:title2;
 }
 #page h2{
 	 counter-increment:title2;
+	 counter-reset:title3;
 }
 #page h3{
 	 counter-increment:title3;
@@ -67,9 +68,26 @@ aside {
 #page p {
 	text-align: justify;
 }
-#page ul {
-	margin: 0;
+
+#page abbr {
+	cursor: help;
+	border-bottom:1px dotted;
 }
+
+#page table {
+	border-collapse: collapse;
+}
+#page td, th {
+	padding: .3em; 
+	border: 1px #ccc solid;
+}
+#page td {
+	text-align: center;
+}
+#page caption {
+	caption-side:bottom;
+}
+
 
 /* PAGE FIGURES */
 /* Inspired from : http://labo.mypixelfactory.net/figure.php?id=html5-1&montype=html5 */
@@ -97,22 +115,31 @@ aside {
 #page figcaption::before {
 	content: "Figure "counter(figure)": ";
 }
-
-/* FIRST PAGE */
-#page #first {
-	height: 600px;
+#page hr {
+	clear:both;
 }
-#page #first #top #right { 
+/* FIRST PAGE */
+#page #first #right { 
 	float: right; 
 	text-align: right;
 }
-#page #first #top #left { float: left; }
+#page #first #left { float: left; }
 #page #first #middle { 
-	margin-top: 50px;
+	margin: 200px 0 200px 0;
 	width: 100%;
 	
 	text-align: center;
 	font-size: 35px;
+}
+#page #first #bottom {
+	width:100%;
+}
+
+.disclaimer {
+	border: solid 1px #888888;	
+	border-radius: 0 8px 0 8px;
+	background: #dddddd; 
+	padding: 8px;
 }
 
 /* TABLE OF CONTENTS */
@@ -138,8 +165,8 @@ aside {
 	font-size: 18px;
 }
 #toc a { 
-	display:block; 
-	color:#1F4B96;
+	display: block; 
+	color: #1F4B96;
 }
 #toc a[title=H1] { font-size:18px;}
 #toc a[title=H2] { font-size:14px;}
