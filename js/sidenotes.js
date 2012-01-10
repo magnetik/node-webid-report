@@ -24,7 +24,7 @@ function generateSideNotes() {
 			text+="<a href=\""+cite+"\">"+cite+"</a>";
 		}
 		
-		current.append("<sup>" + (i+1) + "</sup>");
+		current.after("<sup>" + (i+1) + "</sup>");
 		$("body").append("<div id='sidenote" + i + "'>" + text + "</div>");
 		
 		// Ajust position

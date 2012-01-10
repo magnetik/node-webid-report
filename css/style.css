@@ -44,29 +44,32 @@ aside {
 }
 
 #page h1{
-	 counter-increment:title1;
-	 counter-reset:title2;
+	counter-increment:title1;
+	counter-reset:title2;
 }
 #page h2{
-	 counter-increment:title2;
-	 counter-reset:title3;
+	text-indent: 1em;
+	counter-increment:title2;
+	counter-reset:title3;
 }
 #page h3{
-	 counter-increment:title3;
+	text-indent: 2em;
+	counter-increment:title3;
 }
 
 #page h1::before{
-	 content: counter(title1)"- ";
+	content: counter(title1)"- ";
 }
 #page h2::before{
-	 content: counter(title1)"."counter(title2)"- ";
+	content: counter(title1)"."counter(title2)"- ";
 }
 #page h3::before{
-	 content: counter(title1)"."counter(title2)"."counter(title3)"- ";
+	//content: counter(title1)"."counter(title2)"."counter(title3)"- ";
 }
 
 #page p {
 	text-align: justify;
+	text-indent: 1.5em;
 }
 
 #page abbr {
@@ -119,6 +122,10 @@ aside {
 	clear:both;
 }
 /* FIRST PAGE */
+#page #first #top {
+	//display: table-cell;
+    //vertical-align: middle
+}
 #page #first #right { 
 	float: right; 
 	text-align: right;
