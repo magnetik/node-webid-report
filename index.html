@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<meta charset="UTF-8" />
+		
 		<title>Project report</title>
 		
 		<meta name="author" lang="fr" content="Baptiste LAFONTAINE" />
 		<meta name="author" lang="fr" content="Julie GARRONE" />
 		
 		<!-- Loading jquery -->
-		<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>  
+		<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 		
 		<!-- Load own Javascript -->
 		<script type="text/javascript" src="js/toc.js"></script> 
@@ -23,10 +25,6 @@
 				// Timeout to fix some issues
 			 });
 		</script>
-		
-		<!-- Loading syntax highlighter script -->
-		<link href="css/sh/shCore.css" rel="stylesheet" type="text/css" />
-		<link href="css/sh/shThemeEclipse.css" rel="stylesheet" type="text/css" />
 		
 		<!-- Own style -->
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -120,11 +118,20 @@
 						<li>GitHub is the official forge of Node.js and almost all npm packages are using GitHub. Being on the platform </li>
 					</ul>
 					<p>For intern communication, we used a wiki (powered by dokuwiki, hosted on a personal server, <a href="http://wiki.magnetik.org/projet_asr" target="_blank">available here</a>) to share the minutes of ours meetings, research etc. </p>
-					<p>To generate our module . An example can be found <a href="http://magnetik.github.com/node-earl/doc/" href="_blank">on github</a></p>
+					<p>To generate our modules documentation, we used the <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JSDoc toolkit</a>. It uses annotation (mostly the same as <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html" target="_blank">Javadoc</a>) within the code (such as @param to describe a function parameter) to create a user-friendly documentation. An example of HTML ouput can be found <a href="http://magnetik.github.com/node-earl/doc/symbols/EarlDocument.html" href="_blank">on github</a></p>
 				<h2>Research on related technologies </h2>
-					<p>Before starting coding the implementation, we had to made research on many subjects </p>
+					<p>Before starting coding the implementation, we had to made research on many subjects related to WebID (RDF and its serialization RDF/XML and Turtle, <abbr title="Transport Security Layer">TLS</abbr>, ).</p>
+					<p>After having a good comprehension of theses technologies and noticing that there wasn't much informations in our native language (French), we created a few articles on Wikipedia to help spreading thoses technologies:</p>
+					<ul>
+						<li><a href="http://fr.wikipedia.org/wiki/WebID#Protocole_WebID" target="_blank">WebID</a>,</li>
+						<li><a href="http://fr.wikipedia.org/wiki/Turtle_(syntaxe)" target="_blank">Turtle_(syntaxe)</a>,</li>
+						<li><a href="http://fr.wikipedia.org/wiki/Notation3" target="_blank">Notation3</a>,</li>
+						<li><a href="http://fr.wikipedia.org/wiki/Evaluation_and_Report_Language" target="_blank">Evaluation and Report Language</a>.</li>
+					</ul>
+					<p>By writing small summaries of theses technologies and rephrasing already existant articles, this helped us to have a clearer view.</p>
+
 				<h2>Existent</h2>
-					<p>Before starting our work, we have searched if other people have already done some work on WebID with Node</p>
+					<p>We searched if other people have already done some work on WebID with Node. A google research didn't gave any result, neither a search on github, but someone mentionned an implementation on the webid XG list. After contacting the author, <a href="http://antoniogarrote.wordpress.com/" target="_blank">Antonio Garrote</a>, he put <a href="https://github.com/antoniogarrote/NodeJS-WebID-demo" target="_blank">his code</a> on his <a href="https://github.com/antoniogarrote" target="_blank">GitHub account</a>. Two main problems were present</p>
 				
 			<h1>Conclusion</h1>
 			<h1>List of figures</h1>

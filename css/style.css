@@ -149,6 +149,14 @@ aside {
 	padding: 8px;
 }
 
+/* PAGE REF */
+#page a.ref {
+	border: none;
+}
+#page p[id^="ref"] {
+	text-align:left;
+}
+
 /* TABLE OF CONTENTS */
 #toc { 
 	width:200px; 

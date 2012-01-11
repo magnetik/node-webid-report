@@ -1,7 +1,8 @@
 function generateReference() {
 	$("aside").each(function(i) {
-		var current=$(this);
-		$("#listRef").append("<p>[" + (i+1) + "] " + current.html() + "</p>");
-		current.html("[" + (i+1) +"]");
+		var o = i+1;
+		var current = $(this);
+		$("#listRef").append("<p id='ref" + o + "'>[" + o + "] " + current.html() + "</p>");
+		current.html(" <a class='ref' href='#ref" + o +"'>#[" + o +"]</a> ");
 	});
 }
