@@ -89,13 +89,23 @@
 						</table>
 					<h3>W3</h3>
 						<p>Getting the status of a <a href="http://www.w3.org/standards/about.html" target="_blank">W3C Standard</a> permits to<q cite="http://www.w3schools.com/web/web_standards.asp">make the web a better place</q> by allowing both developers and users to have a better web experience. During one year from January 2011, WebID was developed through an <a href="http://www.w3.org/2005/Incubator/webid/" target="_blank">Incubator Group</a> (XG) which is usually (but it's not mandatory) first step in the recommendation redaction process. Members of Incubator Groups are authorized to use W3C infrastructures (such as mailing-list, wiki, bug tracker, ...) and permits to gather experts or all people interested in a technology in one location. It's a process open to anyone, for free.</p>
-						<p>Most of discussions are made through the <a href="http://lists.w3.org/Archives/Public/public-xg-webid/" target="_blank">public-xg-webid@w3.org</a> <span title="from October 2011 to January 2012, in average more than 400 e-mails are exchanged each month">mailing list</span>. There are also Teleconference meetings (accessible by phone, SIP, IRC...) every month which permits what to focus on during next weeks.<p>
+						<p>Most of discussions are made through the <a href="http://lists.w3.org/Archives/Public/public-xg-webid/" target="_blank">public-xg-webid@w3.org</a> <span title="from October 2011 to January 2012, in average more than 400 e-mails are exchanged each month">mailing list</span>. There are also Teleconference meetings (accessible by phone, SIP, IRC...) every month which permits do decide what to focus on during the following weeks.<p>
 						<p>On January 2012, WebID XG was turned into a <a href="http://www.w3.org/community">Community Group</a> (CG). It's not any kind of evolution but the W3C is progressively deleting the concept of XG to CG.</p>
-						<p>After a chair request, the group can be moved to the <q cite="http://www.w3.org/community/about/agreements/">W3C Standards Track</q>: it will be turned into a Working Group (WG). There are two way to join a working group: </p>
+						<p>After a chair request, the group can be moved to the <q cite="http://www.w3.org/community/about/agreements/">W3C Standards Track</q>: it will be turned into a Working Group (WG). Because subscription to WG are not open: there are two way to join them: </p>
 						<ul>
-							<li>Be an employee of a <a href="http://www.w3.org/Consortium/Member/List" target="_blank">W3C Member organization</a> (Firms have to pay a fee to be member),
+							<li>Be an employee of a <a href="http://www.w3.org/Consortium/Member/List" target="_blank">W3C Member organization</a>  and ask to join (Firms have to pay a fee to be member),
 							<li>Be an <a href="http://www.w3.org/2004/08/invexp.html" target="_blank">invited expert</a>. 
 						</ul>
+						<p>When reaching the recommandation track, the work is far from done. The recommandation will pass theses steps:</p>
+						<ol>
+							<li>Working Draft (WD),</li>
+							<li>Last Call Working Draft (LC),</li>
+							<li>Candidate Recommendation (CR),</li>
+							<li>Proposed Recommendation (PR),</li>
+							<li>W3C Recommendation (REC)</li>
+						</ol>
+
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>Node.js</h2>
 					<p><a href="http://www.nodejs.org" target="_blank">Node.js</a> (Node) is a software system which aims to produce <strong>highly scalable application</strong>. Programs are written in <span title="ECMAScript - ECMA-262, 5th edition">JavaScript</span>. Node is built ontop of google's <a href="http://code.google.com/p/v8/" target="_blank">V8 engine</a> which is the open source JavaScript engine used for instance in Google Chrome.</p>
 					<p>To be highly scalable, Node uses <strong>event based</strong> programmings.</p>
@@ -113,6 +123,7 @@
 					<p>Many features of JavaScript helps to do event-driven programs effectively (with a minimum of line of code). Moreover, the way that Node is coded allows to do painlessly: there is no thread management nor synchronization functions...</p>
 					<p>Node is under heavy development: cores <abbr title="Application Programming Interface">API</abbr>s may change at any time, </p>
 					<p><a href="http://npmjs.org" target="_blank">npm</a> is Node's package manager which permits to install packages (with the additional possibility to add your own c++ wrappers if needed), and even to publish your own package on a centralized platform. On January 7th 2012, there are more than six thousand package available which are covering a wide range of functionalities such as template engines, web pages parsing, certificate management...</p>
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<h1>Project</h1>
 				<h2>Organization / Tools</h2>
 					<p>We have chosen to use the platform <a href="http://www.github.com" target="_blank">GitHub</a> to store our code because of three main reasons:</p>
@@ -142,11 +153,11 @@
 							<thead>
 								<tr>
 									<td></td>
-									<th>RDFQuery</th>
+									<th><a href="http://code.google.com/p/rdfquery/" target="_blank">RDFQuery</a></th>
 									<th><a href="http://www.jibbering.com/rdf-parser/" target="_blank">RDF parser</a></th>
-									<th>rdfstore-js</th>
-									<th>LinkedData RDFLib</th>
-									<th>Rdf raptor</th>
+									<th><a href="http://antoniogarrote.github.com/rdfstore-js/" target="_blankl">rdfstore-js</a></th>
+									<th><a href="https://github.com/linkeddata/rdflib.js" target="_blank">LinkedData RDFLib</a></th>
+									<th><a href="https://github.com/antoniogarrote/rdf-raptor-node-js" target="_blank">Rdf raptor</a></th>
 								<tr>
 							</thead>
 							<tbody>
@@ -194,7 +205,7 @@
 									<th>Parallel execution</th>
 									<td>No</td>
 									<td>No</td>
-									<td>Yes</td>
+									<td><strong>Yes</strong></td>
 									<td>No</td>
 									<td>Yes</td>
 								<tr>
@@ -207,13 +218,10 @@
 							</tbody>
 							<caption>JavaScript RDF library support</caption>
 						</table>
-						<p>Because WebID requires only basic RDF support, </p>
-						<ul>
-							<li><strong>RDFQuery</strong> (<a href="http://code.google.com/p/rdfquery/" target="_blank">website</a>): a <a href="http://jquery.com/" target="_blank">jQuery</a> plugin that </li>
+						<p>We have seen in the context that Node.js application have to do the least number of operation in the main thread. As a matter of fact  the support of WebWorkers of <strong>rdfstore-js</strong> was decisive even if it does not support RDF/XML.</p>
 						</ul>
 				
 			<h1>Conclusion</h1>
-			<h1>List of figures</h1>
 			<h1>References</h1>
 				<div id="listRef"><!-- Automatically filled-in with list of references (see js/references.js) --></div>
 		</div>
