@@ -10,17 +10,21 @@
 		
 		<!-- Loading jquery -->
 		<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+		<!-- Jquery plugins -->
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		
 		<!-- Load own Javascript -->
 		<script type="text/javascript" src="js/toc.js"></script> 
 		<script type="text/javascript" src="js/sidenotes.js"></script> 
 		<script type="text/javascript" src="js/references.js"></script>
+		<script type="text/javascript" src="js/autoColorTab.js"></script>
 		<script type="text/javascript">
 			 $(document).ready(function() {
 				setTimeout(function() {
 									generateTOC();
 									generateSideNotes();
 									generateReference();
+									autoColorTab();
 				} , 100);
 				// Timeout to fix some issues
 			 });
@@ -124,14 +128,89 @@
 					<p>After having a good comprehension of theses technologies and noticing that there wasn't much informations in our native language (French), we created a few articles on Wikipedia to help spreading thoses technologies:</p>
 					<ul>
 						<li><a href="http://fr.wikipedia.org/wiki/WebID#Protocole_WebID" target="_blank">WebID</a>,</li>
-						<li><a href="http://fr.wikipedia.org/wiki/Turtle_(syntaxe)" target="_blank">Turtle_(syntaxe)</a>,</li>
+						<li><a href="http://fr.wikipedia.org/wiki/Turtle_(syntaxe)" target="_blank">Turtle (syntaxe)</a>,</li>
 						<li><a href="http://fr.wikipedia.org/wiki/Notation3" target="_blank">Notation3</a>,</li>
 						<li><a href="http://fr.wikipedia.org/wiki/Evaluation_and_Report_Language" target="_blank">Evaluation and Report Language</a>.</li>
 					</ul>
-					<p>By writing small summaries of theses technologies and rephrasing already existant articles, this helped us to have a clearer view.</p>
+					<p>By writing small summaries of theses technologies and rephrasing already existing articles, this helped us to have a clearer view.</p>
 
 				<h2>Existent</h2>
-					<p>We searched if other people have already done some work on WebID with Node. A google research didn't gave any result, neither a search on github, but someone mentionned an implementation on the webid XG list. After contacting the author, <a href="http://antoniogarrote.wordpress.com/" target="_blank">Antonio Garrote</a>, he put <a href="https://github.com/antoniogarrote/NodeJS-WebID-demo" target="_blank">his code</a> on his <a href="https://github.com/antoniogarrote" target="_blank">GitHub account</a>. Two main problems were present</p>
+					<p>We searched if other people have already done some work on WebID with Node. A Google research didn't gave any result, neither a search on GitHub, but someone mentioned an implementation on the WebID XG list. After contacting the author, <a href="http://antoniogarrote.wordpress.com/" target="_blank">Antonio Garrote</a>, he put <a href="https://github.com/antoniogarrote/NodeJS-WebID-demo" target="_blank">his code</a> on his <a href="https://github.com/antoniogarrote" target="_blank">GitHub account</a>. We have identified one main problem: the lack of RDF library in JavaScript.</p>
+					<h3>JavaScript RDF lib</h3>
+						<p>There are a few RDF libraries (in pure JavaScript or wrappers to other libs) available on internet. The following matrix shows RDF support for the main libraries.</p>
+						<table>
+							<thead>
+								<tr>
+									<td></td>
+									<th>RDFQuery</th>
+									<th><a href="http://www.jibbering.com/rdf-parser/" target="_blank">RDF parser</a></th>
+									<th>rdfstore-js</th>
+									<th>LinkedData RDFLib</th>
+									<th>Rdf raptor</th>
+								<tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Last update</th>
+									<td>2010</td>
+									<td>2006</td>
+									<td>2012</td>
+									<td>2012</td>
+									<td>2011</td>
+								</tr>
+								<tr>
+									<th>Parse (and export) RDF/XML</th>
+									<td>Yes</td>
+									<td>Yes</td>
+									<td>No</td>
+									<td>Yes</td>
+									<td>Yes</td>
+								</tr>
+								<tr>
+									<th>Parse RDFa</th>
+									<td>Yes</td>
+									<td>Yes</td>
+									<td>No</td>
+									<td>Yes</td>
+									<td>Yes</td>
+								</tr>
+								<tr>
+									<th>Parse (and export) N3 (Turtle)</th>
+									<td>Yes</td>
+									<td>Yes</td>
+									<td>Yes</td>
+									<td>Yes</td>
+									<td>Yes</td>
+								</tr>
+								<tr>
+									<th>SparQL (1.0) support</th>
+									<td>Yes</td>
+									<td>No</td>
+									<td>Yes</td>
+									<td>Yes</td>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parallel execution</th>
+									<td>No</td>
+									<td>No</td>
+									<td>Yes</td>
+									<td>No</td>
+									<td>Yes</td>
+								<tr>
+									<th>Requirement</th>
+									<td>jQuery</td>
+									<td>/</td>
+									<td>Node</td>
+									<td>/</td>
+									<td>libraptor v1.4</td>
+							</tbody>
+							<caption>JavaScript RDF library support</caption>
+						</table>
+						<p>Because WebID requires only basic RDF support, </p>
+						<ul>
+							<li><strong>RDFQuery</strong> (<a href="http://code.google.com/p/rdfquery/" target="_blank">website</a>): a <a href="http://jquery.com/" target="_blank">jQuery</a> plugin that </li>
+						</ul>
 				
 			<h1>Conclusion</h1>
 			<h1>List of figures</h1>

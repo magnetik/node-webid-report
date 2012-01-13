@@ -1,5 +1,6 @@
 /* TABLE OF CONTENTS */
-#toc {
+div#toc {
+	page-break-before:always;
 	width: 100%;
 	position: relative;
 	top: 0;
@@ -9,6 +10,9 @@
 #toc p {
 	text-align: center;
 	font-size: 20px;
+}
+#toc a {
+	border: none;
 }
 
 h1 {

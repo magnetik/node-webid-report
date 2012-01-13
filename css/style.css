@@ -91,6 +91,14 @@ aside {
 	caption-side:bottom;
 }
 
+/* Auto color tab */
+.yes {
+	background-color: #90FF90;
+}
+.no {
+	background-color: #FF9090;
+}
+
 
 /* PAGE FIGURES */
 /* Inspired from : http://labo.mypixelfactory.net/figure.php?id=html5-1&montype=html5 */
@@ -158,7 +166,7 @@ aside {
 }
 
 /* TABLE OF CONTENTS */
-#toc { 
+#page #toc { 
 	width:200px; 
 	position:fixed; 
 	float:left;
@@ -174,18 +182,19 @@ aside {
 	background-color: #EEEEEE;
 	background-color: rgba(238, 238, 238, 0.8);
 }
-#toc img { float: right; }
-#toc p {
+#page #toc img { float: right; }
+#page #toc p#tocTitle {
 	text-align: center;
 	font-size: 18px;
+	text-indent: 0;
 }
-#toc a { 
+#page #toc a { 
 	display: block; 
 	color: #1F4B96;
 }
-#toc a[title=H1] { font-size:18px;}
-#toc a[title=H2] { font-size:14px;}
-#toc a[title=H3] { font-size:10px;}
+#page #toc a[title=H1] { font-size:18px;}
+#page #toc a[title=H2] { font-size:14px;}
+#page #toc a[title=H3] { font-size:10px;}
 
 /* OTHER */
 .clear {

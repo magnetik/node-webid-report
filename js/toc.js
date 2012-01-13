@@ -11,18 +11,28 @@ function generateTOC() {
 			current.html() + "</a>");
 	});
 
-	$("#tocSlider").click(function () {
+	$("#tocSlider").bind('click',function () {
 		if ($("#tocTitle").text() == "TOC") {
 			$("#tocContent").show('slow');
 			$('#tocTitle').text("Table Of Content");
 			$('#tocSlider').attr('src', 'img/reduce.png');
 			$('#toc').animate({width: 200}, 'slow');
+
+			$.cookie("toc", "expanded");
 		}
 		else {
 			$("#tocContent").hide('slow');
 			$('#toc').animate({width: 60}, 'slow');
 			$('#tocTitle').text("TOC");
 			$('#tocSlider').attr('src', 'img/expand.png');
+
+			$.cookie("toc", "reduced");
 		}
 	});
+
+	// Auto reduce if already reduced !
+	if ($.cookie("toc") == "reduced") {
+		alert("Reduced");
+		$("#tocSlider").trigger('click');
+	}
 }
