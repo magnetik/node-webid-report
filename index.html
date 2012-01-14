@@ -3,10 +3,10 @@
 	<head>
 		<meta charset="UTF-8" />
 		
-		<title>Project report</title>
+		<title>WebID provider using Node.JS</title>
 		
-		<meta name="author" lang="fr" content="Baptiste LAFONTAINE" />
-		<meta name="author" lang="fr" content="Julie GARRONE" />
+		<meta name="author" lang="en" content="Baptiste LAFONTAINE" />
+		<meta name="author" lang="en" content="Julie GARRONE" />
 		
 		<!-- Loading jquery -->
 		<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
@@ -14,6 +14,7 @@
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		
 		<!-- Load own Javascript -->
+		<script type="text/javascript" src="js/matchMedia.js"></script>
 		<script type="text/javascript" src="js/toc.js"></script> 
 		<script type="text/javascript" src="js/sidenotes.js"></script> 
 		<script type="text/javascript" src="js/references.js"></script>
@@ -36,16 +37,17 @@
 		
 	</head>
 	<body>
+		<div id="license"><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank"><img src="img/cc-by-sa.png" alt="Licenced under CC BY-SA" /></a></div>
 		<div id="page">
 			<div id="first">
 				<div id="top">
 					<p id="left"><img src="img/tsp.jpg" alt="Telecom SudParis Logo"/></p>
-					<p id="right">Julie Garrone<br />Baptiste Lafontaine<p>
+					<p class="right">Julie Garrone<br />Baptiste Lafontaine<p>
 					<hr class="clear" />
 				</div>
 				<div id="middle">WebID provider using Node.JS</div>
 				<div id="bottom">
-					<p id="right"><em>Supervisors:</em><br />Olivier Berger<br />Andrei Sambra<p>
+					<p class="right"><em>Supervisors:</em><br />Olivier Berger<br />Andrei Sambra<p>
 				</div>
 			</div>
 			<div id="toc">
@@ -55,48 +57,54 @@
 			</div>
 			<hr />
 			<h1>Introduction</h1>
-				<p></p>
+				<h2>Subject</h2>
+					<p>The initial subject was quite vague and express only a few things to do:</p>
+					<ul>
+						<li>A WebID identity provider ;</li>
+						<li>This provider must be portable</li>
+					</ul>
+
 			<h1>Domain analysis</h1>
 				<h2>WebID</h2>
 					<div class="disclaimer">Disclaimer: the following describe WebID in its "<a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20111212">W3C Editor's Draft 12 December 2011</a>" <aside>Henry Story et al., <em>WebID 1.0</em>, [Online]. Available: http://www.w3.org/2005/Incubator/webid/spec/</aside> version. It may have change since, the latest version is available on <a href="http://www.w3.org/2005/Incubator/webid/spec/" target="_blank">W3C website</a>.</div>
+					<figure>
+						<img src="img/webid-sequence.jpg" alt="WebID sequence" />
+						<figcaption></figcaption>
+					</figure>
 					<h3>More than authentication</h3>
 					<h3>Comparison</h3>
 						<p>There are a few other way to simplify and improve user login, some are standardize, some aren't.</p>
 						<table>
-							<thead>
-								<tr>
-									<td></td>
-									<th>WebID</th>
-									<th>BrowserID</th>
-									<th>OpenID</th>
-								<tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th>Browser integration</th>
-									<td>Already</td>
-									<td>No</td>
-									<td>Not required</td>
-								</tr>
-								<tr>
-									<th>Identifier</th>
-									<td>URL</td>
-									<td>E-mail</td>
-									<td></td>
-								</tr>
-							</tbody>
 							<caption>Matrix showing main differences / similarities between main identification standards</caption>
+							<tr>
+								<td></td>
+								<th>WebID</th>
+								<th>BrowserID</th>
+								<th>OpenID</th>
+							</tr>
+							<tr>
+								<th>Browser integration</th>
+								<td>Already</td>
+								<td>No</td>
+								<td>Not required</td>
+							</tr>
+							<tr>
+								<th>Identifier</th>
+								<td>URL</td>
+								<td>E-mail</td>
+								<td></td>
+							</tr>
 						</table>
-					<h3>W3</h3>
-						<p>Getting the status of a <a href="http://www.w3.org/standards/about.html" target="_blank">W3C Standard</a> permits to<q cite="http://www.w3schools.com/web/web_standards.asp">make the web a better place</q> by allowing both developers and users to have a better web experience. During one year from January 2011, WebID was developed through an <a href="http://www.w3.org/2005/Incubator/webid/" target="_blank">Incubator Group</a> (XG) which is usually (but it's not mandatory) first step in the recommendation redaction process. Members of Incubator Groups are authorized to use W3C infrastructures (such as mailing-list, wiki, bug tracker, ...) and permits to gather experts or all people interested in a technology in one location. It's a process open to anyone, for free.</p>
-						<p>Most of discussions are made through the <a href="http://lists.w3.org/Archives/Public/public-xg-webid/" target="_blank">public-xg-webid@w3.org</a> <span title="from October 2011 to January 2012, in average more than 400 e-mails are exchanged each month">mailing list</span>. There are also Teleconference meetings (accessible by phone, SIP, IRC...) every month which permits do decide what to focus on during the following weeks.<p>
+					<h3>W3C</h3>
+						<p>Getting the status of a <a href="http://www.w3.org/standards/about.html" target="_blank">W3C Recommendation</a> permits to <q cite="http://www.w3schools.com/web/web_standards.asp">make the web a better place</q> by allowing both developers and users to have a better web experience. During one year from January 2011, WebID was developed through a W3C <a href="http://www.w3.org/2005/Incubator/webid/" target="_blank">Incubator Group</a> (XG) which is usually (but it's not mandatory) the first step in the recommendation redaction process. Members of Incubator Groups are authorized to use W3C infrastructures (such as mailing-list, wiki, bug tracker, ...) and permits to gather experts and every people interested in a technology in one location. It's a process open to anyone, for free; but because the process is based on consensus, it's quite hard to make decision with large number of people.</p>
+						<p>Most of discussions are made through the <a href="http://lists.w3.org/Archives/Public/public-xg-webid/" target="_blank">public-xg-webid@w3.org</a> <span title="from October 2011 to January 2012, in average more than 400 e-mails are exchanged each month">mailing list</span>. There are also Teleconference meetings (accessible by phone, <span title="Session Initiation Protocol: Voice over IP equivalent">SIP</span>, IRC...) every month which permits do decide what to focus on during the following weeks.<p>
 						<p>On January 2012, WebID XG was turned into a <a href="http://www.w3.org/community">Community Group</a> (CG). It's not any kind of evolution but the W3C is progressively deleting the concept of XG to CG.</p>
 						<p>After a chair request, the group can be moved to the <q cite="http://www.w3.org/community/about/agreements/">W3C Standards Track</q>: it will be turned into a Working Group (WG). Because subscription to WG are not open: there are two way to join them: </p>
 						<ul>
 							<li>Be an employee of a <a href="http://www.w3.org/Consortium/Member/List" target="_blank">W3C Member organization</a>  and ask to join (Firms have to pay a fee to be member),
 							<li>Be an <a href="http://www.w3.org/2004/08/invexp.html" target="_blank">invited expert</a>. 
 						</ul>
-						<p>When reaching the recommandation track, the work is far from done. The recommandation will pass theses steps:</p>
+						<p>When reaching the recommendation track, the work is far from done. The recommendation will pass theses steps:</p>
 						<ol>
 							<li>Working Draft (WD),</li>
 							<li>Last Call Working Draft (LC),</li>
@@ -104,6 +112,7 @@
 							<li>Proposed Recommendation (PR),</li>
 							<li>W3C Recommendation (REC)</li>
 						</ol>
+						<p>For HTML5, it took more than 3 year to complete this process.</p>
 
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>Node.js</h2>
@@ -114,28 +123,29 @@
 						<figcaption>This image shows a single thread: when a client is connected, the thread is blocked (represented in red) while the final result is not ready. Thus, Apache thread is blocked waiting (doing nothing) during long I/O operations such as writing to disk or database.</figcaption>
 					</figure>
 					<p>Traditional servers such as Apache spawns a new thread (or uses one of a pool) to handle each request. This thread will be used onyly for this request as long as the whole process is not finished</p>
-					<p>This approach does not provide good performance because of the memory cost of thread (or process) management. In order to scale well, this kind of server must uses lot of threads.</p>
+					<p>This approach does not provide good performance because of the memory cost of thread (or process) management. In order to scale well, this kind of server must uses lot of threads. But large numbers of threads leads to overloading the machine and synchronization problems.</p>
 					<figure>
 						<img src="img/event.png" title="Event base programming" />
 						<figcaption>Node runs user's code in a loop called the event loop. Inspired from <aside>Mixu, <em>Intro to Node.JS for .NET Developers</em>, [Online]. Available: http://www.aaronstannard.com/post/2011/12/14/Intro-to-NodeJS-for-NET-Developers.aspx</aside></figcaption>
 					</figure>
 					<p>Node works differently: it uses mainly an event loop that execute your code in a single thread. This loop handle all incoming connections, that's why potentially long operations (such as network or disk I/O, database queries, etc) must be executed asynchronously (with the use of callback) on workers threads.</p>
+					<p>In order to defer long operation to other thread, Node supports the brand new <a href="http://dev.w3.org/html5/workers/" target="_blank">HTML5 Web Workers</a> to delegate work to other threads.</p>
 					<p>Many features of JavaScript helps to do event-driven programs effectively (with a minimum of line of code). Moreover, the way that Node is coded allows to do painlessly: there is no thread management nor synchronization functions...</p>
-					<p>Node is under heavy development: cores <abbr title="Application Programming Interface">API</abbr>s may change at any time, </p>
+					<p>Node is under heavy development: cores <abbr title="Application Programming Interface">API</abbr>s may change at any time. It could be even a an advantage or a problem. An advantage because if bugs are found or new features requested, development teams can react quickly. But it is also a problem when, for example, the number of arguments of a function change from a version to another: it may require additional work to follow Node's quick development.</p>
 					<p><a href="http://npmjs.org" target="_blank">npm</a> is Node's package manager which permits to install packages (with the additional possibility to add your own c++ wrappers if needed), and even to publish your own package on a centralized platform. On January 7th 2012, there are more than six thousand package available which are covering a wide range of functionalities such as template engines, web pages parsing, certificate management...</p>
 			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<h1>Project</h1>
 				<h2>Organization / Tools</h2>
 					<p>We have chosen to use the platform <a href="http://www.github.com" target="_blank">GitHub</a> to store our code because of three main reasons:</p>
 					<ul>
-						<li>The revision control system <a href="http://git-scm.com/" target="_blank">Git</a> is widely used.</li>
+						<li>The revision control system <a href="http://git-scm.com/" target="_blank">Git</a> is more and more used.</li>
 						<li>Our aim is to encourage re-usability of our code: GitHub allows anybody to contribute by proposing addition or correction. Moreover it gives a good visibility on our work.</li>
 						<li>GitHub is the official forge of Node.js and almost all npm packages are using GitHub. Being on the platform </li>
 					</ul>
-					<p>For intern communication, we used a wiki (powered by dokuwiki, hosted on a personal server, <a href="http://wiki.magnetik.org/projet_asr" target="_blank">available here</a>) to share the minutes of ours meetings, research etc. </p>
-					<p>To generate our modules documentation, we used the <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JSDoc toolkit</a>. It uses annotation (mostly the same as <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html" target="_blank">Javadoc</a>) within the code (such as @param to describe a function parameter) to create a user-friendly documentation. An example of HTML ouput can be found <a href="http://magnetik.github.com/node-earl/doc/symbols/EarlDocument.html" href="_blank">on github</a></p>
+					<p>For intern communication, we used a wiki (powered by <a href="http://www.dokuwiki.org" target="_blank">dokuwiki</a>, hosted on a personal server, <a href="http://wiki.magnetik.org/projet_asr" target="_blank">available here</a>) to share the minutes of ours meetings, important links about our research, etc. </p>
+					<p>To generate our modules documentation, we used the <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JSDoc toolkit</a>. It uses in-line annotation (mostly the same as <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html" target="_blank">Javadoc</a>) within the code (such as @param to describe a function parameter) to create a user-friendly documentation. An example of HTML output can be found <a href="http://magnetik.github.com/node-earl/doc/symbols/EarlDocument.html" target="_blank">on github</a>.</p>
 				<h2>Research on related technologies </h2>
-					<p>Before starting coding the implementation, we had to made research on many subjects related to WebID (RDF and its serialization RDF/XML and Turtle, <abbr title="Transport Security Layer">TLS</abbr>, ).</p>
+					<p>Before starting to code, we had to make research on many subjects related to WebID that where totally unknown to us (RDF and its serialization RDF/XML and Turtle, <abbr title="Transport Security Layer">TLS</abbr>, X509 certificate, <abbr title="Friend of a Friend">FOAF</abbr>, ...).</p>
 					<p>After having a good comprehension of theses technologies and noticing that there wasn't much informations in our native language (French), we created a few articles on Wikipedia to help spreading thoses technologies:</p>
 					<ul>
 						<li><a href="http://fr.wikipedia.org/wiki/WebID#Protocole_WebID" target="_blank">WebID</a>,</li>
@@ -148,82 +158,95 @@
 				<h2>Existent</h2>
 					<p>We searched if other people have already done some work on WebID with Node. A Google research didn't gave any result, neither a search on GitHub, but someone mentioned an implementation on the WebID XG list. After contacting the author, <a href="http://antoniogarrote.wordpress.com/" target="_blank">Antonio Garrote</a>, he put <a href="https://github.com/antoniogarrote/NodeJS-WebID-demo" target="_blank">his code</a> on his <a href="https://github.com/antoniogarrote" target="_blank">GitHub account</a>. We have identified one main problem: the lack of RDF library in JavaScript.</p>
 					<h3>JavaScript RDF lib</h3>
-						<p>There are a few RDF libraries (in pure JavaScript or wrappers to other libs) available on internet. The following matrix shows RDF support for the main libraries.</p>
+						<p>There are a few RDF libraries (in pure JavaScript or wrappers to other libs) available on the Internet. The following matrix shows RDF support for the main libraries.</p>
 						<table>
-							<thead>
-								<tr>
-									<td></td>
-									<th><a href="http://code.google.com/p/rdfquery/" target="_blank">RDFQuery</a></th>
-									<th><a href="http://www.jibbering.com/rdf-parser/" target="_blank">RDF parser</a></th>
-									<th><a href="http://antoniogarrote.github.com/rdfstore-js/" target="_blankl">rdfstore-js</a></th>
-									<th><a href="https://github.com/linkeddata/rdflib.js" target="_blank">LinkedData RDFLib</a></th>
-									<th><a href="https://github.com/antoniogarrote/rdf-raptor-node-js" target="_blank">Rdf raptor</a></th>
-								<tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th>Last update</th>
-									<td>2010</td>
-									<td>2006</td>
-									<td>2012</td>
-									<td>2012</td>
-									<td>2011</td>
-								</tr>
-								<tr>
-									<th>Parse (and export) RDF/XML</th>
-									<td>Yes</td>
-									<td>Yes</td>
-									<td>No</td>
-									<td>Yes</td>
-									<td>Yes</td>
-								</tr>
-								<tr>
-									<th>Parse RDFa</th>
-									<td>Yes</td>
-									<td>Yes</td>
-									<td>No</td>
-									<td>Yes</td>
-									<td>Yes</td>
-								</tr>
-								<tr>
-									<th>Parse (and export) N3 (Turtle)</th>
-									<td>Yes</td>
-									<td>Yes</td>
-									<td>Yes</td>
-									<td>Yes</td>
-									<td>Yes</td>
-								</tr>
-								<tr>
-									<th>SparQL (1.0) support</th>
-									<td>Yes</td>
-									<td>No</td>
-									<td>Yes</td>
-									<td>Yes</td>
-									<td>No</td>
-								</tr>
-								<tr>
-									<th>Parallel execution</th>
-									<td>No</td>
-									<td>No</td>
-									<td><strong>Yes</strong></td>
-									<td>No</td>
-									<td>Yes</td>
-								<tr>
-									<th>Requirement</th>
-									<td>jQuery</td>
-									<td>/</td>
-									<td>Node</td>
-									<td>/</td>
-									<td>libraptor v1.4</td>
-							</tbody>
 							<caption>JavaScript RDF library support</caption>
+							<tr>
+								<td></td>
+								<th><a href="http://code.google.com/p/rdfquery/" target="_blank">RDFQuery</a></th>
+								<th><a href="http://www.jibbering.com/rdf-parser/" target="_blank">RDF parser</a></th>
+								<th><a href="http://antoniogarrote.github.com/rdfstore-js/" target="_blank">rdfstore-js</a></th>
+								<th><a href="https://github.com/linkeddata/rdflib.js" target="_blank">LinkedData RDFLib</a></th>
+								<th><a href="https://github.com/antoniogarrote/rdf-raptor-node-js" target="_blank">Rdf raptor</a></th>
+							</tr>
+							<tr>
+								<th>Last update</th>
+								<td>2010</td>
+								<td>2006</td>
+								<td>2012</td>
+								<td>2012</td>
+								<td>2011</td>
+							</tr>
+							<tr>
+								<th>Parse (and export) RDF/XML</th>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>No</td>
+								<td>Yes</td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<th>Parse RDFa</th>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>No</td>
+								<td>Yes</td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<th>Parse (and export) N3 (Turtle)</th>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<th>SparQL (1.0) support</th>
+								<td>Yes</td>
+								<td>No</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>No</td>
+							</tr>
+							<tr>
+								<th>Parallel execution</th>
+								<td>No</td>
+								<td>No</td>
+								<td><strong>Yes</strong></td>
+								<td>No</td>
+								<td>Yes</td>
+							<tr>
+								<th>Requirement</th>
+								<td>jQuery</td>
+								<td>/</td>
+								<td>Node</td>
+								<td>/</td>
+								<td>libraptor v1.4</td>
+							</tr>
 						</table>
 						<p>We have seen in the context that Node.js application have to do the least number of operation in the main thread. As a matter of fact  the support of WebWorkers of <strong>rdfstore-js</strong> was decisive even if it does not support RDF/XML.</p>
-						</ul>
-				
 			<h1>Conclusion</h1>
+			<h1 class="notes">Notes</h1>
 			<h1>References</h1>
 				<div id="listRef"><!-- Automatically filled-in with list of references (see js/references.js) --></div>
+			<h1>About</h1>
+				<p>This report is available under the Creative Common BY-SA 3.0 License. You are free to:</p>
+				<ul>
+					<li>Copy, distribute and transmit this document,</li>
+					<li>Adapt and modify this document.</li>
+				</ul>
+				<p>Under theses conditions:</p>
+				<ul>
+					<li>You must attribute this work</li>
+					<li>You distribute your modification under the same, or a similar, license</li>
+				</ul>
+				<hr />
+				<p>It's made with HTML5 + CSS3 and JavaScript to generate some content.</p>
+				<ul>
+					<li></li>
+				</ul>
+				<p><a href="validator.w3.org/check?uri=referer"><img src="img/valid-html5.png" /></a> <img src="img/valid-css.png" /></p>
 		</div>
 	</body>
 </html>

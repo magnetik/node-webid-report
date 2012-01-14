@@ -1,21 +1,36 @@
+#page {
+	border: none;
+}
 /* TABLE OF CONTENTS */
-div#toc {
-	page-break-before:always;
+#page div#toc {
+		page-break-before:always;
+}
+#page #toc  {
 	width: 100%;
 	position: relative;
 	top: 0;
 	left: 0;
 }
 
-#toc p {
+#page #toc p {
 	text-align: center;
 	font-size: 20px;
 }
-#toc a {
+#page #toc a {
 	border: none;
+}
+hr {
+	display: none;
 }
 
 h1 {
 	page-break-before:always
 }
 /* SIDE NOTES */
+#page a:after {
+	content: " [" attr(href) "] ";
+	font-style: italic;
+}
+#page a {
+	border: 0;
+}

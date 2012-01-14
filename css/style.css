@@ -2,6 +2,8 @@
 	background-color: #EBEBEB;
 	font-family: Arial;
 	color: #000000;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 aside {
@@ -9,7 +11,7 @@ aside {
 }
 
 #warning {
-	width: 100%
+	width: 100%;
 	text-align: center;
 }
 
@@ -18,6 +20,13 @@ aside {
 	overflow:hidden; 
 	margin:0px auto; 
 	position:relative;
+}
+#license {
+	margin: 10px auto 10px auto;
+	width: 730px;
+}
+#license img {
+	width: 100%;
 }
 
 /* PAGE */
@@ -34,6 +43,7 @@ aside {
 	box-shadow: 0 0 4px rgba(0,0,0,0.1);
 	
 	counter-reset:title1;
+	counter-reset:figure;
 	
 	padding: 35px 30px 35px 30px;
 }
@@ -63,10 +73,6 @@ aside {
 #page h2::before{
 	content: counter(title1)"."counter(title2)"- ";
 }
-#page h3::before{
-	//content: counter(title1)"."counter(title2)"."counter(title3)"- ";
-}
-
 #page p {
 	text-align: justify;
 	text-indent: 1.5em;
@@ -129,18 +135,13 @@ aside {
 #page hr {
 	clear:both;
 }
-/* FIRST PAGE */
-#page #first #top {
-	//display: table-cell;
-    //vertical-align: middle
-}
-#page #first #right { 
+#page #first .right { 
 	float: right; 
 	text-align: right;
 }
 #page #first #left { float: left; }
 #page #first #middle { 
-	margin: 200px 0 200px 0;
+	margin: 250px 0 250px 0;
 	width: 100%;
 	
 	text-align: center;
@@ -195,6 +196,11 @@ aside {
 #page #toc a[title=H1] { font-size:18px;}
 #page #toc a[title=H2] { font-size:14px;}
 #page #toc a[title=H3] { font-size:10px;}
+
+/* NOTES */
+.notes {
+	display: none;
+}
 
 /* OTHER */
 .clear {

@@ -24,12 +24,20 @@ function generateSideNotes() {
 			text+="<a href=\""+cite+"\">"+cite+"</a>";
 		}
 		
-		current.after("<sup>" + (i+1) + "</sup>");
-		$("body").append("<div id='sidenote" + i + "'>" + text + "</div>");
-		
-		// Ajust position
-		$("#sidenote" + i).css("left", leftPos); 
-		$("#sidenote" + i).css("top", topPos); 
+		// Handle print stylesheet
+		if (window.matchMedia('only screen').matches) {
+			current.after("<sup>" + (i+1) + "</sup>");
+			$("body").append("<div id='sidenote" + i + "'>" + text + "</div>");
+			
+			// Ajust position
+			$("#sidenote" + i).css("left", leftPos); 
+			$("#sidenote" + i).css("top", topPos); 
+			
+		}
+		// Handle other stylesheets
+		else {
+			current.after("<sup>note: " + text + "</sup>");
+		}
 		
 	});
 }
