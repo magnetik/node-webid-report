@@ -72,6 +72,7 @@
 						<figcaption></figcaption>
 					</figure>
 					<h3>More than authentication</h3>
+						<p>Because WebID uses a FOAF file to store information about the user</p>
 					<h3>Comparison</h3>
 						<p>There are a few other way to simplify and improve user login, some are standardize, some aren't.</p>
 						<table>
@@ -112,7 +113,7 @@
 							<li>Proposed Recommendation (PR),</li>
 							<li>W3C Recommendation (REC)</li>
 						</ol>
-						<p>For HTML5, it took more than 3 year to complete this process.</p>
+						<p>For some standards it can take years to complete this procedure. That's why it's important to have working implementation as soon as possible, even if the recommendation is not complete, is order to spread the standard.</p>
 
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>Node.js</h2>
@@ -140,7 +141,7 @@
 					<ul>
 						<li>The revision control system <a href="http://git-scm.com/" target="_blank">Git</a> is more and more used.</li>
 						<li>Our aim is to encourage re-usability of our code: GitHub allows anybody to contribute by proposing addition or correction. Moreover it gives a good visibility on our work.</li>
-						<li>GitHub is the official forge of Node.js and almost all npm packages are using GitHub. Being on the platform </li>
+						<li>GitHub is the official forge of Node.js and almost all npm packages are using GitHub. Being on the same platform allows us to quickly post bug report and follow related projects.</li>
 					</ul>
 					<p>For intern communication, we used a wiki (powered by <a href="http://www.dokuwiki.org" target="_blank">dokuwiki</a>, hosted on a personal server, <a href="http://wiki.magnetik.org/projet_asr" target="_blank">available here</a>) to share the minutes of ours meetings, important links about our research, etc. </p>
 					<p>To generate our modules documentation, we used the <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JSDoc toolkit</a>. It uses in-line annotation (mostly the same as <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html" target="_blank">Javadoc</a>) within the code (such as @param to describe a function parameter) to create a user-friendly documentation. An example of HTML output can be found <a href="http://magnetik.github.com/node-earl/doc/symbols/EarlDocument.html" target="_blank">on github</a>.</p>
@@ -225,8 +226,20 @@
 								<td>libraptor v1.4</td>
 							</tr>
 						</table>
-						<p>We have seen in the context that Node.js application have to do the least number of operation in the main thread. As a matter of fact  the support of WebWorkers of <strong>rdfstore-js</strong> was decisive even if it does not support RDF/XML.</p>
+						<p>We have seen in the context that Node.js application have to do the least number of operation in the main thread. As a matter of fact the support of WebWorkers of <strong>rdfstore-js</strong> was decisive even if it does not support RDF/XML.</p>
+						<p>To uses this library, we used a <span title="semola-rdf.appspot.com">web service</span> that translate RDF/XML to Turtle. 
+				<h2>Programming</h2>
+					<p>We started working with Node.Js 0.5.10 which didn't had the <em>Subject Alternative Name</em> available in the certificate.</p>
+					<p>We created 4 repositories:</p>
+					<ul>
+						<li><a href="https://github.com/magnetik/node-webid" target="_blank">node-webid</a>: contains the core WebID implementation.</li>
+						<li><a href="https://github.com/magnetik/node-webid-demo" target="_blank">node-webid-demo</a>: contains a demo of our implementation</li>
+						<li><a href="https://github.com/magnetik/passport-webid" target="_blank">passport-webid</a>: contains an implementation of WebID login with the <a href="http://passportjs.org/" targe="_blank">passport framework</a>.</li>
+						<li><a href="https://github.com/magnetik/node-earl" target="_blank">node-earl</a></li>
 			<h1>Conclusion</h1>
+				<h2>Issues</h2>
+					<p>The main issue we had to face was the lack of good implementation for some standards: RDF and TLS.</p>
+					<p>Following the very first steps of a new W3C standards was quite exciting 
 			<h1 class="notes">Notes</h1>
 			<h1>References</h1>
 				<div id="listRef"><!-- Automatically filled-in with list of references (see js/references.js) --></div>
