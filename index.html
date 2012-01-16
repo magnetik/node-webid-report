@@ -52,29 +52,67 @@
 			</div>
 			<div id="toc">
 				<img src="img/reduce.png" id="tocSlider" alt="Toggle TOC" />
-				<p id="tocTitle">Table Of Content</p>
+				<p id="tocTitle">Table Of Contents</p>
 				<div id="tocContent"><!-- Automatically filled-in with TOC (see js/toc.js) --></div>
 			</div>
 			<hr />
 			<h1>Introduction</h1>
 				<h2>Subject</h2>
-					<p>The initial subject was quite vague and express only a few things to do:</p>
+					<p>The initial subject was quite vague and only expressed two guidelines to follow:</p>
 					<ul>
 						<li>A WebID identity provider ;</li>
-						<li>This provider must be portable</li>
+						<li>This provider had to be portable</li>
 					</ul>
 
 			<h1>Domain analysis</h1>
 				<h2>WebID</h2>
-					<div class="disclaimer">Disclaimer: the following describe WebID in its "<a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20111212">W3C Editor's Draft 12 December 2011</a>" <aside>Henry Story et al., <em>WebID 1.0</em>, [Online]. Available: http://www.w3.org/2005/Incubator/webid/spec/</aside> version. It may have change since, the latest version is available on <a href="http://www.w3.org/2005/Incubator/webid/spec/" target="_blank">W3C website</a>.</div>
-					<figure>
-						<img src="img/webid-sequence.jpg" alt="WebID sequence" />
-						<figcaption></figcaption>
-					</figure>
+					<div class="disclaimer">Disclaimer: the following describes WebID in its "<a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20111212">W3C Editor's Draft 12 December 2011</a>" <aside>Henry Story et al., <em>WebID 1.0</em>, [Online]. Available: http://www.w3.org/2005/Incubator/webid/spec/</aside> version. It may have changed since; the latest version is available on <a href="http://www.w3.org/2005/Incubator/webid/spec/" target="_blank">W3C website</a>.</div>
 					<h3>More than authentication</h3>
 						<p>Because WebID uses a FOAF file to store information about the user</p>
+						<p>A WebID is a way to uniquely identify a person, company, organization, or other agent using a URI. The term "WebID" was coined by Dan Brickley and Tim Berners-Lee in 2000.</p>
+						<p>The WebID Protocol authenticates a digital identity by allowing an Agent (e.g., a Web Browser) to prove possession of or access to a private key, whose corresponding public key is tightly bound to this WebID. The private key is usually associated with a "certificate" on the user's computer, while the public key and WebID are defined in the FOAF file of the subject and described by a URI in the certificate.</p>
+						<h4>SSL/TLS security protocol</h4>
+						<p>Transport Layer Security (TLS) and its predecessor, Secure Sockets Layer (SSL), are cryptographic protocols that provide communication security over the Internet.</p>
+						<p>The TLS protocol allows client/server applications to communicate across a network in a way designed to prevent eavesdropping and tampering. It provides these different security aspects :</p>
+						<ul>
+							<li>The authentification of the server</li>
+							<li>An encrypted session which allows secure data transmission</li>
+							<li>The integrity of exchanged data</li>
+							<li>The use of a certificate to authenticate the client</li>
+							<li>The transparency of the connection for the client</li>
+							<li>The transparency for the http protocol (allows the same query in https than in http)</li>
+						</ul>
+						<p>In the WebID protocol, the client must have a certificate with a subject alternative name URI entry that dereferences to a document which contains the public key for that certificate.</p>
+						<figure>
+							<img src="img/certificate.jpg" title="Certificate TLS" />
+							<figcaption>Example of certificate used in WebID protocol.</figcaption>
+						</figure>
+						<h4>FOAF ontology</h4>
+						<p><a href="http://xmlns.com/foaf/spec/" target="_blank">FOAF</a> (an acronym of Friend of a friend) is a machine-readable ontology describing persons, their activities and their relations to other people and objects. Anyone can use FOAF to describe him or herself. FOAF allows groups of people to describe social networks without the need for a centralised database.</p>
+						<!-- TO DO reformuler -->
+						<figure>
+							<img src="img/foaf-spec.jpg" title="FOAF ontology" />
+							<figcaption>Graph of FOAF ontology</figcaption>
+						</figure>
+						
+						<h4>Authentication Sequence</h4>
+						<p>In order to give the full context of a Client interaction with a Server we will illustrate the protocol with the following sequence diagram.</p>
+						<figure>
+							<img src="img/webid-sequence.jpg" title="WebID athentification sequence" />
+							<figcaption>In this figure Bob initiates a connection to Alice's server in order to access a protected resource.</figcaption>
+						</figure>
+						<!-- TO DO développer -->
+						<ol>
+							<li>Initialization of the TLS Connection <br>This may be done as the first part of an HTTPS connection.</li>
+							<li>Connection at the Application Layer</li>
+							<li>Request of the Client Certificate</li>
+							<li>Verification of the WebIDs</li>
+							<li>Extraction of Bob's public key</li>
+							<li>Checking of the access control rules (the exact nature of those Access Control Rules is left for another specification)</li>
+							<li>Access to the protected ressource</li>
+						</ol>
 					<h3>Comparison</h3>
-						<p>There are a few other way to simplify and improve user login, some are standardize, some aren't.</p>
+						<p>There are a few other ways to simplify and improve user login, some are standardized, some aren't.</p>
 						<table>
 							<caption>Matrix showing main differences / similarities between main identification standards</caption>
 							<tr>
@@ -97,7 +135,7 @@
 							</tr>
 						</table>
 					<h3>W3C</h3>
-						<p>Getting the status of a <a href="http://www.w3.org/standards/about.html" target="_blank">W3C Recommendation</a> permits to <q cite="http://www.w3schools.com/web/web_standards.asp">make the web a better place</q> by allowing both developers and users to have a better web experience. During one year from January 2011, WebID was developed through a W3C <a href="http://www.w3.org/2005/Incubator/webid/" target="_blank">Incubator Group</a> (XG) which is usually (but it's not mandatory) the first step in the recommendation redaction process. Members of Incubator Groups are authorized to use W3C infrastructures (such as mailing-list, wiki, bug tracker, ...) and permits to gather experts and every people interested in a technology in one location. It's a process open to anyone, for free; but because the process is based on consensus, it's quite hard to make decision with large number of people.</p>
+						<p>Getting the status of a <a href="http://www.w3.org/standards/about.html" target="_blank">W3C Recommendation</a> helps to <q cite="http://www.w3schools.com/web/web_standards.asp">make the web a better place</q> by allowing both developers and users to have a better web experience. During one year from January 2011, WebID was developed through a W3C <a href="http://www.w3.org/2005/Incubator/webid/" target="_blank">Incubator Group</a> (XG) which is usually (but not mandatory) the first step in the recommendation redaction process. Members of Incubator Groups are authorized to use W3C infrastructures (such as mailing-list, wiki, bug tracker, ...) and permits to gather experts and every people interested in a technology in one location. It's a process open to anyone, for free; but because the process is based on consensus, it's quite hard to make decision with large number of people.</p>
 						<p>Most of discussions are made through the <a href="http://lists.w3.org/Archives/Public/public-xg-webid/" target="_blank">public-xg-webid@w3.org</a> <span title="from October 2011 to January 2012, in average more than 400 e-mails are exchanged each month">mailing list</span>. There are also Teleconference meetings (accessible by phone, <span title="Session Initiation Protocol: Voice over IP equivalent">SIP</span>, IRC...) every month which permits do decide what to focus on during the following weeks.<p>
 						<p>On January 2012, WebID XG was turned into a <a href="http://www.w3.org/community">Community Group</a> (CG). It's not any kind of evolution but the W3C is progressively deleting the concept of XG to CG.</p>
 						<p>After a chair request, the group can be moved to the <q cite="http://www.w3.org/community/about/agreements/">W3C Standards Track</q>: it will be turned into a Working Group (WG). Because subscription to WG are not open: there are two way to join them: </p>
