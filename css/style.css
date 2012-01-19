@@ -105,7 +105,6 @@ aside {
 	background-color: #FF9090;
 }
 
-
 /* PAGE FIGURES */
 /* Inspired from : http://labo.mypixelfactory.net/figure.php?id=html5-1&montype=html5 */
 #page figure {
@@ -114,10 +113,10 @@ aside {
 	margin: 11px 0 11px 0;
 	border: solid 1px #888888;	
 	border-radius: 8px;
-
+	text-align: center;
 }
 #page figure img {
-	width: 100%;
+	max-width: 100%;
 }
 #page figcaption {
 	counter-increment:figure;
@@ -215,3 +214,25 @@ div[id^="sidenote"] {
 	font-size: 12px;
 }
 div[id^="sidenote"]:before { content: '← '; }
+
+
+/* SYNTAX HIGHLIGHTER */
+#page code,pre {
+	border: 1px solid #CCC;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding: 2px 5px;
+	border-radius: 3px;
+	font-family: "Courier New",Courier,monospace;
+	font-size: 11px;
+}
+#page code  {
+	white-space: nowrap;
+}
+span.comment { color: #008080; font-weight: normal; }
+span.oper { color: #0000f0; font-weight: normal; }
+span.var { color: #d56000; font-weight: normal; }
+span.func { color: #aa00ff; font-weight: normal; }
+span.string { color: #777777; font-weight: normal; }
+span.num { color: #990000; font-weight: bold; }
+span.reg { color: #8d7f07; font-weight: normal; }

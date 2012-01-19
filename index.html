@@ -66,9 +66,9 @@
 
 			<h1>Domain analysis</h1>
 				<h2>WebID</h2>
-					<div class="disclaimer">Disclaimer: the following describes WebID in its "<a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20111212">W3C Editor's Draft 12 December 2011</a>" <aside>Henry Story et al., <em>WebID 1.0</em>, [Online]. Available: http://www.w3.org/2005/Incubator/webid/spec/</aside> version. It may have changed since; the latest version is available on <a href="http://www.w3.org/2005/Incubator/webid/spec/" target="_blank">W3C website</a>.</div>
+					<div class="disclaimer">Disclaimer: the following describes WebID in its "<a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20111212">W3C Editor's Draft 12 December 2011</a>" <span class="ref">Henry Story et al., <em>WebID 1.0</em>, [Online]. Available: http://www.w3.org/2005/Incubator/webid/spec/</span> version. It may have changed since; the latest version is available on <a href="http://www.w3.org/2005/Incubator/webid/spec/" target="_blank">W3C website</a>.</div>
 					<h3>More than authentication</h3>
-						<p>Because WebID uses a FOAF file to store information about the user</p>
+						<p>Because WebID uses a RDF file to store information about the user, it can handle any RDF informations.</p>
 						<p>A WebID is a way to uniquely identify a person, company, organization, or other agent using a URI. The term "WebID" was coined by Dan Brickley and Tim Berners-Lee in 2000.</p>
 						<p>The WebID Protocol authenticates a digital identity by allowing an Agent (e.g., a Web Browser) to prove possession of or access to a private key, whose corresponding public key is tightly bound to this WebID. The private key is usually associated with a "certificate" on the user's computer, while the public key and WebID are defined in the FOAF file of the subject and described by a URI in the certificate.</p>
 						<h4>SSL/TLS security protocol</h4>
@@ -82,11 +82,12 @@
 							<li>The transparency of the connection for the client</li>
 							<li>The transparency for the http protocol (allows the same query in https than in http)</li>
 						</ul>
-						<p>In the WebID protocol, the client must have a certificate with a subject alternative name URI entry that dereferences to a document which contains the public key for that certificate.</p>
+						<p>In the WebID protocol, the client must have a X509 certificate<span class="ref">R. Housley et al., <em>Internet X.509 Public Key Infrastructure</em>, IETF RFC 5280, May 2008; http://www.ietf.org/rfc/rfc5280.txt</span> with a subject alternative name URI entry that dereferences to a document which contains the public key for that certificate.</p>
 						<figure>
 							<img src="img/certificate.jpg" title="Certificate TLS" />
-							<figcaption>Example of certificate used in WebID protocol.</figcaption>
+							<figcaption>Example of X509 certificate used in WebID protocol. </figcaption>
 						</figure>
+						<p>For now, one of the main critic is that SSL (TLS) is required to use WebID. Although it is a problem for now, there are more and more people believing that the web will be turned into "HTTPS only" soon <span class="ref">,<em></em> [Online]. Available: http://vitobotta.com/why-isnt-ssl-on-by-default-for-all-websites/</span>. For instance, google or facebook are now available in "SSL only" mode. </p>
 						<h4>FOAF ontology</h4>
 						<p><a href="http://xmlns.com/foaf/spec/" target="_blank">FOAF</a> (an acronym of Friend of a friend) is a machine-readable ontology describing persons, their activities and their relations to other people and objects. Anyone can use FOAF to describe him or herself. FOAF allows groups of people to describe social networks without the need for a centralised database.</p>
 						<!-- TO DO reformuler -->
@@ -143,15 +144,16 @@
 							<li>Be an employee of a <a href="http://www.w3.org/Consortium/Member/List" target="_blank">W3C Member organization</a>  and ask to join (Firms have to pay a fee to be member),
 							<li>Be an <a href="http://www.w3.org/2004/08/invexp.html" target="_blank">invited expert</a>. 
 						</ul>
-						<p>When reaching the recommendation track, the work is far from done. The recommendation will pass theses steps:</p>
+						<p>When reaching the recommendation track, the work is far from done. The recommendation will pass theses steps <span class="ref">Dan Burnett, <em>W3C Recommendation Track</em> [Online]. Available: http://www.w3.org/2011/04/webrtc/wiki/images/5/5c/Webrtc_w3c_rec_track.pdf</span>:</p>
 						<ol>
-							<li>Working Draft (WD),</li>
-							<li>Last Call Working Draft (LC),</li>
-							<li>Candidate Recommendation (CR),</li>
+							<li>Working Draft (WD): published as often as possible,</li>
+							<li>Last Call Working Draft (LC): the document is technically complete,</li>
+							<li>Candidate Recommendation (CR): the document is considered as stable,</li>
 							<li>Proposed Recommendation (PR),</li>
 							<li>W3C Recommendation (REC)</li>
 						</ol>
 						<p>For some standards it can take years to complete this procedure. That's why it's important to have working implementation as soon as possible, even if the recommendation is not complete, is order to spread the standard.</p>
+						<p>At least before publishing the <em>Candidate recommendation</em>, a test suite shoud be available allowing people doing the implementation to clearly know if their implementation is correct or not. As of January 2012, there is no complete test suite for WebID which leads to problem such as somple implementation considerating that a WebID profile is correct and some considerating that there is a problem.</p>
 
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>Node.js</h2>
@@ -161,17 +163,17 @@
 						<img src="img/thread.png" title="Thread based programming" />
 						<figcaption>This image shows a single thread: when a client is connected, the thread is blocked (represented in red) while the final result is not ready. Thus, Apache thread is blocked waiting (doing nothing) during long I/O operations such as writing to disk or database.</figcaption>
 					</figure>
-					<p>Traditional servers such as Apache spawns a new thread (or uses one of a pool) to handle each request. This thread will be used onyly for this request as long as the whole process is not finished</p>
+					<p>Traditional servers such as Apache spawns a new thread (or uses one of a pool) to handle each request. This thread will be used only for this request as long as the whole process is not finished. If other request arrive, they are put in the queue waiting for the thread to be avaiable.</p>
 					<p>This approach does not provide good performance because of the memory cost of thread (or process) management. In order to scale well, this kind of server must uses lot of threads. But large numbers of threads leads to overloading the machine and synchronization problems.</p>
 					<figure>
-						<img src="img/event.png" title="Event base programming" />
-						<figcaption>Node runs user's code in a loop called the event loop. Inspired from <aside>Mixu, <em>Intro to Node.JS for .NET Developers</em>, [Online]. Available: http://www.aaronstannard.com/post/2011/12/14/Intro-to-NodeJS-for-NET-Developers.aspx</aside></figcaption>
+						<img src="img/event.png" title="Event base programming"/>
+						<figcaption>Node runs user's code in a loop called the event loop. Inspired from <span class="ref">Mixu, <em>Intro to Node.JS for .NET Developers</em>, [Online]. Available: http://www.aaronstannard.com/post/2011/12/14/Intro-to-NodeJS-for-NET-Developers.aspx</span></figcaption>
 					</figure>
 					<p>Node works differently: it uses mainly an event loop that execute your code in a single thread. This loop handle all incoming connections, that's why potentially long operations (such as network or disk I/O, database queries, etc) must be executed asynchronously (with the use of callback) on workers threads.</p>
 					<p>In order to defer long operation to other thread, Node supports the brand new <a href="http://dev.w3.org/html5/workers/" target="_blank">HTML5 Web Workers</a> to delegate work to other threads.</p>
 					<p>Many features of JavaScript helps to do event-driven programs effectively (with a minimum of line of code). Moreover, the way that Node is coded allows to do painlessly: there is no thread management nor synchronization functions...</p>
 					<p>Node is under heavy development: cores <abbr title="Application Programming Interface">API</abbr>s may change at any time. It could be even a an advantage or a problem. An advantage because if bugs are found or new features requested, development teams can react quickly. But it is also a problem when, for example, the number of arguments of a function change from a version to another: it may require additional work to follow Node's quick development.</p>
-					<p><a href="http://npmjs.org" target="_blank">npm</a> is Node's package manager which permits to install packages (with the additional possibility to add your own c++ wrappers if needed), and even to publish your own package on a centralized platform. On January 7th 2012, there are more than six thousand package available which are covering a wide range of functionalities such as template engines, web pages parsing, certificate management...</p>
+					<p><a href="http://npmjs.org" target="_blank">npm</a> is Node's package manager which permits to install packages (with the additional possibility to add your own c++ wrappers if needed), and even to publish your own package on a centralized platform. On January 7<sup>th</sup> 2012, there are more than six thousand package available which are covering a wide range of functionalities such as template engines, web pages parsing, certificate management... Anyone wan publish a package to npm registry with only a few lines.</p>
 			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<h1>Project</h1>
 				<h2>Organization / Tools</h2>
@@ -265,19 +267,68 @@
 							</tr>
 						</table>
 						<p>We have seen in the context that Node.js application have to do the least number of operation in the main thread. As a matter of fact the support of WebWorkers of <strong>rdfstore-js</strong> was decisive even if it does not support RDF/XML.</p>
-						<p>To uses this library, we used a <span title="semola-rdf.appspot.com">web service</span> that translate RDF/XML to Turtle. 
+						<p>To uses this library, we used a <span title="http://semola-rdf.appspot.com">web service</span> that translate RDF/XML to Turtle. </p>
 				<h2>Programming</h2>
-					<p>We started working with Node.Js 0.5.10 which didn't had the <em>Subject Alternative Name</em> available in the certificate.</p>
-					<p>We created 4 repositories:</p>
+					<p>We started working with Node.Js 0.5.10 which didn't had the <em>Subject Alternative Name</em> available in the certificate. After a <a href="https://github.com/joyent/node/pull/1286">bug request</a> this as been added to Node for the 0.6.0 beta version.</p>
+					<p>In order to clearly seperate our different modules, we creates four different github repositories:</p>
 					<ul>
 						<li><a href="https://github.com/magnetik/node-webid" target="_blank">node-webid</a>: contains the core WebID implementation.</li>
 						<li><a href="https://github.com/magnetik/node-webid-demo" target="_blank">node-webid-demo</a>: contains a demo of our implementation</li>
 						<li><a href="https://github.com/magnetik/passport-webid" target="_blank">passport-webid</a>: contains an implementation of WebID login with the <a href="http://passportjs.org/" targe="_blank">passport framework</a>.</li>
 						<li><a href="https://github.com/magnetik/node-earl" target="_blank">node-earl</a></li>
+					</ul>
+					<h3>node-webid</h3>
+						<p>This is our core implementation. </p>
+						<p>Our public API is simple, example of basic usage:</p>
+						
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     START CODE COLORATION:
+	 http://www.howtocreate.co.uk/tutorials/jsexamples/syntax/
+	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<pre><span class="oper">var</span> <span class="var">certificate</span> <span class="oper">=</span> <span class="var">req</span>.<span class="var">connection</span>.<span class="func">getPeerCertificate</span>();
+<span class="comment">// Get the client certificate. In most language, getting this information is as simple</span>
+<span class="comment">// as a method call</span>
+<span class="oper">if</span> (<span class="oper">!</span><span class="var">_</span>.<span class="func">isEmpty</span>(<span class="var">certificate</span>)) {
+  <span class="comment">// The client can decline the demand of the certificate</span>
+  <span class="comment">// in this case, we can't continue the process.</span>
+  <span class="oper">var</span> <span class="var">verifAgent</span> <span class="oper">=</span> <span class="oper">new</span> <span class="var">webid</span>.<span class="func">VerificationAgent</span>(<span class="var">certificate</span>);
+  <span class="comment">// Initialize our WebID framework</span>
+  <span class="comment">// It basically doesn't do anything </span>
+  <span class="var">verifAgent</span>.<span class="func">verify</span>(<span class="oper">function</span> (<span class="var">success</span>, <span class="var">result</span>) {
+    <span class="comment">// The verify method do the whole process</span>
+    <span class="comment">// - Getting the file located at Subject Alternative Name</span>
+    <span class="comment">// - Getting the public key in this file (exponent and modulus)</span>
+    <span class="comment">// - Verifying if this public key equals the key of the certificate</span>
+    <span class="comment">// Call the callback</span>
+    <span class="oper">if</span> (<span class="var">success</span>) {
+      <span class="comment">// In case of success, the 'result' variable contain the complete RDF Profile</span>
+      <span class="oper">var</span> <span class="var">foaf</span> <span class="oper">=</span> <span class="oper">new</span> <span class="var">webid</span>.<span class="func">Foaf</span>(<span class="var">result</span>);
+      <span class="oper">var</span> <span class="var">foafFile</span> <span class="oper">=</span> <span class="var">foaf</span>.<span class="func">parse</span>();
+      <span class="comment">// Another function of our module is to parse the FOAF</span>
+      <span class="comment">// then a few variable are available, such as :</span>
+      <span class="comment">// - foafFile.name: contain the name</span>
+	  <span class="comment">// - foafFile.knows: contain known people</span>
+    } <span class="oper">else</span> {
+      <span class="comment">// There has been an error during the process</span>
+      <span class="comment">// OR</span>
+      <span class="comment">// The profile is not valid !</span>
+    }
+
+  });</pre>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     END CODE COLORATION
+	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+						<p>We can see that adding WebID login to a website is quite easy. Otherwise it require the server to use TLS. </p>
+						<p>This module is available on npm (<a href="http://search.npmjs.org/#/webid">search.npmjs.org/#/webid</a>): developpers which wants to use our code, just have to type : <code>npm install webid</code>, and the library (and its dependencies) will be installed on their working directory.</p>
+					<h3>node-webid-demo</h3>
+					<h3>passport-webid</h3>
+						<p>Almost all developpers using Node.js for web usage use the framework <a href="http://expressjs.com/" target="_blank">express</a> framework, or at least the middleware <a href="http://www.senchalabs.org/connect/" target="_blank">Connect</a>. Theses framework/middleware helps developers to program their application without worrying of their underlying consideration such as routes mapping, sessions etc.</p>
+						<p>Passport is an identification middleware wich can be used with connect or express. It's designed to handle many "strategies",  from classic login/password, to OpenID, facebook connect, and now... WebID !</p>
+						<p>Our module is now available as a passport strategy which means that anyone can use it with even less line of code that our "standard" example</p>
 			<h1>Conclusion</h1>
 				<h2>Issues</h2>
 					<p>The main issue we had to face was the lack of good implementation for some standards: RDF and TLS.</p>
-					<p>Following the very first steps of a new W3C standards was quite exciting 
+					<p>Following the very first steps of a new W3C recommendation was quite exciting but reading more than 400 messages per month was hard, that's why we didn't participate much in the discussions. </p>
 			<h1 class="notes">Notes</h1>
 			<h1>References</h1>
 				<div id="listRef"><!-- Automatically filled-in with list of references (see js/references.js) --></div>
