@@ -2,7 +2,7 @@
 	border: none;
 }
 /* TABLE OF CONTENTS */
-#page div#toc {
+div#toc {
 		page-break-before:always;
 }
 #page #toc  {
@@ -33,4 +33,8 @@ h1 {
 }
 #page a {
 	border: 0;
+}
+/* Warning print only */
+#warning {
+	display: block;
 }

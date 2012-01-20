@@ -3,7 +3,7 @@
  * Baptiste Lafontaine (http://magnetik.org)
  */
 function generateTOC() {
-	$("#page > h1, #page > h2, #page > h3").each(function(i) {
+	$("#page > h1, #page > h2").each(function(i) {
 		var current = $(this);
 		current.attr("id", "title" + i);
 		$("#tocContent").append("<a id='link" + i + "' href='#title" +
