@@ -170,6 +170,7 @@
 							</tr>
 						</table>
 						<p>By the way, WebID is not opposed to this login system. For instance, OpenID could be used with WebID </p>
+						
 					<h3>W3C</h3>
 						<p>Getting the status of a <a href="http://www.w3.org/standards/about.html" target="_blank">W3C Recommendation</a> helps to <q cite="http://www.w3schools.com/web/web_standards.asp">make the web a better place</q> by allowing both developers and users to have a better web experience. During one year from January 2011, WebID was developed through a W3C <a href="http://www.w3.org/2005/Incubator/webid/" target="_blank">Incubator Group</a> (XG) which is usually (but not mandatory) the first step in the recommendation redaction process. Members of Incubator Groups are authorized to use W3C infrastructures (such as mailing-list, wiki, bug tracker, ...) and permits to gather experts and every people interested in a technology in one location. It's a process open to anyone, for free; but because the process is based on consensus, it's quite hard to make decision with large number of people.</p>
 						<p>Most of discussions are made through the <a href="http://lists.w3.org/Archives/Public/public-xg-webid/" target="_blank">public-xg-webid@w3.org</a> <span title="from October 2011 to January 2012, in average more than 400 e-mails are exchanged each month">mailing list</span>. There are also Teleconference meetings (accessible by phone, <span title="Session Initiation Protocol: Voice over IP equivalent">SIP</span>, IRC...) every month which permits do decide what to focus on during the following weeks.<p>
@@ -189,7 +190,7 @@
 						</ol>
 						<p>For some standards it can take years to complete this procedure. That's why it's important to have working implementation as soon as possible, even if the recommendation is not complete, is order to spread the standard.</p>
 						<p>At least before publishing the <em>Candidate recommendation</em>, a test suite shoud be available allowing people doing the implementation to clearly know if their implementation is correct or not. As of January 2012, there is no complete test suite for WebID which leads to problem such as somple implementation considerating that a WebID profile is correct and some considerating that there is a problem.</p>
-					
+				
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>EARL</h2>
 				<p>EARL is an acronym for Evaluation and Report Language. It's a RDF vocabulary defined in a in-development W3C Recommendation (currently in the Last Call process)<span class="ref">Shadi Abou-Zahra, Shawn Lawton Henry et al, <em>EARL Overview</em>, [Online]. Avaiable: http://www.w3.org/WAI/intro/earl</span> which provide a way to express tests results in machine-readable format.</p>
@@ -233,6 +234,27 @@
 					<p>Node is under heavy development: cores <abbr title="Application Programming Interface">API</abbr>s may change at any time. It could be even a an advantage or a problem. An advantage because if bugs are found or new features requested, development teams can react quickly. But it is also a problem when, for example, the number of arguments of a function change from a version to another: it may require additional work to follow Node's quick development.</p>
 					<p><a href="http://npmjs.org" target="_blank">npm</a> is Node's package manager which permits to install packages (with the additional possibility to add your own c++ wrappers if needed), and even to publish your own package on a centralized platform. On January 7<sup>th</sup> 2012, there are more than six thousand package available which are covering a wide range of functionalities such as template engines, web pages parsing, certificate management... Anyone wan publish a package to npm registry with only a few lines.</p>
 			
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+				<h2>Related technologies</h2>
+					<p>We also studied different aspects of the distributed social networks  that will finaly not be implement in our project. Nevertheless this relkated technologies could be add to the project in the future into develop or improve it.</p>
+					
+					<h3>Port of Node.js on Android OS</h3>
+						<p>We studied the way to make the webID protocole the more protable it can. The solution we found was to put the server that contains the FOAF file on a smartphone.</p>
+						<figure>
+						<img src="img/mobile-webid.png" title="Proposition for a portable WebID"/>
+						<figcaption>Proposition of a WebID architecture with a server running on a smartphone</figcaption>
+					</figure>
+						<p>Nevertheless for the moment Node.js is not port on Android OS, there only is an attemp is in development <a href="https://github.com/paddybyers/anode">here</a> on GitHub.</p>
+					
+					<h3>Access control</h3>	
+						<p>As seen in the WebID athentification sequence, the access control can be treated during the sixth step. We thus tried to find an ontology to be able to control the acces to the data on your FOAF file.</p>
+						<p>There are lots of ontologies proposed to do the access control: </p>
+						<ul>
+							<li><a href="http://www.w3.org/wiki/WebAccessControl">Web Access Control</a>:  a decentralized system for allowing different users and groups various forms of access to resources where users and groups are identified by HTTP URIs and uses WebID authentification.</li>
+							<li><a href="http://www.w3.org/2001/04/ACLS/Schema">ACL Schema</a>: </li>
+							<!--...?-->
+							<li><a href="http://ns.bergnet.org/tac/0.1/triple-access-control#">Triple Access Control</a>: </li>
+						</ul>	
 			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<h1>Project</h1>
 				<h2>Organization / Tools</h2>
