@@ -29,6 +29,14 @@ aside {
 	width: 100%;
 }
 
+#warning {
+	margin: 10px auto 10px auto;
+	width: 730px;
+}
+#warning {
+	display: none;
+}
+
 /* PAGE */
 
 #page {

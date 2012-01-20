@@ -38,6 +38,7 @@
 	</head>
 	<body>
 		<div id="license"><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank"><img src="img/cc-by-sa.png" alt="Licenced under CC BY-SA" /></a></div>
+		<div id="warning">This document looks better online @ <a href="http://magnetik.github.com/node-webid-report/">http://magnetik.github.com/node-webid-report/</a>.</div>
 		<div id="page">
 			<div id="first">
 				<div id="top">
@@ -95,7 +96,6 @@
 							<figcaption>Example of X509 certificate used in WebID protocol. </figcaption>
 						</figure>
 						<p>For now, one of the main critic is that SSL (TLS) is required to use WebID. Although it is a problem for now, there are more and more people believing that the web will be turned into "HTTPS only" soon <span class="ref">,<em></em> [Online]. Available: http://vitobotta.com/why-isnt-ssl-on-by-default-for-all-websites/</span>. For instance, google or facebook are now available in "SSL only" mode. </p>
-						
 						<h4>FOAF ontology</h4>
 						<p><a href="http://xmlns.com/foaf/spec/" target="_blank">FOAF</a> (an acronym of Friend of a friend) is a machine-readable ontology based on the <a href="http://www.w3.org/RDF/">Resource Description Framework</a> (RDF) and describing persons, their activities and their relations to other people and objects. Indeed FOAF allows groups of people to describe social networks without the need for a centralised database: all the relations between people are described in FOAF files.</p>
 						<figure>
@@ -169,7 +169,7 @@
 								<td></td>
 							</tr>
 						</table>
-						
+						<p>By the way, WebID is not opposed to this login system. For instance, OpenID could be used with WebID </p>
 					<h3>W3C</h3>
 						<p>Getting the status of a <a href="http://www.w3.org/standards/about.html" target="_blank">W3C Recommendation</a> helps to <q cite="http://www.w3schools.com/web/web_standards.asp">make the web a better place</q> by allowing both developers and users to have a better web experience. During one year from January 2011, WebID was developed through a W3C <a href="http://www.w3.org/2005/Incubator/webid/" target="_blank">Incubator Group</a> (XG) which is usually (but not mandatory) the first step in the recommendation redaction process. Members of Incubator Groups are authorized to use W3C infrastructures (such as mailing-list, wiki, bug tracker, ...) and permits to gather experts and every people interested in a technology in one location. It's a process open to anyone, for free; but because the process is based on consensus, it's quite hard to make decision with large number of people.</p>
 						<p>Most of discussions are made through the <a href="http://lists.w3.org/Archives/Public/public-xg-webid/" target="_blank">public-xg-webid@w3.org</a> <span title="from October 2011 to January 2012, in average more than 400 e-mails are exchanged each month">mailing list</span>. There are also Teleconference meetings (accessible by phone, <span title="Session Initiation Protocol: Voice over IP equivalent">SIP</span>, IRC...) every month which permits do decide what to focus on during the following weeks.<p>
@@ -191,8 +191,31 @@
 						<p>At least before publishing the <em>Candidate recommendation</em>, a test suite shoud be available allowing people doing the implementation to clearly know if their implementation is correct or not. As of January 2012, there is no complete test suite for WebID which leads to problem such as somple implementation considerating that a WebID profile is correct and some considerating that there is a problem.</p>
 					
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+				<h2>EARL</h2>
+				<p>EARL is an acronym for Evaluation and Report Language. It's a RDF vocabulary defined in a in-development W3C Recommendation (currently in the Last Call process)<span class="ref">Shadi Abou-Zahra, Shawn Lawton Henry et al, <em>EARL Overview</em>, [Online]. Avaiable: http://www.w3.org/WAI/intro/earl</span> which provide a way to express tests results in machine-readable format.</p>
+				<h3>EARL + WebID</h3>
+					<p>An EARL vocabulary is currently developped within the WebID group in order to formalize a serie of tests that <em>must</em> be done in order to verify a WebID identify. The <a href="http://www.w3.org/2005/Incubator/webid/earl/RelyingParty.n3" target="_blank">complete ontology</a> currently provides more than twenty tests.</p>
+					<p>Some examples of the tests<span class="ref">Henry Story, <em>Document describing a vocabulary to allow a RelyingParty to make a report on an attempt at a WebID authentication.</em> [Online]. Available: http://www.w3.org/2005/Incubator/webid/earl/RelyingParty.n3</span>:</p>
+					<ul>
+						<li>Does the client certificate contain a subject alternative name?</li>
+						<li>Is the profile well formed?</li>
+						<li>Does the profile contain only well formed keys for that WebID?</li>
+						<li>...</li>
+					</ul>
+					<p>An example of result, in <a href="http://en.wikipedia.org/wiki/Notation3">RDF serialization Notation3</a> could be :</p>
+<pre>
+[] a earl:Assertion;
+	earl:subject _:certificate;
+	earl:test wit:certificateProvidedSAN;
+	earl:result [ a earl:TestResult;
+		dct:description "";
+		earl:outcome earl:passed;
+</pre>
+					<p>We can see an RDF blank node representing an EARL assertion. This assertion has a subject, a test and a result. The subject is the certificate, the test is "is there any Subject Alternative Name (SAN) in this certificate?". The result is another anonymous node with the outcome set to "passed", so we know that this test has been passed successfully.</p>
+					<p>A Java test-suite is currently developped to help developpers to test their WebID endpoint by sending corrupted certificate or miss conceived RDF. For that purpose, the endpoint must reply with an EARL (RDF) document showing what errors/success it has found.</p>
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>Node.js</h2>
-					<p><a href="http://www.nodejs.org" target="_blank">Node.js</a> (Node) is a software system which aims to produce <strong>highly scalable application</strong>. Programs are written in <span title="ECMAScript - ECMA-262, 5th edition">JavaScript</span>. Node is built ontop of google's <a href="http://code.google.com/p/v8/" target="_blank">V8 engine</a> which is the open source JavaScript engine used for instance in Google Chrome.</p>
+					<p><a href="http://www.nodejs.org" target="_blank">Node.js</a> (Node) is a software system which aims to produce <strong>highly scalable application</strong>. Programs are written in <span title="ECMAScript - ECMA-262, 5th edition">JavaScript</span>. Node is built ontop of google's <a href="http://code.google.com/p/v8/" target="_blank">V8 engine</a> which is the open source JavaScript engine used for instance in Google Chrome; it currently offers the best performance.</p>
 					<p>To be highly scalable, Node uses <strong>event based</strong> programmings.</p>
 					<figure>
 						<img src="img/thread.png" title="Thread based programming" />
@@ -202,7 +225,7 @@
 					<p>This approach does not provide good performance because of the memory cost of thread (or process) management. In order to scale well, this kind of server must uses lot of threads. But large numbers of threads leads to overloading the machine and synchronization problems.</p>
 					<figure>
 						<img src="img/event.png" title="Event base programming"/>
-						<figcaption>Node runs user's code in a loop called the event loop. Inspired from <span class="ref">Mixu, <em>Intro to Node.JS for .NET Developers</em>, [Online]. Available: http://www.aaronstannard.com/post/2011/12/14/Intro-to-NodeJS-for-NET-Developers.aspx</span></figcaption>
+						<figcaption>Node runs user's code in a loop called the event loop. Long operation are defferend to workers. Inspired from <span class="ref">Mixu, <em>Intro to Node.JS for .NET Developers</em>, [Online]. Available: http://www.aaronstannard.com/post/2011/12/14/Intro-to-NodeJS-for-NET-Developers.aspx</span></figcaption>
 					</figure>
 					<p>Node works differently: it uses mainly an event loop that execute your code in a single thread. This loop handle all incoming connections, that's why potentially long operations (such as network or disk I/O, database queries, etc) must be executed asynchronously (with the use of callback) on workers threads.</p>
 					<p>In order to defer long operation to other thread, Node supports the brand new <a href="http://dev.w3.org/html5/workers/" target="_blank">HTML5 Web Workers</a> to delegate work to other threads.</p>
@@ -302,19 +325,20 @@
 								<td>libraptor v1.4</td>
 							</tr>
 						</table>
-						<p>We have seen in the context that Node.js application have to do the least number of operation in the main thread. As a matter of fact the support of WebWorkers of <strong>rdfstore-js</strong> was decisive even if it does not support RDF/XML.</p>
-						<p>To uses this library, we used a <span title="http://semola-rdf.appspot.com">web service</span> that translate RDF/XML to Turtle. </p>
+						<p>Even if it looks like that there are many libraries, many can be eliminated. RDFQuery is a <a href="http://jquery.com/" target="_blank">jQuery</a> plugin, and for now jQuery plugins are not compatible with Node (even if some project such as <a href="https://github.com/tmpvar/jsdom" target="_blank">jsdom</a> aims to implement the <abbr title="Document Object Model">DOM</abbr>, which is required by jQuery, to node.). RDF parser does not support SparQL which is required to verify the public key.</p>
+						<p>We have seen in the context that Node.js application have to do the least number of operation in the main thread. As a matter of fact the support of WebWorkers of <strong>rdfstore-js</strong> was decisive even if it does not support RDF/XML. Moreover this module is under development and RDF/XML could be implemented in a near future.</p>
+						<p>Because most profile on internet are in RDF/XML, we used a <span title="http://semola-rdf.appspot.com">web service</span> that translate RDF/XML to Turtle.</p>
 				<h2>Programming</h2>
 					<p>We started working with Node.Js 0.5.10 which didn't had the <em>Subject Alternative Name</em> available in the certificate. After a <a href="https://github.com/joyent/node/pull/1286">bug request</a> this as been added to Node for the 0.6.0 beta version.</p>
 					<p>In order to clearly seperate our different modules, we creates four different github repositories:</p>
 					<ul>
 						<li><a href="https://github.com/magnetik/node-webid" target="_blank">node-webid</a>: contains the core WebID implementation.</li>
 						<li><a href="https://github.com/magnetik/node-webid-demo" target="_blank">node-webid-demo</a>: contains a demo of our implementation</li>
-						<li><a href="https://github.com/magnetik/passport-webid" target="_blank">passport-webid</a>: contains an implementation of WebID login with the <a href="http://passportjs.org/" targe="_blank">passport framework</a>.</li>
+						<li><a href="https://github.com/magnetik/passport-webid" target="_blank">passport-webid</a>: contains an implementation of WebID login with the <a href="http://passportjs.org/" target="_blank">passport framework</a>.</li>
 						<li><a href="https://github.com/magnetik/node-earl" target="_blank">node-earl</a></li>
 					</ul>
 					<h3>node-webid</h3>
-						<p>This is our core implementation. </p>
+						<p>This is our core implementation. It tries to follow the </p>
 						<p>Our public API is simple, example of basic usage:</p>
 						
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -322,14 +346,15 @@
 	 http://www.howtocreate.co.uk/tutorials/jsexamples/syntax/
 	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <pre><span class="oper">var</span> <span class="var">certificate</span> <span class="oper">=</span> <span class="var">req</span>.<span class="var">connection</span>.<span class="func">getPeerCertificate</span>();
-<span class="comment">// Get the client certificate. In most language, getting this information is as simple</span>
-<span class="comment">// as a method call</span>
+<span class="comment">// Get the CLIENT certificate. In most language, getting this information is as simple</span>
+<span class="comment">// as a method call.</span>
 <span class="oper">if</span> (<span class="oper">!</span><span class="var">_</span>.<span class="func">isEmpty</span>(<span class="var">certificate</span>)) {
-  <span class="comment">// The client can decline the demand of the certificate</span>
+  <span class="comment">// The client can decline the demand of the certificate, so the vaiable certificate is empty</span>
   <span class="comment">// in this case, we can't continue the process.</span>
   <span class="oper">var</span> <span class="var">verifAgent</span> <span class="oper">=</span> <span class="oper">new</span> <span class="var">webid</span>.<span class="func">VerificationAgent</span>(<span class="var">certificate</span>);
   <span class="comment">// Initialize our WebID framework</span>
   <span class="comment">// It basically doesn't do anything </span>
+  <span class="comment">// We can notice that the only input used to validate a WebID is the certificate</span>
   <span class="var">verifAgent</span>.<span class="func">verify</span>(<span class="oper">function</span> (<span class="var">success</span>, <span class="var">result</span>) {
     <span class="comment">// The verify method do the whole process</span>
     <span class="comment">// - Getting the file located at Subject Alternative Name</span>
@@ -354,18 +379,18 @@
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      END CODE COLORATION
 	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-						<p>We can see that adding WebID login to a website is quite easy. Otherwise it require the server to use TLS. </p>
-						<p>This module is available on npm (<a href="http://search.npmjs.org/#/webid">search.npmjs.org/#/webid</a>): developpers which wants to use our code, just have to type : <code>npm install webid</code>, and the library (and its dependencies) will be installed on their working directory.</p>
+						<p>We can see that adding WebID login to a website is as easy as 10 lines of code: this is much more easier than OpenID for example. Otherwise it require the server to use TLS.</p>
+						<p>We have published this module on npm (<a href="http://search.npmjs.org/#/webid">search.npmjs.org/#/webid</a>): developpers who wants to use our code, just have to type : <code>npm install webid</code>, and the library (and its dependencies) will be installed on their working directory. They can also declare WebID as a dependency of their own package.</p>
 					<h3>node-webid-demo</h3>
 					<h3>passport-webid</h3>
 						<p>Almost all developpers using Node.js for web usage use the framework <a href="http://expressjs.com/" target="_blank">express</a> framework, or at least the middleware <a href="http://www.senchalabs.org/connect/" target="_blank">Connect</a>. Theses framework/middleware helps developers to program their application without worrying of their underlying consideration such as routes mapping, sessions etc.</p>
 						<p>Passport is an identification middleware wich can be used with connect or express. It's designed to handle many "strategies",  from classic login/password, to OpenID, facebook connect, and now... WebID !</p>
 						<p>Our module is now available as a passport strategy which means that anyone can use it with even less line of code that our "standard" example</p>
+					<h3>node-earl</h3>
 			<h1>Conclusion</h1>
 				<h2>Issues</h2>
-					<p>The main issue we had to face was the lack of good implementation for some standards: RDF and TLS.</p>
-					<p>Following the very first steps of a new W3C recommendation was quite exciting but reading more than 400 messages per month was hard, that's why we didn't participate much in the discussions. </p>
-			<h1 class="notes">Notes</h1>
+					<p>The main issue we had to face was the lack of good Node.js implementation for some standards: RDF and TLS. </p>
+					<p>Following the very first steps of a new W3C recommendation was quite exciting but reading more than 400 messages per month was hard, that's why we didn't participate much in the discussions.</p>
 			<h1>References</h1>
 				<div id="listRef"><!-- Automatically filled-in with list of references (see js/references.js) --></div>
 			<h1>About</h1>
@@ -377,14 +402,11 @@
 				<p>Under theses conditions:</p>
 				<ul>
 					<li>You must attribute this work</li>
-					<li>You distribute your modification under the same, or a similar, license</li>
+					<li>You distribute your modification under the same, or a similar, license.</li>
 				</ul>
-				<hr />
+				<p>You can download it <a href="https://github.com/magnetik/node-webid-report/zipball/gh-pages">here</a></p>
 				<p>It's made with HTML5 + CSS3 and JavaScript to generate some content.</p>
-				<ul>
-					<li></li>
-				</ul>
-				<p><a href="validator.w3.org/check?uri=referer"><img src="img/valid-html5.png" /></a> <img src="img/valid-css.png" /></p>
+				<p><a href="http://validator.w3.org/check?uri=referer"><img src="img/valid-html5.png" alt="Valid HTML5"/></a> <img src="img/valid-css.png" alt="Valid CSS"/></p>
 		</div>
 	</body>
 </html>
