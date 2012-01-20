@@ -57,23 +57,30 @@
 			</div>
 			<hr />
 			<h1>Introduction</h1>
-				<h2>Subject</h2>
-					<p>The initial subject was quite vague and only expressed two guidelines to follow:</p>
+				<h2>Subject</h2>			
+					<p>The initial subject, available <a href="http://www-inf.it-sudparis.eu/COURS/ASR/projets/sujet_OlivierBerger_AndreiSambra.pdf">here</a> (document furnished in French), expressed two guidelines to follow:</p>
 					<ul>
 						<li>A WebID identity provider ;</li>
 						<li>This provider had to be portable</li>
 					</ul>
-
+					<p>The project enter in the current issue of the <em>distributed social netwworks</em>. The idea develop here is to enable people to control the acces of his own information by having his own server which contains all his own data. Therefore the social network has no more control on your data.</p>
+					<figure>
+							<!-- TO DO schéma à refaire -->
+							<img src="img/socialnetwork-architectures.jpg" title="Architectures of traditionnal and distributed social networks" />
+							<figcaption>Architectures of a traditionnal social network (as Facebook) and a distributed social network (like for example Diaspora). </figcaption>
+					</figure>
+					<p>Hence the principal goal of the project is to improve the solutions furnished to develop and use WebID protocol in order to enable an easy log on on social networks but also the control on access to your data.</p>
 			<h1>Domain analysis</h1>
 				<h2>WebID</h2>
 					<div class="disclaimer">Disclaimer: the following describes WebID in its "<a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20111212">W3C Editor's Draft 12 December 2011</a>" <span class="ref">Henry Story et al., <em>WebID 1.0</em>, [Online]. Available: http://www.w3.org/2005/Incubator/webid/spec/</span> version. It may have changed since; the latest version is available on <a href="http://www.w3.org/2005/Incubator/webid/spec/" target="_blank">W3C website</a>.</div>
 					<h3>More than authentication</h3>
 						<p>Because WebID uses a RDF file to store information about the user, it can handle any RDF informations.</p>
-						<p>A WebID is a way to uniquely identify a person, company, organization, or other agent using a URI. The term "WebID" was coined by Dan Brickley and Tim Berners-Lee in 2000.</p>
+						<p>A WebID <span class="ref">,<em>WebIDs and the WebID Protocol</em> [Online]. Available: http://www.w3.org/wiki/WebID</span> is a way to uniquely identify a person, company, organization, or other agent using a URI. The term "WebID" was coined by Dan Brickley and Tim Berners-Lee in 2000.</p>
 						<p>The WebID Protocol authenticates a digital identity by allowing an Agent (e.g., a Web Browser) to prove possession of or access to a private key, whose corresponding public key is tightly bound to this WebID. The private key is usually associated with a "certificate" on the user's computer, while the public key and WebID are defined in the FOAF file of the subject and described by a URI in the certificate.</p>
+						
 						<h4>SSL/TLS security protocol</h4>
-						<p>Transport Layer Security (TLS) and its predecessor, Secure Sockets Layer (SSL), are cryptographic protocols that provide communication security over the Internet.</p>
-						<p>The TLS protocol allows client/server applications to communicate across a network in a way designed to prevent eavesdropping and tampering. It provides these different security aspects :</p>
+						<p>Transport Layer Security (TLS) <span class="ref">T. Dierks, E. Rescorla,<em>The Transport Layer Security (TLS) Protocol, Version 1.2</em>, August 2008; http://www.w3.org/wiki/WebID</span> and its predecessor, Secure Sockets Layer (SSL), are cryptographic protocols that provide communication security over the Internet.</p>
+						<p>The TLS protocol allows client/server applications to communicate across a network in a way designed to prevent eavesdropping and tampering. The goals of the TLS protocol is to provide: cryptographic security, interoperability, extensibility, relative efficiency. Therefore it provides these different security aspects :</p>
 						<ul>
 							<li>The authentification of the server</li>
 							<li>An encrypted session which allows secure data transmission</li>
@@ -88,13 +95,20 @@
 							<figcaption>Example of X509 certificate used in WebID protocol. </figcaption>
 						</figure>
 						<p>For now, one of the main critic is that SSL (TLS) is required to use WebID. Although it is a problem for now, there are more and more people believing that the web will be turned into "HTTPS only" soon <span class="ref">,<em></em> [Online]. Available: http://vitobotta.com/why-isnt-ssl-on-by-default-for-all-websites/</span>. For instance, google or facebook are now available in "SSL only" mode. </p>
+						
 						<h4>FOAF ontology</h4>
-						<p><a href="http://xmlns.com/foaf/spec/" target="_blank">FOAF</a> (an acronym of Friend of a friend) is a machine-readable ontology describing persons, their activities and their relations to other people and objects. Anyone can use FOAF to describe him or herself. FOAF allows groups of people to describe social networks without the need for a centralised database.</p>
-						<!-- TO DO reformuler -->
+						<p><a href="http://xmlns.com/foaf/spec/" target="_blank">FOAF</a> (an acronym of Friend of a friend) is a machine-readable ontology based on the <a href="http://www.w3.org/RDF/">Resource Description Framework</a> (RDF) and describing persons, their activities and their relations to other people and objects. Indeed FOAF allows groups of people to describe social networks without the need for a centralised database: all the relations between people are described in FOAF files.</p>
 						<figure>
 							<img src="img/foaf-spec.jpg" title="FOAF ontology" />
 							<figcaption>Graph of FOAF ontology</figcaption>
 						</figure>
+						<p>The FOAF Ontology is used in the WebID protocol with accordance to the following graph :</p>
+						<figure>
+							<img src="img/foafssl-graph.jpg" title="FOAF + SSL graph" />
+							<figcaption>Graph of a FOAF profile in WebID</figcaption>
+						</figure>
+						<p>In this graph the uri <em>https://bob.example/profile#me</em> links to the FOAF file which describe Bob profile. </p>
+						<!-- TO DO compléter -->
 						
 						<h4>Authentication Sequence</h4>
 						<p>In order to give the full context of a Client interaction with a Server we will illustrate the protocol with the following sequence diagram.</p>
@@ -102,16 +116,36 @@
 							<img src="img/webid-sequence.jpg" title="WebID athentification sequence" />
 							<figcaption>In this figure Bob initiates a connection to Alice's server in order to access a protected resource.</figcaption>
 						</figure>
-						<!-- TO DO développer -->
+						<!-- TO DO finir -->
 						<ol>
-							<li>Initialization of the TLS Connection <br>This may be done as the first part of an HTTPS connection.</li>
-							<li>Connection at the Application Layer</li>
-							<li>Request of the Client Certificate</li>
-							<li>Verification of the WebIDs</li>
-							<li>Extraction of Bob's public key</li>
+							<li>Initialization of the TLS Connection 
+								<ul>
+									<li>This may be done as the first part of an HTTPS connection.</li>
+								</ul></li>
+							<li>Connection at the Application Layer 
+								<ul>
+									<li>An agent, usually on the Server, called the guard is responsible for lookint at a request from the Client and decide if it needs authentication (Access control Rules or webID Verifier).</li>
+								</ul></li>
+							<li>Request of the Client Certificate
+								<ul>
+									<li>The guard requests of the TLS agent that it make a <em>certificate request</em> to the client.</li>
+									<li>The client asks Bob to choose a certificate (compatible with WebID protocol).</li>
+									<li>The TLS agent verifies that the client is indeed in possession of the private key contains in the certificate chosen and its validity.</li>
+									<li>Then the TLS agent passes the certificate to the guard.</li>
+								</ul></li>
+							<li>Verification of the WebIDs
+								<ul>
+									<li>The Guard asks the verification agent to perform the WebID part of the authentification.</li>
+								</ul></li>
+							<li>Extraction of Bob's public key
+								<ul>
+									<li>The verification agent extracts the public key and all the URI entries (which are called WebIDs) contained in the <em>Subject Alternative Name</em> extension of the certificate.</li>
+									<li>One of the WebIDs is verified if <!-- Là je sais pas trop quoi dire --></li>
+								</ul></li>
 							<li>Checking of the access control rules (the exact nature of those Access Control Rules is left for another specification)</li>
 							<li>Access to the protected ressource</li>
 						</ol>
+						
 					<h3>Comparison</h3>
 						<p>There are a few other ways to simplify and improve user login, some are standardized, some aren't.</p>
 						<table>
@@ -135,6 +169,7 @@
 								<td></td>
 							</tr>
 						</table>
+						
 					<h3>W3C</h3>
 						<p>Getting the status of a <a href="http://www.w3.org/standards/about.html" target="_blank">W3C Recommendation</a> helps to <q cite="http://www.w3schools.com/web/web_standards.asp">make the web a better place</q> by allowing both developers and users to have a better web experience. During one year from January 2011, WebID was developed through a W3C <a href="http://www.w3.org/2005/Incubator/webid/" target="_blank">Incubator Group</a> (XG) which is usually (but not mandatory) the first step in the recommendation redaction process. Members of Incubator Groups are authorized to use W3C infrastructures (such as mailing-list, wiki, bug tracker, ...) and permits to gather experts and every people interested in a technology in one location. It's a process open to anyone, for free; but because the process is based on consensus, it's quite hard to make decision with large number of people.</p>
 						<p>Most of discussions are made through the <a href="http://lists.w3.org/Archives/Public/public-xg-webid/" target="_blank">public-xg-webid@w3.org</a> <span title="from October 2011 to January 2012, in average more than 400 e-mails are exchanged each month">mailing list</span>. There are also Teleconference meetings (accessible by phone, <span title="Session Initiation Protocol: Voice over IP equivalent">SIP</span>, IRC...) every month which permits do decide what to focus on during the following weeks.<p>
@@ -154,7 +189,7 @@
 						</ol>
 						<p>For some standards it can take years to complete this procedure. That's why it's important to have working implementation as soon as possible, even if the recommendation is not complete, is order to spread the standard.</p>
 						<p>At least before publishing the <em>Candidate recommendation</em>, a test suite shoud be available allowing people doing the implementation to clearly know if their implementation is correct or not. As of January 2012, there is no complete test suite for WebID which leads to problem such as somple implementation considerating that a WebID profile is correct and some considerating that there is a problem.</p>
-
+					
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>Node.js</h2>
 					<p><a href="http://www.nodejs.org" target="_blank">Node.js</a> (Node) is a software system which aims to produce <strong>highly scalable application</strong>. Programs are written in <span title="ECMAScript - ECMA-262, 5th edition">JavaScript</span>. Node is built ontop of google's <a href="http://code.google.com/p/v8/" target="_blank">V8 engine</a> which is the open source JavaScript engine used for instance in Google Chrome.</p>
@@ -174,6 +209,7 @@
 					<p>Many features of JavaScript helps to do event-driven programs effectively (with a minimum of line of code). Moreover, the way that Node is coded allows to do painlessly: there is no thread management nor synchronization functions...</p>
 					<p>Node is under heavy development: cores <abbr title="Application Programming Interface">API</abbr>s may change at any time. It could be even a an advantage or a problem. An advantage because if bugs are found or new features requested, development teams can react quickly. But it is also a problem when, for example, the number of arguments of a function change from a version to another: it may require additional work to follow Node's quick development.</p>
 					<p><a href="http://npmjs.org" target="_blank">npm</a> is Node's package manager which permits to install packages (with the additional possibility to add your own c++ wrappers if needed), and even to publish your own package on a centralized platform. On January 7<sup>th</sup> 2012, there are more than six thousand package available which are covering a wide range of functionalities such as template engines, web pages parsing, certificate management... Anyone wan publish a package to npm registry with only a few lines.</p>
+			
 			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<h1>Project</h1>
 				<h2>Organization / Tools</h2>
@@ -195,7 +231,7 @@
 						<li><a href="http://fr.wikipedia.org/wiki/Evaluation_and_Report_Language" target="_blank">Evaluation and Report Language</a>.</li>
 					</ul>
 					<p>By writing small summaries of theses technologies and rephrasing already existing articles, this helped us to have a clearer view.</p>
-
+				<p></p>
 				<h2>Existent</h2>
 					<p>We searched if other people have already done some work on WebID with Node. A Google research didn't gave any result, neither a search on GitHub, but someone mentioned an implementation on the WebID XG list. After contacting the author, <a href="http://antoniogarrote.wordpress.com/" target="_blank">Antonio Garrote</a>, he put <a href="https://github.com/antoniogarrote/NodeJS-WebID-demo" target="_blank">his code</a> on his <a href="https://github.com/antoniogarrote" target="_blank">GitHub account</a>. We have identified one main problem: the lack of RDF library in JavaScript.</p>
 					<h3>JavaScript RDF lib</h3>
