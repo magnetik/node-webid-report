@@ -65,7 +65,7 @@
 						<li>A WebID identity provider ;</li>
 						<li>This provider had to be portable</li>
 					</ul>
-					<p>The project enter in the current issue of the <em>distributed social netwworks</em>. The idea develop here is to enable people to control the acces of his own information by having his own server which contains all his own data. Therefore the social network has no more control on your data.</p>
+					<p>The project enter in the current issue of the <em>distributed social networks</em>. The idea develop here is to enable people to control the acces of their own information by having their own server which contains all their own data. Therefore the social network has no more control on your data.</p>
 					<figure>
 							<!-- TO DO schéma à refaire -->
 							<img src="img/socialnetwork-architectures.jpg" title="Architectures of traditionnal and distributed social networks" />
@@ -147,6 +147,10 @@
 							<li>Access to the protected ressource</li>
 						</ol>
 						
+					<h3>Requirements</h3>
+						<p>Despite the fact the client part of WebID is based on the quite old TLS client certificate, this may require some browser improvement in order to be more used</p>
+						<p>In appendix 1, you can found screen capture of user certificate selection. Firefox is giving the most unreadable window with a lot of informations that are not very usefull for the user, whereas Internet Explorer is showing a pretty nice window. Even if it looks like a detail, it's important to be used by the mass.</p>
+						
 					<h3>Comparison</h3>
 						<p>There are a few other ways to simplify and improve user login, some are standardized, some aren't.</p>
 						<table>
@@ -214,7 +218,12 @@
 		earl:outcome earl:passed;
 </pre>
 					<p>We can see an RDF blank node representing an EARL assertion. This assertion has a subject, a test and a result. The subject is the certificate, the test is "is there any Subject Alternative Name (SAN) in this certificate?". The result is another anonymous node with the outcome set to "passed", so we know that this test has been passed successfully.</p>
+					<figure>
+							<img src="img/test-suite.png" title="Test suite" />
+							<figcaption>How the test suite work: by sending predefined valid or invalid certificate, the test suite can test specific aspects of the WebID process. The endpoint have to reply an EARL formated answer in order to tell what went wrong during the process.</figcaption>
+						</figure>
 					<p>A Java test-suite is currently developped to help developpers to test their WebID endpoint by sending corrupted certificate or miss conceived RDF. For that purpose, the endpoint must reply with an EARL (RDF) document showing what errors/success it has found.</p>
+					
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>Node.js</h2>
 					<p><a href="http://www.nodejs.org" target="_blank">Node.js</a> (Node) is a software system which aims to produce <strong>highly scalable application</strong>. Programs are written in <span title="ECMAScript - ECMA-262, 5th edition">JavaScript</span>. Node is built ontop of google's <a href="http://code.google.com/p/v8/" target="_blank">V8 engine</a> which is the open source JavaScript engine used for instance in Google Chrome; it currently offers the best performance.</p>
@@ -255,7 +264,9 @@
 							<li><a href="http://www.w3.org/2001/04/ACLS/Schema">ACL Schema</a>: </li>
 							<!--...?-->
 							<li><a href="http://ns.bergnet.org/tac/0.1/triple-access-control#">Triple Access Control</a>: </li>
-						</ul>	
+						</ul>
+						<p></p>
+						
 			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<h1>Project</h1>
 				<h2>Organization / Tools</h2>
@@ -410,6 +421,10 @@
 						<p>Passport is an identification middleware wich can be used with connect or express. It's designed to handle many "strategies",  from classic login/password, to OpenID, facebook connect, and now... WebID !</p>
 						<p>Our module is now available as a passport strategy which means that anyone can use it with even less line of code that our "standard" example</p>
 					<h3>node-earl</h3>
+					<h3>Triple access control</h3>
+						<p>We started to study the Triple Access Control ontology to implement a server that could serve a different FOAF file depending on who (or which server) is asking.</p>
+						<p>With the RDF query in appendix 2, we can </p>
+
 			<h1>Conclusion</h1>
 				<h2>Issues</h2>
 					<p>The main issue we had to face was the lack of good Node.js implementation for some standards: RDF and TLS. </p>
@@ -430,6 +445,145 @@
 				<p>You can download it <a href="https://github.com/magnetik/node-webid-report/zipball/gh-pages">here</a></p>
 				<p>It's made with HTML5 + CSS3 and JavaScript to generate some content.</p>
 				<p><a href="http://validator.w3.org/check?uri=referer"><img src="img/valid-html5.png" alt="Valid HTML5"/></a> <img src="img/valid-css.png" alt="Valid CSS"/></p>
+			<h1>Appendix</h2>
+				<h2>User certificate selection</h2>
+					<p>Theses are screen capture of certificate selection under the main mobile and desktop browsers</p>
+					<figure>
+						<img src="img/screen/ie.png" title=""/>
+						<figcaption>User certificate choice with Internet Explorer 9</figcaption>
+					</figure>
+					<figure>
+						<img src="img/screen/opera.png" title=""/>
+						<figcaption>User certificate choice with Opera 11.60</figcaption>
+					</figure>
+					<figure>
+						<img src="img/screen/firefox.png" title=""/>
+						<figcaption>User certificate choice with Firefox 9</figcaption>
+					</figure>
+					<figure>
+						<img src="img/screen/chrome.png" title=""/>
+						<figcaption>User certificate choice with Chrome 17</figcaption>
+					</figure>
+				<h2>Triple access control query</h2>
+<pre>
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/>
+PREFIX acl: &lt;http://www.w3.org/ns/auth/acl#>
+PREFIX tac: &lt;http://ns.bergnet.org/tac/0.1/triple-access-control#>
+PREFIX src: &lt;file:/mci/ei0912/garrone/git/tac/src/data/testXML.rdf#>
+
+CONSTRUCT {src:me ?predicate ?data}
+  WHERE
+    {
+	  ?group foaf:name "example.com" .
+	  ?tacAccess acl:agent ?group .
+	  ?tacAccess tac:accessToTriple ?tripleAccessible .
+	  ?tripleAccessible tac:mode ?mode .
+	  ?tripleAccessible tac:filter ?tmpdata .
+	{ ?tmpdata tac:predicate ?predicate . 
+	  src:me ?predicate ?data .} 
+	UNION 
+	{ ?tmpdata tac:subject ?subject .
+	  OPTIONAL { ?tmpdata tac:predicate ?p .}
+	  FILTER ( !bound(?p) ) .
+	  ?subject ?predicate ?data . }
+}
+</pre>
+				<h2>Example of TAC annotated RDF file</h2>
+<pre>
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+@prefix tac: <http://ns.bergnet.org/tac/0.1/triple-access-control#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#>.
+@prefix mywebid: <http://www.example.tld/card#>.
+
+# owner has full control
+[] a acl:Authorization;
+		tac:accessToTriple [ a tac:TripleAuthorization;
+		tac:mode acl:Read;
+		tac:mode acl:Write;
+		tac:filter [ a tac:Filter;
+			tac:subject mywebid:me ]];
+	acl:agent mywebid:me.
+
+
+# friends have read access to
+#  the fullname, nickname and all telephone numbers
+[] a acl:Authorization;
+	tac:accessToTriple [ a tac:TripleAuthorization;
+		tac:mode acl:Read;
+		tac:filter [ a tac:Filter;
+			tac:subject mywebid:me;
+			tac:predicate vcard:fn ]
+	], [
+		tac:mode acl:Read;
+		tac:filter [ a tac:Filter;
+			tac:subject mywebid:me;
+			tac:predicate vcard:nickname ]
+	], [
+		tac:mode acl:Read;
+		tac:filter [ a tac:Filter;
+			tac:subject mywebid:me;
+			tac:predicate vcard:tel ];
+		tac:children [	a acl:Authorization;
+			tac:accessToTriple [ a tac:TripleAuthorization;
+				tac:filter [ a tac:Filter;
+					tac:predicate rdf:type ]
+			], [
+				tac:filter [ a tac:Filter;
+					tac:predicate rdf:value ]]]];
+	acl:agent _:friends.
+
+
+# business contacts have read access
+#  to the fullname and work telephone numbers
+[] a acl:Authorization;
+	tac:accessToTriple [ a tac:TripleAuthorization;
+		tac:mode acl:Read;
+		tac:filter [ a tac:Filter;
+			tac:subject mywebid:me;
+			tac:predicate vcard:fn ]
+	], [
+		tac:mode acl:Read;
+		tac:filter [ a tac:Filter;
+			tac:subject mywebid:me;
+			tac:predicate vcard:tel ];
+		tac:children [	a acl:Authorization;
+			tac:accessToTriple [ a tac:TripleAuthorization;
+				tac:filter [ a tac:Filter;
+					tac:predicate rdf:type;
+					tac:object vcard:Work ];
+				tac:required "true"
+ 			], [
+				tac:filter [
+					tac:predicate rdf:type ]
+ 			], [
+ 				tac:filter [
+ 					rdf:predicate rdf:value ]]]];
+ 	acl:agent _:businessContacts.
+ 
+ 
+# data
+mywebid:me a foaf:Person;
+	vcard:fn "John Doe";
+	vcard:nickname "Johnny";
+	vcard:tel [
+		a vcard:Voice;
+		a vcard:Home;
+		rdf:value "+49 8765 4321"
+	], [
+		a vcard:Voice;
+		a vcard:Work;
+		rdf:value "+49 8765 5555" ].
+
+# groups
+_:friends a foaf:Group;
+	foaf:name "list of friends".
+
+_:businessContacts a foaf:Group;
+ 	foaf:name "business contacts".
+</pre>
 		</div>
 	</body>
 </html>
