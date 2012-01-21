@@ -59,49 +59,95 @@
 			</div>
 			<hr />
 			<h1>Introduction</h1>
+				<p>People are using login and password to register and identify themselves on Internet for many years, but is it the best solution? Large companies, such as Google, are looking for better and more secure ways to identify an user (two steps login for instance).</p>
+				<p>Aren't you tired of remembering long and complicated password (or worst, you are using the same password everywhere)? To enter your name and address every time you want to join a website?</p>
+				<p>Moreover do you trust multinational companies to hold all your personal data? No? Then...</p>
+				<p><strong>Then you should be in love with WebID!</strong></p>
+				<p>The WebID protocol provides a way to identify an user without the need of the couple username/password. In addition, the user is in control of his data because it can store it anywhere he wants.</p>
+				<p>This protocol could be part of the solution of the current issue of the <em>distributed social networks</em>. The idea developed here is to enable people to control the access of their own information by having their own server which contains all their own data. Therefore the social network has no more control on your data.</p>
+				<figure>
+					<!-- TO DO schéma à refaire -->
+					<img src="img/socialnetwork-architectures.jpg" title="Architectures of traditionnal and distributed social networks" />
+					<figcaption>Architectures of a traditionnal social network (as Facebook) and a distributed social network (like for example Diaspora). </figcaption>
+				</figure>
 				<h2>Subject</h2>			
 					<p>The initial subject, available <a href="http://www-inf.it-sudparis.eu/COURS/ASR/projets/sujet_OlivierBerger_AndreiSambra.pdf">here</a> (document furnished in French), expressed two guidelines to follow:</p>
 					<ul>
-						<li>A WebID identity provider ;</li>
+						<li>Do a WebID identity provider ;</li>
 						<li>This provider had to be portable</li>
 					</ul>
-					<p>The project enter in the current issue of the <em>distributed social networks</em>. The idea develop here is to enable people to control the acces of their own information by having their own server which contains all their own data. Therefore the social network has no more control on your data.</p>
-					<figure>
-							<!-- TO DO schéma à refaire -->
-							<img src="img/socialnetwork-architectures.jpg" title="Architectures of traditionnal and distributed social networks" />
-							<figcaption>Architectures of a traditionnal social network (as Facebook) and a distributed social network (like for example Diaspora). </figcaption>
-					</figure>
-					<p>Hence the principal goal of the project is to improve the solutions furnished to develop and use WebID protocol in order to enable an easy log on on social networks but also the control on access to your data.</p>
+					<p>After a discussing the subject, doing a state of the art of WebID technology is part of our work too.</p>
 			<h1>Domain analysis</h1>
 				<h2>WebID</h2>
 					<div class="disclaimer">Disclaimer: the following describes WebID in its "<a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20111212">W3C Editor's Draft 12 December 2011</a>" <span class="ref">Henry Story et al., <em>WebID 1.0</em>, [Online]. Available: http://www.w3.org/2005/Incubator/webid/spec/</span> version. It may have changed since; the latest version is available on <a href="http://www.w3.org/2005/Incubator/webid/spec/" target="_blank">W3C website</a>.</div>
+
+					<p>A WebID <span class="ref">,<em>WebIDs and the WebID Protocol</em> [Online]. Available: http://www.w3.org/wiki/WebID</span> is a way to uniquely identify a person, company, organization, or other agent using a URI. The term "WebID" was coined by Dan Brickley and Tim Berners-Lee in 2000.</p>
+					<p>The WebID Protocol authenticates a digital identity by allowing an Agent (e.g., a Web Browser) to prove possession of or access to a private key, whose corresponding public key is tightly bound to this WebID. The private key is usually associated with a "certificate" on the user's computer, while the public key and WebID are defined in the FOAF file of the subject and described by a URI in the certificate.</p>
+
+					<p>In order to give the full context of a Client interaction with a Server we will illustrate the protocol with the following sequence diagram.</p>
+						<figure>
+							<img src="img/webid-sequence.jpg" title="WebID athentification sequence" />
+							<figcaption>In this figure Bob initiates a connection to Alice's server in order to access a protected resource.</figcaption>
+						</figure>
+						<!-- TO DO finir -->
+						<ol>
+							<li>Initialization of the TLS Connection 
+								<ul>
+									<li>This is the first part of the HTTPS process. At this stage, the client identify the server, but the server does not know the client.</li>
+								</ul></li>
+							<li>Connection at the Application Layer 
+								<ul>
+									<li>An agent, usually on the Server, called the guard is responsible for looking at a request from the Client and decide if it needs authentication.</li>
+								</ul></li>
+							<li>Request of the Client Certificate
+								<ul>
+									<li>The guard requests of the TLS agent that it make a <em>certificate request</em> to the client.</li>
+									<li>The client asks Bob to choose a certificate.</li>
+									<li>The TLS agent verifies that the client is indeed in possession of the private key contains in the certificate chosen and its validity.</li>
+									<li>Then the TLS agent passes the certificate to the guard.</li>
+								</ul></li>
+							<li>Verification of the WebIDs
+								<ul>
+									<li>The Guard asks the verification agent to perform the WebID part of the authentication.</li>
+								</ul></li>
+							<li>Extraction of Bob's public key
+								<ul>
+									<li>The verification agent extracts the public key and the URI entries (which are called WebIDs) contained in the <em>Subject Alternative Name</em> field of the certificate.</li>
+									<li>The verification agent download the file identified by the URI (start with one entry, and can continue with another is an error occur.</li>
+									<li>The verification agent compare the public key in the downloaded file with the public key of the profile. If it's the same, the client is identified !</li>
+								</ul></li>
+							<li>Checking of the access control rules (the exact nature of those Access Control Rules is left for another specification)</li>
+							<li>Access to the protected resource</li>
+						</ol>
+					
 					<h3>More than authentication</h3>
 						<p>Because WebID uses a RDF file to store information about the user, it can handle any RDF informations.</p>
-						<p>A WebID <span class="ref">,<em>WebIDs and the WebID Protocol</em> [Online]. Available: http://www.w3.org/wiki/WebID</span> is a way to uniquely identify a person, company, organization, or other agent using a URI. The term "WebID" was coined by Dan Brickley and Tim Berners-Lee in 2000.</p>
-						<p>The WebID Protocol authenticates a digital identity by allowing an Agent (e.g., a Web Browser) to prove possession of or access to a private key, whose corresponding public key is tightly bound to this WebID. The private key is usually associated with a "certificate" on the user's computer, while the public key and WebID are defined in the FOAF file of the subject and described by a URI in the certificate.</p>
+						<p>For now, FOAF file seems to be the best choice because it can contains every data to identify a person, but we can imagine other application specific data</p>
 						
-						<h4>SSL/TLS security protocol</h4>
+					<h3>SSL/TLS security protocol</h3>
+						<p>WebID uses TLS protocol in order to verify both server and client.</p>
 						<p>Transport Layer Security (TLS) <span class="ref">T. Dierks, E. Rescorla,<em>The Transport Layer Security (TLS) Protocol, Version 1.2</em>, August 2008; http://www.w3.org/wiki/WebID</span> and its predecessor, Secure Sockets Layer (SSL), are cryptographic protocols that provide communication security over the Internet.</p>
-						<p>The TLS protocol allows client/server applications to communicate across a network in a way designed to prevent eavesdropping and tampering. The goals of the TLS protocol is to provide: cryptographic security, interoperability, extensibility, relative efficiency. Therefore it provides these different security aspects :</p>
+						<p>The TLS protocol allows client/server applications to communicate across a network in a way designed to prevent eavesdropping and tampering. The goals of the TLS protocol is to provide: cryptographic security, interoperability, extensibility, relative efficiency. Therefore it provides these different security aspects:</p>
 						<ul>
-							<li>The authentification of the server</li>
+							<li>The authentication of the server</li>
 							<li>An encrypted session which allows secure data transmission</li>
 							<li>The integrity of exchanged data</li>
-							<li>The use of a certificate to authenticate the client</li>
+							<li><sontrg>The use of a certificate to authenticate the client</strong></li>
 							<li>The transparency of the connection for the client</li>
 							<li>The transparency for the http protocol (allows the same query in https than in http)</li>
 						</ul>
 						<p>In the WebID protocol, the client must have a X509 certificate<span class="ref">R. Housley et al., <em>Internet X.509 Public Key Infrastructure</em>, IETF RFC 5280, May 2008; http://www.ietf.org/rfc/rfc5280.txt</span> with a subject alternative name URI entry that dereferences to a document which contains the public key for that certificate.</p>
 						<figure>
 							<img src="img/certificate.jpg" title="Certificate TLS" />
-							<figcaption>Example of X509 certificate used in WebID protocol. </figcaption>
+							<figcaption>Example of X509 certificate used in WebID protocol. We can see the "Subject Alternative Name" field as well as the public key.</figcaption>
 						</figure>
-						<p>For now, one of the main critic is that SSL (TLS) is required to use WebID. Although it is a problem for now, there are more and more people believing that the web will be turned into "HTTPS only" soon <span class="ref">,<em></em> [Online]. Available: http://vitobotta.com/why-isnt-ssl-on-by-default-for-all-websites/</span>. For instance, google or facebook are now available in "SSL only" mode. </p>
-						<h4>FOAF ontology</h4>
-						<p><a href="http://xmlns.com/foaf/spec/" target="_blank">FOAF</a> (an acronym of Friend of a friend) is a machine-readable ontology based on the <a href="http://www.w3.org/RDF/">Resource Description Framework</a> (RDF) and describing persons, their activities and their relations to other people and objects. Indeed FOAF allows groups of people to describe social networks without the need for a centralised database: all the relations between people are described in FOAF files.</p>
+						<p>For now, one of the main critic is that TLS on server side is required to use WebID. Although it is a problem for now, there are more and more people believing that the web will be turned into "HTTPS only" soon <span class="ref">,<em></em> [Online]. Available: http://vitobotta.com/why-isnt-ssl-on-by-default-for-all-websites/</span>. For instance, Google or Facebook are now available in "SSL only" mode.</p>
+
+					<h3><abbr title="Friend Of A Friend">FOAF</abbr> ontology</h3>
+						<p><a href="http://xmlns.com/foaf/spec/" target="_blank">FOAF</a> is a machine-readable ontology based on the <a href="http://www.w3.org/RDF/">Resource Description Framework</a> (RDF) and describing persons, their activities and their relations to other people and objects. Indeed FOAF allows groups of people to describe social networks without the need for a centralised database: all the relations between people are described in FOAF files.</p>
 						<figure>
 							<img src="img/foaf-spec.jpg" title="FOAF ontology" />
-							<figcaption>Graph of FOAF ontology</figcaption>
+							<figcaption>Graph of FOAF ontology. An user can fill in all informations and only some of it. </figcaption>
 						</figure>
 						<p>The FOAF Ontology is used in the WebID protocol with accordance to the following graph :</p>
 						<figure>
@@ -111,45 +157,11 @@
 						<p>In this graph the uri <em>https://bob.example/profile#me</em> links to the FOAF file which describe Bob profile. </p>
 						<!-- TO DO compléter -->
 						
-						<h4>Authentication Sequence</h4>
-						<p>In order to give the full context of a Client interaction with a Server we will illustrate the protocol with the following sequence diagram.</p>
-						<figure>
-							<img src="img/webid-sequence.jpg" title="WebID athentification sequence" />
-							<figcaption>In this figure Bob initiates a connection to Alice's server in order to access a protected resource.</figcaption>
-						</figure>
-						<!-- TO DO finir -->
-						<ol>
-							<li>Initialization of the TLS Connection 
-								<ul>
-									<li>This may be done as the first part of an HTTPS connection.</li>
-								</ul></li>
-							<li>Connection at the Application Layer 
-								<ul>
-									<li>An agent, usually on the Server, called the guard is responsible for lookint at a request from the Client and decide if it needs authentication (Access control Rules or webID Verifier).</li>
-								</ul></li>
-							<li>Request of the Client Certificate
-								<ul>
-									<li>The guard requests of the TLS agent that it make a <em>certificate request</em> to the client.</li>
-									<li>The client asks Bob to choose a certificate (compatible with WebID protocol).</li>
-									<li>The TLS agent verifies that the client is indeed in possession of the private key contains in the certificate chosen and its validity.</li>
-									<li>Then the TLS agent passes the certificate to the guard.</li>
-								</ul></li>
-							<li>Verification of the WebIDs
-								<ul>
-									<li>The Guard asks the verification agent to perform the WebID part of the authentification.</li>
-								</ul></li>
-							<li>Extraction of Bob's public key
-								<ul>
-									<li>The verification agent extracts the public key and all the URI entries (which are called WebIDs) contained in the <em>Subject Alternative Name</em> extension of the certificate.</li>
-									<li>One of the WebIDs is verified if <!-- Là je sais pas trop quoi dire --></li>
-								</ul></li>
-							<li>Checking of the access control rules (the exact nature of those Access Control Rules is left for another specification)</li>
-							<li>Access to the protected ressource</li>
-						</ol>
 						
 					<h3>Requirements</h3>
-						<p>Despite the fact the client part of WebID is based on the quite old TLS client certificate, this may require some browser improvement in order to be more used</p>
-						<p>In appendix 1, you can found screen capture of user certificate selection. Firefox is giving the most unreadable window with a lot of informations that are not very usefull for the user, whereas Internet Explorer is showing a pretty nice window. Even if it looks like a detail, it's important to be used by the mass.</p>
+						<p>Despite the fact the client part of WebID is based on the quite old TLS client certificate, this may require some browser improvement in order to be more widely used.</p>
+						<p>In appendix 1, you can found screen capture of user certificate selection. Firefox is giving the most unreadable window with a lot of informations that are not very useful for the user, whereas Internet Explorer is showing a pretty nice window. Even if it looks like a detail, it's important to be used by the mass.</p>
+						<p>Another requirement is ways for the website to interact with the browser TLS stack. There is no clear standard of what is possible: for instance it's currently possible to logout from WebID with Firefox but not with Chrome. There is an HTML5 related group, the <a href="http://www.w3.org/community/webcryptoapi/" target="_blank">Web Crypto API</a> community group which is working on this issue in order to give a standards. Results of this group will be decisive for WebID.</p>
 						
 					<h3>Comparison</h3>
 						<p>There are a few other ways to simplify and improve user login, some are standardized, some aren't.</p>
@@ -194,21 +206,22 @@
 							<li>W3C Recommendation (REC)</li>
 						</ol>
 						<p>For some standards it can take years to complete this procedure. That's why it's important to have working implementation as soon as possible, even if the recommendation is not complete, is order to spread the standard.</p>
-						<p>At least before publishing the <em>Candidate recommendation</em>, a test suite shoud be available allowing people doing the implementation to clearly know if their implementation is correct or not. As of January 2012, there is no complete test suite for WebID which leads to problem such as somple implementation considerating that a WebID profile is correct and some considerating that there is a problem.</p>
+						<p>At least before publishing the <em>Candidate recommendation</em>, a test suite shoud be available allowing people doing the implementation to clearly know if their implementation is correct or not. As of January 2012, there is no complete test suite for WebID which leads to problem such as simple implementation considerate that a WebID profile is correct and some considerate that there is a problem.</p>
 				
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>EARL</h2>
-				<p>EARL is an acronym for Evaluation and Report Language. It's a RDF vocabulary defined in a in-development W3C Recommendation (currently in the Last Call process)<span class="ref">Shadi Abou-Zahra, Shawn Lawton Henry et al, <em>EARL Overview</em>, [Online]. Avaiable: http://www.w3.org/WAI/intro/earl</span> which provide a way to express tests results in machine-readable format.</p>
-				<h3>EARL + WebID</h3>
-					<p>An EARL vocabulary is currently developped within the WebID group in order to formalize a serie of tests that <em>must</em> be done in order to verify a WebID identify. The <a href="http://www.w3.org/2005/Incubator/webid/earl/RelyingParty.n3" target="_blank">complete ontology</a> currently provides more than twenty tests.</p>
-					<p>Some examples of the tests<span class="ref">Henry Story, <em>Document describing a vocabulary to allow a RelyingParty to make a report on an attempt at a WebID authentication.</em> [Online]. Available: http://www.w3.org/2005/Incubator/webid/earl/RelyingParty.n3</span>:</p>
-					<ul>
-						<li>Does the client certificate contain a subject alternative name?</li>
-						<li>Is the profile well formed?</li>
-						<li>Does the profile contain only well formed keys for that WebID?</li>
-						<li>...</li>
-					</ul>
-					<p>An example of result, in <a href="http://en.wikipedia.org/wiki/Notation3">RDF serialization Notation3</a> could be :</p>
+					<p>EARL is an acronym for Evaluation and Report Language. It's a RDF vocabulary defined in a in-development W3C Recommendation (currently in the Last Call process)<span class="ref">Shadi Abou-Zahra, Shawn Lawton Henry et al, <em>EARL Overview</em>, [Online]. Available: http://www.w3.org/WAI/intro/earl</span> which provide a way to express tests results in machine-readable format.</p>
+					<p>Storing test result in EARL permits to 
+					<h3>EARL + WebID</h3>
+						<p>An EARL vocabulary is currently developed within the WebID group in order to formalize a number of tests that <em>must</em> be done in order to verify a WebID identify. The <a href="http://www.w3.org/2005/Incubator/webid/earl/RelyingParty.n3" target="_blank">complete ontology</a> currently provides more than twenty tests.</p>
+						<p>Some examples of the tests<span class="ref">Henry Story, <em>Document describing a vocabulary to allow a RelyingParty to make a report on an attempt at a WebID authentication.</em> [Online]. Available: http://www.w3.org/2005/Incubator/webid/earl/RelyingParty.n3</span>:</p>
+						<ul>
+							<li>Does the client certificate contain a subject alternative name?</li>
+							<li>Is the profile well formed?</li>
+							<li>Does the profile contain only well formed keys for that WebID?</li>
+							<li>...</li>
+						</ul>
+						<p>An example of result, in <a href="http://en.wikipedia.org/wiki/Notation3">RDF serialization Notation3</a> could be :</p>
 <pre>
 [] a earl:Assertion;
 	earl:subject _:certificate;
@@ -217,12 +230,13 @@
 		dct:description "";
 		earl:outcome earl:passed;
 </pre>
-					<p>We can see an RDF blank node representing an EARL assertion. This assertion has a subject, a test and a result. The subject is the certificate, the test is "is there any Subject Alternative Name (SAN) in this certificate?". The result is another anonymous node with the outcome set to "passed", so we know that this test has been passed successfully.</p>
-					<figure>
-							<img src="img/test-suite.png" title="Test suite" />
-							<figcaption>How the test suite work: by sending predefined valid or invalid certificate, the test suite can test specific aspects of the WebID process. The endpoint have to reply an EARL formated answer in order to tell what went wrong during the process.</figcaption>
-						</figure>
-					<p>A Java test-suite is currently developped to help developpers to test their WebID endpoint by sending corrupted certificate or miss conceived RDF. For that purpose, the endpoint must reply with an EARL (RDF) document showing what errors/success it has found.</p>
+						<p>We can see an RDF blank node representing an EARL assertion. This assertion has a subject, a test and a result. The subject is the certificate, the test is "is there any Subject Alternative Name (SAN) in this certificate?". The result is another anonymous node with the outcome set to "passed", so we know that this test has been passed successfully.</p>
+						<figure>
+								<img src="img/test-suite.png" title="Test suite" />
+								<figcaption>How the test suite work: by sending predefined valid or invalid certificate, the test suite can test specific aspects of the WebID process. The endpoint have to reply an EARL formated answer in order to tell what went wrong during the process.</figcaption>
+							</figure>
+						<p>A Java test-suite is currently developed to help developers to test their WebID endpoint by sending corrupted certificate or miss conceived RDF. For that purpose, the endpoint must reply with an EARL (RDF) document showing what errors/success it has found.</p>
+						<p>It's a very important part of the work of the community group which will be decisive.</p>
 					
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>Node.js</h2>
@@ -246,21 +260,21 @@
 			
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>Related technologies</h2>
-					<p>We also studied different aspects of the distributed social networks  that will finaly not be implement in our project. Nevertheless this relkated technologies could be add to the project in the future into develop or improve it.</p>
+					<p>We also studied different aspects of the distributed social networks  that will finally not be implement in our project. Nevertheless this related technologies could be add to the project in the future into develop or improve it.</p>
 					
 					<h3>Port of Node.js on Android OS</h3>
-						<p>We studied the way to make the webID protocole the more protable it can. The solution we found was to put the server that contains the FOAF file on a smartphone.</p>
+						<p>We studied the way to make the webID protocol the more portable it can. The solution we found was to put the server that contains the FOAF file on a smartphone.</p>
 						<figure>
 						<img src="img/mobile-webid.png" title="Proposition for a portable WebID"/>
 						<figcaption>Proposition of a WebID architecture with a server running on a smartphone</figcaption>
 					</figure>
-						<p>Nevertheless for the moment Node.js is not port on Android OS, there only is an attemp is in development <a href="https://github.com/paddybyers/anode">here</a> on GitHub.</p>
+						<p>Nevertheless for the moment Node.js is not port on Android OS, there only is an attempt is in development <a href="https://github.com/paddybyers/anode">here</a> on GitHub.</p>
 					
 					<h3>Access control</h3>	
-						<p>As seen in the WebID athentification sequence, the access control can be treated during the sixth step. We thus tried to find an ontology to be able to control the acces to the data on your FOAF file.</p>
+						<p>As seen in the WebID authentication sequence, the access control can be treated during the sixth step. We thus tried to find an ontology to be able to control the access to the data on your FOAF file.</p>
 						<p>There are lots of ontologies proposed to do the access control: </p>
 						<ul>
-							<li><a href="http://www.w3.org/wiki/WebAccessControl">Web Access Control</a>:  a decentralized system for allowing different users and groups various forms of access to resources where users and groups are identified by HTTP URIs and uses WebID authentification.</li>
+							<li><a href="http://www.w3.org/wiki/WebAccessControl">Web Access Control</a>:  a decentralized system for allowing different users and groups various forms of access to resources where users and groups are identified by HTTP URIs and uses WebID authentication.</li>
 							<li><a href="http://www.w3.org/2001/04/ACLS/Schema">ACL Schema</a>: </li>
 							<!--...?-->
 							<li><a href="http://ns.bergnet.org/tac/0.1/triple-access-control#">Triple Access Control</a>: </li>
