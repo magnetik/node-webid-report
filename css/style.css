@@ -28,7 +28,13 @@ aside {
 #license img {
 	width: 100%;
 }
-
+#work {
+	margin: 10px auto 10px auto;
+	width: 730px;
+	background: #FF6600;
+	border-radius: 8px;
+	padding: 5px;
+}
 #warning {
 	margin: 10px auto 10px auto;
 	width: 730px;
