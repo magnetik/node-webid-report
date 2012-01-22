@@ -59,7 +59,7 @@
 			</div>
 			<hr />
 			<h1>Introduction</h1>
-				<p>People are using login and password to register and identify themselves on Internet for many years, but is it the best solution? Large companies, such as Google, are looking for better and more secure ways to identify an user (two steps login for instance).</p>
+				<p>People use login and password to register and identify themselves on Internet for many years, but is it the best solution? Large companies, such as Google, are looking for better and more secure ways to identify an user (two steps login for instance).</p>
 				<p>Aren't you tired of remembering long and complicated password (or worst, you are using the same password everywhere)? To enter your name and address every time you want to join a website?</p>
 				<p>Moreover do you trust multinational companies to hold all your personal data? No? Then...</p>
 				<p><strong>Then you should be in love with WebID!</strong></p>
@@ -73,7 +73,7 @@
 				<h2>Subject</h2>			
 					<p>The initial subject, available <a href="http://www-inf.it-sudparis.eu/COURS/ASR/projets/sujet_OlivierBerger_AndreiSambra.pdf">here</a> (document furnished in French), expressed two guidelines to follow:</p>
 					<ul>
-						<li>Do a WebID identity provider ;</li>
+						<li>Do a WebID identity provider using Node.Js;</li>
 						<li>This provider had to be portable</li>
 					</ul>
 					<p>After a discussing the subject, doing a state of the art of WebID technology is part of our work too.</p>
@@ -428,23 +428,47 @@
     } <span class="oper">else</span> {
       <span class="comment">// There has been an error during the process</span>
       <span class="comment">// OR</span>
-      <span class="comment">// The profile is not valid !</span>
+      <span class="comment">// The profile is not valid!</span>
     }
-
   });</pre>
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      END CODE COLORATION
 	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 						<p>We can see that adding WebID login to a website is as easy as 10 lines of code: this is much more easier than OpenID for example. Otherwise it require the server to use TLS.</p>
-						<p>We have published this module on npm (<a href="http://search.npmjs.org/#/webid">search.npmjs.org/#/webid</a>): developpers who wants to use our code, just have to type : <code>npm install webid</code>, and the library (and its dependencies) will be installed on their working directory. They can also declare WebID as a dependency of their own package.</p>
+						<figure>
+							<img src="img/node-webid.png" alt="Node WebID module" width="70%" />
+							<figcaption>How Node.js WebID module works.</figcaption>
+						</figure>
+						<p>We have published this module on npm (<a href="http://search.npmjs.org/#/webid">search.npmjs.org/#/webid</a>): developers who wants to use our code, just have to type : <code>npm install webid</code>, and the library (and its dependencies) will be installed on their working directory. They can also declare WebID as a dependency of their own package by declaring "webid" into the <code>package.json</code> file.</p>
 					<h3>node-webid-demo</h3>
+						<p>This is a simple demo of WebID login using our module.</p>
+						<p>This demo offers simple way to test WebID: </p>
+						<p>Using Node 0.6.x, installation is as simple as: <br /><code>git clone git://github.com/magnetik/node-webid-demo.git</code> to donwnload the code<br /> then: <br /><code>node src/server.js</code> to start the server<br />Then access with your favorite browser to: <a href="https://localhost:8081">https://localhost:8081</a>. </p>
+						<p>It was initially designed to be an EARL endpoint, but we didn't had enough time to implement all tests. Moreover we weren't able to use WebID java test suite correctly.</p>
 					<h3>passport-webid</h3>
-						<p>Almost all developpers using Node.js for web usage use the framework <a href="http://expressjs.com/" target="_blank">express</a> framework, or at least the middleware <a href="http://www.senchalabs.org/connect/" target="_blank">Connect</a>. Theses framework/middleware helps developers to program their application without worrying of their underlying consideration such as routes mapping, sessions etc.</p>
-						<p>Passport is an identification middleware wich can be used with connect or express. It's designed to handle many "strategies",  from classic login/password, to OpenID, facebook connect, and now... WebID !</p>
-						<p>Our module is now available as a passport strategy which means that anyone can use it with even less line of code that our "standard" example</p>
+						<p>Almost all developers using Node.js for web usage use the framework <a href="http://expressjs.com/" target="_blank">express</a> framework, or at least the middleware <a href="http://www.senchalabs.org/connect/" target="_blank">Connect</a>. Theses framework/middleware helps developers to program their application without worrying of their underlying consideration such as routes mapping, sessions etc.</p>
+						<p>Passport is an identification middleware which can be used with connect or express. It's designed to handle many "strategies", from classic login/password, to OpenID, facebook connect, and now... WebID !</p>
+						<p>Our module is now available as a passport strategy which means that anyone can use it with even less line of code that our "standard" example.</p>
+						<p>For instance, a local username/password strategy usage using Passport looks like:</p>
+<pre><span class="var">passport</span>.<span class="func">use</span>(<span class="oper">new</span> <span class="func">LocalStrategy</span>(
+  <span class="oper">function</span>(<span class="var">username</span>, <span class="var">password</span>, <span class="var">done</span>) {
+    <span class="var">User</span>.<span class="func">findOne</span>({ <span class="var">username</span><span class="oper">:</span> <span class="var">username</span>, <span class="var">password</span><span class="oper">:</span> <span class="var">password</span> }, <span class="oper">function</span> (<span class="var">err</span>, <span class="var">user</span>) {
+      <span class="func">done</span>(<span class="var">err</span>, <span class="var">user</span>);
+    });
+  }
+));</pre>
+						<p>And the modified code which support WebID:</p>
+<pre><span class="var">passport</span>.<span class="func">use</span>(<span class="oper">new</span> <strong><span class="func">WebIDStrategy</span></strong>(
+  <span class="oper">function</span>(<span class="var">webid</span>, <span class="var">done</span>) {
+    <span class="var">User</span>.<span class="func">findOne</span>({ <span class="var">webid</span><span class="oper">:</span> <span class="var">webid</span> }, <span class="oper">function</span> (<span class="var">err</span>, <span class="var">user</span>) {
+      <span class="func">done</span>(<span class="var">err</span>, <span class="var">user</span>);
+    });
+  }
+));</pre>
+						<p>Of course, this code does not use the available FOAF file, but with minor adjustment it could be modified</p>
 					<h3>node-earl</h3>
-						<p>In order to implement EARL answer in our node-webid module, we created a module to help generating EARL report.</p>
-						<p>Via a simple API, developers can generate EARL document.</p>
+						<p>In order to implement EARL answer in our <em>node-webid module</em>, we created a module to help generating EARL report.</p>
+						<p>Via a simple API that we defined, developers can generate EARL document easily.</p>
 						<p>For instance:</p>
 
 <pre><span class="oper">var</span> <span class="var">earl</span> <span class="oper">=</span> <span class="func">require</span>('<span class="string">earl</span>');
@@ -466,18 +490,41 @@
 &lt;assert1> &lt;http://www.w3.org/ns/earl#result> &lt;assert1Result> . 
 &lt;assert1Result> &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type> &lt;http://www.w3.org/ns/earl#TestResult> . 
 &lt;assert1Result> &lt;http://www.w3.org/ns/earl#outcome> &lt;http://purl.org/dc/terms/passed> . </pre>
+
 					<h3>Triple access control</h3>
 						<p>We started to study the Triple Access Control ontology to implement a server that could serve a different FOAF file depending on who (or which server) is asking.</p>
 						<p>With the SparQL query in appendix 2, we can construct a new FOAF file by just changing the name "example.com" in the query: it will only contain the field that are annotated as "readable" by "example.com".</p>
-						<p>The problem was precisely to identify <em>WHO</em> is asking. Indeed during the process, the WebID verifier simply download the FOAF file to a distant web server. In order to use our query, the WebID verifier would have to identify itself to the server where the FOAF file is embedded. In a nutshell, for the WebID process, the client identify himself through WebID to a server, and  this server would have to identify itself to another server.</p>
+						<p>The problem was precisely to identify <em>WHO</em> is asking. Indeed during the process, the WebID verifier simply download the FOAF file to a distant web server. In order to use our query, the WebID verifier would have to identify itself to the server where the FOAF file is embedded. In a nutshell, for the WebID process, the client identify himself through WebID to a server, and  this server would have to identify itself to another server (some kind of a "mutual identification").</p>
 						<p>This problem was out of the scope of our project. After a discussion with <em>Andrei Sambra</em>, we decided to stop our investigation at this point.</p>
 
+					<h3>Git</h3>
+						<p>We used Git submodule <span class="ref">S. Chacon, <em>Git book</em>, [Online]. Available: http://book.git-scm.com</span>capabilities. It permits to declare a directory as a checkout of another project. The main advantage was to separate our main module (node-webid) to our implementations (passport-webid and node-webid-demo).</p>
+						<p>But using git submodules requires to respect a workflow that is not quite obvious. I will give an example of the submodule usage in node-webid-demo (the "super project").</p>
+						<ul>
+							<li>To <strong>add a submodule</strong> into the <em>/webid/</em> directory: <code>git submodule add git@github.com:magnetik/node-webid.git /webid/</code></li>
+							<li>To <strong>update the submodule</strong> when <strong>modified by someone else</strong>: <code>git submodule update --init</code></li>
+							<li><strong>Before</strong> modifying a submodule <strong>within the super project</strong> move to branch master: <code>git branch master</code> and update <code>git pull</code> because git maintain submodule as detached HEAD.</li>
+							<li>To <strong>commit</strong> a change made in the submodule within the super project:
+								<ul>
+									<li><code>git commit</code> and <code>git push</code> in the <strong>submodule</strong> first.</li>
+									<li><code>git commit</code> and <code>git push</code> in the super project</li>
+								</ul>
+							</li>
+						</ul>
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<h1>Conclusion</h1>
 				<h2>Issues</h2>
 					<p>The main issue we had to face was the lack of good Node.js implementation for some standards: RDF and TLS. </p>
 					<p>Following the very first steps of a new W3C recommendation was quite exciting but reading more than 400 messages per month was hard, that's why we didn't participate much in the discussions.</p>
+				<h2></h2>
+					<p>Following the beginning of a future standard was exciting.</p>
+					<p>Learning a new language and perhaps more important </p>
+
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<h1>References</h1>
 				<div id="listRef"><!-- Automatically filled-in with list of references (see js/references.js) --></div>
+
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<h1>About</h1>
 				<p>This report is available under the Creative Common BY-SA 3.0 License. You are free to:</p>
 				<ul>
@@ -492,7 +539,9 @@
 				<p>You can download it <a href="https://github.com/magnetik/node-webid-report/zipball/gh-pages">here</a></p>
 				<p>It's made with HTML5 + CSS3 and JavaScript to generate some content.</p>
 				<p><a href="http://validator.w3.org/check?uri=referer"><img src="img/valid-html5.png" alt="Valid HTML5"/></a> <img src="img/valid-css.png" alt="Valid CSS"/></p>
-			<h1>Appendix</h2>
+
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+			<h1>Appendix</h1>
 				<h2>User certificate selection</h2>
 					<p>Theses are screen capture of certificate selection under the main mobile and desktop browsers</p>
 					<figure>
