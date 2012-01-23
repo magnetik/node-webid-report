@@ -59,24 +59,24 @@
 			</div>
 			<hr />
 			<h1>Introduction</h1>
-				<p>People use login and password to register and identify themselves on Internet for many years, but is it the best solution? Large companies, such as Google, are looking for better and more secure ways to identify an user (two steps login for instance).</p>
-				<p>Aren't you tired of remembering long and complicated password (or worst, you are using the same password everywhere)? To enter your name and address every time you want to join a website?</p>
+				<p>People have been using login and password to register and identify themselves on Internet for many years, but is it the best solution? Large companies, such as Google, are looking for better and more secure ways to identify an user (two steps login for instance).</p>
+				<p>Aren't you tired of remembering long and complicated password (or worse, you are using the same password everywhere)? To enter your name and address every time you want to join a website?</p>
 				<p>Moreover do you trust multinational companies to hold all your personal data? No? Then...</p>
-				<p><strong>Then you should be in love with WebID!</strong></p>
-				<p>The WebID protocol provides a way to identify an user without the need of the couple username/password. In addition, the user is in control of his own data because he can store it anywhere he wants.</p>
-				<p>This protocol could be part of the solution of the current issue of the <em>distributed social networks</em>. The idea developed here is to enable people to control the access of their own information by having their own server which contains all their own data. Therefore the social network has no more control on your data.</p>
+				<p><strong>Then you will love with WebID!</strong></p>
+				<p>The WebID protocol provides a way of identifying a user without the need of the couple username/password. In addition, the user is in control of his own data because he can store it anywhere he wants.</p>
+				<p>This protocol could be part of the solution of the current issue of the <em>distributed social networks</em>. The idea developed here is to enable people to control the access of their own information by having their own server which contains all their personal data. Therefore the social network has no more control over your data.</p>
 				<figure>
 					<!-- TO DO schéma à refaire -->
 					<img src="img/socialnetwork-architectures.jpg" title="Architectures of traditionnal and distributed social networks" />
-					<figcaption>Architectures of a traditionnal social network (as Facebook) and a distributed social network (like for example Diaspora). </figcaption>
+					<figcaption>Architectures of a traditionnal social network (as Facebook) versus a distributed social network (like for example Diaspora). </figcaption>
 				</figure>
-				<h2>Subject</h2>			
-					<p>The initial subject, available <a href="http://www-inf.it-sudparis.eu/COURS/ASR/projets/sujet_OlivierBerger_AndreiSambra.pdf">here</a> (document furnished in French), expressed two guidelines to follow:</p>
+				<h2>Topic</h2>			
+					<p>The initial topic, available <a href="http://www-inf.it-sudparis.eu/COURS/ASR/projets/sujet_OlivierBerger_AndreiSambra.pdf">here</a> (document provided in French), expressed two guidelines to follow:</p>
 					<ul>
 						<li>Do a WebID identity provider using Node.Js;</li>
-						<li>This provider had to be portable</li>
+						<li>The provider had to be portable</li>
 					</ul>
-					<p>After a discussing the subject, doing a state of the art of WebID technology is part of our work too.</p>
+					<p>After a discussing the subject, we decided doing a state of the art of WebID technology would become part of our work too.</p>
 			<h1>Domain analysis</h1>
 				<h2>WebID</h2>
 					<div class="disclaimer">Disclaimer: the following describes WebID in its "<a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20111212">W3C Editor's Draft 12 December 2011</a>" <span class="ref">Henry Story et al., <em>WebID 1.0</em>, [Online]. Available: http://www.w3.org/2005/Incubator/webid/spec/</span> version. It may have changed since; the latest version is available on <a href="http://www.w3.org/2005/Incubator/webid/spec/" target="_blank">W3C website</a>.</div>
@@ -89,21 +89,20 @@
 							<img src="img/webid-sequence.jpg" title="WebID athentification sequence" />
 							<figcaption>In this figure Bob initiates a connection to Alice's server in order to access a protected resource. Source: WebID spec.</figcaption>
 						</figure>
-						<!-- TO DO finir -->
 						<ol>
 							<li>Initialization of the TLS Connection 
 								<ul>
-									<li>This is the first part of the HTTPS process. At this stage, the client identify the server, but the server does not know the client.</li>
+									<li>This is the first part of the HTTPS process. At this stage, the client identifies the server, but the server does not know the client.</li>
 								</ul></li>
 							<li>Connection at the Application Layer 
 								<ul>
-									<li>An agent, usually on the Server, called the guard is responsible for looking at a request from the Client and decide if it needs authentication.</li>
+									<li>An agent, usually on the Server, called the guard is responsible for looking at a request from the Client and decides if it needs authentication.</li>
 								</ul></li>
 							<li>Request of the Client Certificate
 								<ul>
 									<li>The guard requests of the TLS agent that it make a <em>certificate request</em> to the client.</li>
 									<li>The client asks Bob to choose a certificate.</li>
-									<li>The TLS agent verifies that the client is indeed in possession of the private key contains in the certificate chosen and its validity. (Part of TLS)</li>
+									<li>The TLS agent verifies that the client is indeed in possession of the private key which secure the certificate chosen and its validity. (Part of TLS)</li>
 									<li>Then the TLS agent passes the certificate to the guard.</li>
 								</ul></li>
 							<li>Verification of the WebIDs
@@ -113,23 +112,23 @@
 							<li>Extraction of Bob's public key
 								<ul>
 									<li>The verification agent extracts the public key and the URI entries (which are called WebIDs) contained in the <em>Subject Alternative Name</em> field of the certificate.</li>
-									<li>The verification agent download the file identified by the URI (start with one entry, and can continue with another is an error occur).</li>
-									<li>The verification agent compare the public key in the downloaded file with the public key of the certificate. If it's the same, the client is identified !</li>
+									<li>The verification agent downloads the file identified by the URI (starts with one entry, and can continue with another is an error occurs).</li>
+									<li>The verification agent compares the public key in the downloaded file with the public key of the certificate. If it's the same, the client is identified !</li>
 								</ul></li>
 							<li>Checking of the access control rules (the exact nature of those Access Control Rules is left for another specification).</li>
 							<li>Access to the protected resource.</li>
 						</ol>
-					<p>It's worth emphasizing that most of the identification is done by TLS. Only steps 5 and 6 are specific to WebID. 
+					<p>It's worth emphasizing that most of the identification is done by TLS. Only steps 5 and 6 are specific to WebID.</p> 
 						
 					<h3>SSL/TLS security protocol</h3>
-						<p>We have already seen that WebID uses TLS protocol in order to verify both server and client, let's take a deeper look into TLS.</p>
+						<p>We have already seen that WebID uses TLS protocol in order to verify both the server and the client, let's take a deeper look into TLS.</p>
 						<p>Transport Layer Security (TLS) <span class="ref">T. Dierks, E. Rescorla,<em>The Transport Layer Security (TLS) Protocol, Version 1.2</em>, August 2008; http://www.w3.org/wiki/WebID</span> and its predecessor, Secure Sockets Layer (SSL), are cryptographic protocols that provide communication security over the Internet.</p>
 						<p>The TLS protocol allows client/server applications to communicate across a network in a way designed to prevent eavesdropping and tampering. The goals of the TLS protocol is to provide: cryptographic security, interoperability, extensibility, relative efficiency. Therefore it provides these different security aspects<span class="ref">S. Thomas, <em>Ssl &amp; Tls Essentials: Securing the Web</em>. New York : Wiley Computer Publishing, 2000.</span>:</p>
 						<ul>
 							<li>The authentication of the server</li>
 							<li>An encrypted session which allows secure data transmission</li>
 							<li>The integrity of exchanged data</li>
-							<li><sontrg>The use of a certificate to authenticate the client</strong></li>
+							<li><strong>The use of a certificate to authenticate the client</strong></li>
 							<li>The transparency of the connection for the client</li>
 							<li>The transparency for the http protocol (allows the same query in https than in http)</li>
 						</ul>
@@ -138,13 +137,13 @@
 							<img src="img/certificate.jpg" title="Certificate TLS" width="70%"/>
 							<figcaption>Example of X509 certificate used in WebID protocol. We can see the "Subject Alternative Name" field as well as the public key.</figcaption>
 						</figure>
-						<p>For now, one of the main critic is that TLS on server side is required to use WebID. Although it is a problem for now, there are more and more people believing that the web will be turned into "HTTPS only" soon <span class="ref">,<em></em> [Online]. Available: http://vitobotta.com/why-isnt-ssl-on-by-default-for-all-websites/</span>. For instance, Google or Facebook are now available in "SSL only" mode.</p>
+						<p>For now, one of the main criticism is that TLS on server side is required to use WebID. Although it is a problem for now, there are more and more people believing that the web will be turned into "HTTPS only" soon <span class="ref">,<em></em> [Online]. Available: http://vitobotta.com/why-isnt-ssl-on-by-default-for-all-websites/</span>. For instance, Google or Facebook are now available in "SSL only" mode.</p>
 
 					<h3><abbr title="Friend Of A Friend">FOAF</abbr> ontology</h3>
-						<p><a href="http://xmlns.com/foaf/spec/" target="_blank">FOAF</a> is a machine-readable ontology based on the <a href="http://www.w3.org/RDF/">Resource Description Framework</a> (RDF) and describing persons, their activities and their relations to other people and objects. Indeed FOAF allows groups of people to describe social networks without the need for a centralised database: all the relations between people are described in FOAF files.</p>
+						<p><a href="http://xmlns.com/foaf/spec/" target="_blank">FOAF</a> is a machine-readable ontology based on the <a href="http://www.w3.org/RDF/">Resource Description Framework</a> (RDF) and describing persons, their activities and their relations to other people and objects. It allows groups of people to describe social networks without the need for a centralised database: indeed all the relations between people are described in FOAF files.</p>
 						<figure>
 							<img src="img/foaf-spec.jpg" title="FOAF ontology" width="80%" />
-							<figcaption>Graph of FOAF ontology. An user can fill in all informations and only some of it. </figcaption>
+							<figcaption>Graph of FOAF ontology. An user can fill in all informations or only some of it. </figcaption>
 						</figure>
 						<p>The FOAF Ontology is used in the WebID protocol with accordance to the following graph :</p>
 						<figure>
@@ -152,34 +151,34 @@
 							<figcaption>Graph of a FOAF profile in WebID</figcaption>
 						</figure>
 						<p>In this graph the WebID URI is <em>https://bob.example/profile#me</em>. The profile is located at the URL <em>https://bob.example/profile</em>. </p>
-						<p>The only mandatory field for a WebID is <em>cert:key</em> (composed of <em>cert:modulus</em> and <em>cert:exponent</em>): theses fields must contains the public key(s) of the user. All other fields (name, birth etc.) are completely optionals</p>
+						<p>The only mandatory field for a WebID is <em>cert:key</em> (composed of <em>cert:modulus</em> and <em>cert:exponent</em>): theses fields must contain the public key(s) of the user. All other fields (name, birth etc.) are completely optionals.</p>
 
 					<h3>More than authentication</h3>
-						<p>Because WebID uses a RDF file to store the public key of the user on server side, most of WebID users store their key within a FOAF file to describe themselves</p>
+						<p>Because WebID uses a RDF file to store the public key of the user on server side, most of WebID users store their key within a FOAF file to describe themselves.</p>
 						<p>Thanks to the extensibility of RDF, it can store any information.</p>
 						<p>For now, FOAF file seems to be the best choice because it can contains every data to identify a person, but we can imagine that other application specific data could be included. </p>
 						
 						
 					<h3>Requirements</h3>
 						<p>Despite the fact the client part of WebID is based on the quite old TLS client certificate, this may require some browser improvement in order to be more widely used.</p>
-						<p>In appendix 1, you can found screen capture of user certificate selection. Firefox is giving the most unreadable window with a lot of informations that are not very useful for the user (there is an <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=396441">in going bug</a> which demands UI improvement), whereas Internet Explorer is showing a pretty nice window. Even if it looks like a detail, it's important to be used by the mass.</p>
-						<p>Another requirement is a way for the website to interact with the browser TLS stack. There is no clear standard to say what is possible: for instance it's currently possible to logout from WebID with Firefox or Internet Explorer but not with Chrome. Indeed the JavaScript object <code>window.crypto</code> (and in particular it's method <code>window.crypto.logout()</code>) is note standardized by any organization. This may change because there is an HTML5 related group, the <a href="http://www.w3.org/community/webcryptoapi/" target="_blank">Web Crypto API</a> community group which is working on this issue in order to formalize what functions the browser should provide. Results of this group, and quick implementation by most browser manufacturer will be decisive for WebID.</p>
+						<p>In appendix 1, you can find screen captures of user certificate selection. Firefox is giving the most complicated window with a lot of information that is not very useful for the user, whereas Internet Explorer is showing a pretty nice window. Even if it seemss like a detail, it's important escpecially if it is to be used by the mass.</p>
+						<p>Another requirement is a way for the website to interact with the browser TLS stack. There is no clear standard to say what is possible: for instance it's currently possible to logout from WebID with Firefox or Internet Explorer but not with Chrome. Indeed the JavaScript object <code>window.crypto</code> (and in particular it's method <code>window.crypto.logout()</code>) is note standardized by any organization. This may change because there is an HTML5 related group, the <a href="http://www.w3.org/community/webcryptoapi/" target="_blank">Web Crypto API</a> community group which is working on this issue in order to formalize what functions the browser should provide. Results of this group, and quick implementation by most browser manufacturers will be decisive for WebID.</p>
 						
 					<h3>Comparison</h3>
 						<p>There are a few other ways to simplify and improve user login, some are standardized, some aren't.</p>
 						<p>The closest implementation is <strong>BrowserID</strong>, currently developed through the Mozilla foundation. The main difference is that BrowserID uses Javascript and a JSON certificate in order to work (whereas WebID uses TLS) and it uses the e-mail as the identifier. BrowserID require modification in browser and support from email providers.</p>
-						<p>By the way, WebID is not opposed to this login system. For instance, OpenID could be used with WebID: for now, most OpenID providers uses classic login/password, but we can imagine that the user login to the OpenID endpoint with WebID, then the classic OpenID process continue. This could be useful in order to prepare the transition to WebID because OpenID is quite widely deployed on Internet (for instance all Google ID are OpenID too).</p>
+						<p>By the way, WebID is not incompatible with this login system. For instance, OpenID could be used with WebID: for now, most OpenID providers use classic login/password, but we can imagine that the user login to the OpenID endpoint with WebID, then the classic OpenID process continues. This could be useful in order to prepare the transition to WebID because OpenID is quite widely deployed on Internet (for instance all Google ID are OpenID too).</p>
 						
 					<h3>W3C</h3>
-						<p>Getting the status of a <a href="http://www.w3.org/standards/about.html" target="_blank">W3C Recommendation</a> helps to <q cite="http://www.w3schools.com/web/web_standards.asp">make the web a better place</q> by allowing both developers and users to have a better web experience. During one year from January 2011, WebID was developed through a W3C <a href="http://www.w3.org/2005/Incubator/webid/" target="_blank">Incubator Group</a> (XG) which is usually (but not mandatory) the first step in the recommendation redaction process. Members of Incubator Groups are authorized to use W3C infrastructures (such as mailing-list, wiki, bug tracker, ...) and permits to gather experts and every people interested in a technology in one location. It's a process open to anyone, for free; but because the process is based on consensus, it's quite hard to make decision with large number of people.</p>
-						<p>Most of discussions are made through the <a href="http://lists.w3.org/Archives/Public/public-xg-webid/" target="_blank">public-xg-webid@w3.org</a> <span title="from October 2011 to January 2012, in average more than 400 e-mails are exchanged each month">mailing list</span>. There are also Teleconference meetings (accessible by phone, <span title="Session Initiation Protocol: Voice over IP equivalent">SIP</span>, IRC...) every month which permits do decide what to focus on during the following weeks.<p>
+						<p>Getting the status of a <a href="http://www.w3.org/standards/about.html" target="_blank">W3C Recommendation</a> helps to <q cite="http://www.w3schools.com/web/web_standards.asp">make the web a better place</q> by allowing both developers and users to have a better web experience. In January 2011, during one year, WebID was developed through a W3C <a href="http://www.w3.org/2005/Incubator/webid/" target="_blank">Incubator Group</a> (XG) which is usually (but not mandatory) the first step in the recommendation redaction process. Members of Incubator Groups are authorized to use W3C infrastructures (such as mailing-list, wiki, bug tracker, ...) and allows to gather experts and every people interested in a technology in one location. It's a process open to anyone, for free; but because the process is based on consensus, it's quite hard to make decision with a large number of people.</p>
+						<p>Most of discussions are made through the <a href="http://lists.w3.org/Archives/Public/public-xg-webid/" target="_blank">public-xg-webid@w3.org</a> <span title="from October 2011 to January 2012, in average more than 400 e-mails are exchanged each month">mailing list</span>. There are also Teleconference meetings (accessible by phone, <span title="Session Initiation Protocol: Voice over IP equivalent">SIP</span>, IRC...) every month which helps do decide what to focus on during the following weeks.<p>
 						<p>On January 2012, WebID XG was turned into a <a href="http://www.w3.org/community">Community Group</a> (CG). It's not any kind of evolution but the W3C is progressively deleting the concept of XG to CG.</p>
 						<p>After a chair request, the group can be moved to the <q cite="http://www.w3.org/community/about/agreements/">W3C Standards Track</q>: it will be turned into a Working Group (WG). Because subscription to WG are not open: there are two way to join them: </p>
 						<ul>
-							<li>Be an employee of a <a href="http://www.w3.org/Consortium/Member/List" target="_blank">W3C Member organization</a>  and ask to join (Firms have to pay a fee to be member),
+							<li>Be an employee of a <a href="http://www.w3.org/Consortium/Member/List" target="_blank">W3C Member organization</a>  and ask to join (Firms have to pay a fee to be members),
 							<li>Be an <a href="http://www.w3.org/2004/08/invexp.html" target="_blank">invited expert</a>. 
 						</ul>
-						<p>When reaching the recommendation track, the work is far from done. The recommendation will pass theses steps <span class="ref">Dan Burnett, <em>W3C Recommendation Track</em> [Online]. Available: http://www.w3.org/2011/04/webrtc/wiki/images/5/5c/Webrtc_w3c_rec_track.pdf</span>:</p>
+						<p>When reaching the recommendation track, the work is far from done. The recommendation will have to gp through these steps <span class="ref">Dan Burnett, <em>W3C Recommendation Track</em> [Online]. Available: http://www.w3.org/2011/04/webrtc/wiki/images/5/5c/Webrtc_w3c_rec_track.pdf</span>:</p>
 						<ol>
 							<li>Working Draft (WD): published as often as possible,</li>
 							<li>Last Call Working Draft (LC): the document is technically complete,</li>
@@ -187,12 +186,12 @@
 							<li>Proposed Recommendation (PR),</li>
 							<li>W3C Recommendation (REC)</li>
 						</ol>
-						<p>For some standards it can take years to complete this procedure. That's why it's important to have working implementation as soon as possible, even if the recommendation is not complete, is order to spread the standard.</p>
+						<p>For some standards it can take years to complete this procedure. That's why it's important to have working implementation as soon as possible, even if the recommendation is not complete, in order to spread the standard.</p>
 						<p>At least before publishing the <em>Candidate recommendation</em>, a test suite shoud be available allowing people doing the implementation to clearly know if their implementation is correct or not. As of January 2012, there is no complete test suite for WebID which leads to problem such as simple implementation considerate that a WebID profile is correct and some considerate that there is a problem.</p>
 				
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>EARL</h2>
-					<p>EARL is an acronym for Evaluation and Report Language. It's a RDF vocabulary defined in a in-development W3C Recommendation (currently in the Last Call process)<span class="ref">Shadi Abou-Zahra, Shawn Lawton Henry et al, <em>EARL Overview</em>, [Online]. Available: http://www.w3.org/WAI/intro/earl</span> which provide a way to express tests (including assertion and results) in machine-readable format.</p>
+					<p>EARL is an acronym for Evaluation And Report Language. It's a RDF vocabulary defined in a in-development W3C Recommendation (currently in the Last Call process)<span class="ref">Shadi Abou-Zahra, Shawn Lawton Henry et al, <em>EARL Overview</em>, [Online]. Available: http://www.w3.org/WAI/intro/earl</span> which provides a way to express tests (including assertions and results) in machine-readable format.</p>
 					<h3>EARL + WebID</h3>
 						<p>An EARL vocabulary is currently developed within the WebID group in order to formalize a number of tests that <em>must</em> be done in order to verify a WebID identify. The <a href="http://www.w3.org/2005/Incubator/webid/earl/RelyingParty.n3" target="_blank">complete ontology</a> currently provides more than twenty tests.</p>
 						<p>Some examples of the tests<span class="ref">Henry Story, <em>Document describing a vocabulary to allow a RelyingParty to make a report on an attempt at a WebID authentication.</em> [Online]. Available: http://www.w3.org/2005/Incubator/webid/earl/RelyingParty.n3</span>:</p>
@@ -216,40 +215,40 @@
 								<img src="img/test-suite.png" title="Test suite" />
 								<figcaption>How the test suite work: by sending predefined valid or invalid certificate, the test suite can test specific aspects of the WebID process. The endpoint have to reply an EARL formated answer in order to tell what went wrong during the process.</figcaption>
 							</figure>
-						<p>A Java test-suite is currently developed to help developers to test their WebID endpoint by sending corrupted certificate or miss conceived RDF. For that purpose, the endpoint must reply with an EARL (RDF) document showing what errors/success it has found.</p>
+						<p>A Java test-suite is currently developed to help developers to test their WebID endpoint by sending corrupted certificate or misconceived RDF. For that purpose, the endpoint must reply with an EARL (RDF) document showing what errors/successes it has found.</p>
 						<p>It's a very important part of the work of the community group which will be decisive.</p>
 					
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>Node.js</h2>
-					<p><a href="http://www.nodejs.org" target="_blank">Node.js</a> (Node) is a software system which aims to produce <strong>highly scalable application</strong>. Programs are written in <span title="ECMAScript - ECMA-262, 5th edition">JavaScript</span>. Node is built ontop of google's <a href="http://code.google.com/p/v8/" target="_blank">V8 engine</a> which is the open source JavaScript engine used for instance in Google Chrome; it currently offers the best performance.</p>
-					<p>To be highly scalable, Node uses <strong>event based</strong> programmings.</p>
+					<p><a href="http://www.nodejs.org" target="_blank">Node.js</a> (Node) is a software system which aims to produce <strong>highly scalable application</strong>. Programs are written in <span title="ECMAScript - ECMA-262, 5th edition">JavaScript</span>. Node is built ontop of Google's <a href="http://code.google.com/p/v8/" target="_blank">V8 engine</a> which is the open source JavaScript engine used for instance in Google Chrome; it currently offers the best performance.</p>
+					<p>To be highly scalable, Node uses <strong>event based</strong> programming.</p>
 					<figure>
 						<img src="img/thread.png" title="Thread based programming" />
 						<figcaption>This image shows a single thread: when a client is connected, the thread is blocked (represented in red) while the final result is not ready. Thus, Apache thread is blocked waiting (doing nothing) during long I/O operations such as writing to disk or database.</figcaption>
 					</figure>
 					<p>Traditional servers such as Apache spawns a new thread (or uses one of a pool) to handle each request. This thread will be used only for this request as long as the whole process is not finished. If other request arrive, they are put in the queue waiting for the thread to be available.</p>
-					<p>This approach does not provide good performance because of the memory cost of thread (or process) management. In order to scale well, this kind of server must uses lot of threads. But large numbers of threads leads to overloading the machine and synchronization problems.</p>
+					<p>This approach does not provide good performance because of the memory cost of thread (or process) management. In order to scale well, this kind of server must use lot of threads. But large numbers of threads leads to overloading the machine as well as synchronization problems.</p>
 					<figure>
 						<img src="img/event.png" title="Event base programming"/>
-						<figcaption>Node runs user's code in a loop called the event loop. Long operation are sended to workers. Inspired from <span class="ref">Mixu, <em>Intro to Node.JS for .NET Developers</em>, [Online]. Available: http://www.aaronstannard.com/post/2011/12/14/Intro-to-NodeJS-for-NET-Developers.aspx</span></figcaption>
+						<figcaption>Node runs user's code in a loop called the event loop. Long operations are sended to workers. Inspired from <span class="ref">Mixu, <em>Intro to Node.JS for .NET Developers</em>, [Online]. Available: http://www.aaronstannard.com/post/2011/12/14/Intro-to-NodeJS-for-NET-Developers.aspx</span></figcaption>
 					</figure>
-					<p>Node works differently: it uses mainly an event loop that execute your code in a single thread. This loop handle all incoming connections, that's why potentially long operations (such as network or disk I/O, database queries, etc) must be executed asynchronously (with the use of callback) on workers threads.</p>
-					<p>In order to defer long operation to other thread, Node supports the brand new <a href="http://dev.w3.org/html5/workers/" target="_blank">HTML5 Web Workers</a> to delegate work to other threads.</p>
-					<p>Many features of JavaScript helps to do event-driven programs effectively (with a minimum of line of code). Moreover, the way that Node is coded allows to do painlessly: there is no thread management nor synchronization functions...</p>
-					<p>Node is under heavy development: cores <abbr title="Application Programming Interface">API</abbr>s may change at any time. It could be even a an advantage or a problem. An advantage because if bugs are found or new features requested, development teams can react quickly. But it is also a problem when, for example, the number of arguments of a function change from a version to another: it may require additional work to follow Node's quick development.</p>
-					<p><a href="http://npmjs.org" target="_blank">npm</a> is Node's package manager which permits to install packages (with the additional possibility to add your own c++ wrappers if needed), and even to publish your own package on a centralized platform. On January 7<sup>th</sup> 2012, there are more than six thousand package available which are covering a wide range of functionalities such as template engines, web pages parsing, certificate management... Anyone wan publish a package to npm registry with only a few lines.</p>
+					<p>Node works differently: it mainly uses an event loop that executes your code in a single thread. This loop handles all incoming connections, that's why potentially long operations (such as network or disk I/O, database queries, etc) must be executed asynchronously (with the use of callback) on workers threads.</p>
+					<p>In order to defer long operations to other thread, Node supports the brand new <a href="http://dev.w3.org/html5/workers/" target="_blank">HTML5 Web Workers</a> to delegate work to other threads.</p>
+					<p>Many features of JavaScript help developers to write effective event-driven programs (with a minimum of line of code). Moreover, the way that Node is coded allows to do <!-- il manque un mot --> painlessly: there is no thread management nor synchronization functions...</p>
+					<p>Node is under heavy development: core <abbr title="Application Programming Interface">API</abbr>s may change at any time. It could even be a an advantage or a problem. An advantage because if bugs are found or new features requested, development teams can react quickly. But it is also a problem when, for example, the number of arguments of a function changes from a version to another: it may require additional work to follow Node's quick development.</p>
+					<p><a href="http://npmjs.org" target="_blank">npm</a> is Node's package manager which allows to install packages (with the additional possibility to add your own c++ wrappers if needed), and even to publish your own package on a centralized platform. On January 7<sup>th</sup> 2012, there were more than six thousand packages available which were covering a wide range of functionalities such as template engines, web pages parsing, certificate management... Anyone can publish a package to npm registry with only a few lines.</p>
 			
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<h2>Related technologies</h2>
-					<p>We also studied different aspects of the distributed social networks  that will finally not be implement in our project. Nevertheless this related technologies could be add to the project in the future into develop or improve it.</p>
+					<p>We also studied different aspects of the distributed social networks  that will finally not be implement in our project. Nevertheless this related technologies could be added to the project in the future in order to develop or improve it.</p>
 					
 					<h3>Port of Node.js on Android OS</h3>
-						<p>We studied the way to make the webID protocol the more portable it can. The solution we found was to put the server that contains the FOAF file on a smartphone. Indeed most of us have always phone in our pocket with a permanent internet connexion: having all personal information in our phone would be the final stage of "user in control of his data".</p>
+						<p>We studied about how to make the webID protocol the more as portable as possible. The solution we found was to put the server that contains the FOAF file on a smartphone. Indeed most of us always carry a phone around us with a permanent internet connexion: having all personal information in our phone would be the final stage of "user in control of his data".</p>
 						<figure>
 						<img src="img/mobile-webid.png" title="Proposition for a portable WebID"/>
 						<figcaption>Proposition of a WebID architecture with a server running on a smart-phone</figcaption>
 					</figure>
-						<p>Nevertheless for the moment Node.js is not compatible on Android OS, there is only an attempt in development <a href="https://github.com/paddybyers/anode">on GitHub</a> but it's quite not ready yet. Indeed it requires to run on a modified version of Android</p>
+						<p>Nevertheless for the moment Node.js is not compatible on Android OS, there is only an attempt in development <a href="https://github.com/paddybyers/anode">on GitHub</a> but it's not quite ready yet. Indeed it can only run on a modified version of Android</p>
 						<p></p>
 					
 					<h3>Access control</h3>	
@@ -278,20 +277,20 @@
 						<li>GitHub is the official forge of Node.js and almost all npm packages are using GitHub. Being on the same platform allows us to quickly post bug report and follow related projects.</li>
 					</ul>
 					<p>For intern communication, we used a wiki (powered by <a href="http://www.dokuwiki.org" target="_blank">dokuwiki</a>, hosted on a personal server, <a href="http://wiki.magnetik.org/projet_asr" target="_blank">available here</a>) to share the minutes of ours meetings, important links about our research, etc. </p>
-					<p>To generate our modules documentation, we used the <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JSDoc toolkit</a>. It uses in-line annotation (mostly the same as <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html" target="_blank">Javadoc</a>) within the code (such as @param to describe a function parameter) to create a user-friendly documentation. An example of HTML output can be found <a href="http://magnetik.github.com/node-earl/doc/symbols/EarlDocument.html" target="_blank">on github</a>.</p>
+					<p>To generate our modules's documentation, we used the <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JSDoc toolkit</a>. It uses in-line annotation (mostly the same as <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html" target="_blank">Javadoc</a>) within the code (such as @param to describe a function parameter) to create a user-friendly documentation. An example of HTML output can be found <a href="http://magnetik.github.com/node-earl/doc/symbols/EarlDocument.html" target="_blank">on github</a>.</p>
 				<h2>Research on related technologies </h2>
 					<p>Before starting to code, we had to make research on many subjects related to WebID that where totally unknown to us (RDF and its serialization RDF/XML and Turtle, <abbr title="Transport Security Layer">TLS</abbr>, X509 certificate, <abbr title="Friend of a Friend">FOAF</abbr>, ...).</p>
-					<p>After having a good comprehension of theses technologies and noticing that there wasn't much informations in our native language (French), we created a few articles on Wikipedia to help spreading thoses technologies:</p>
+					<p>After having a good understanding of theses technologies and noticing that there wasn't much informations in our native language (French), we created a few articles on Wikipedia to help spreading thoses technologies:</p>
 					<ul>
 						<li><a href="http://fr.wikipedia.org/wiki/WebID#Protocole_WebID" target="_blank">WebID</a>,</li>
 						<li><a href="http://fr.wikipedia.org/wiki/Turtle_(syntaxe)" target="_blank">Turtle (syntaxe)</a>,</li>
 						<li><a href="http://fr.wikipedia.org/wiki/Notation3" target="_blank">Notation3</a>,</li>
 						<li><a href="http://fr.wikipedia.org/wiki/Evaluation_and_Report_Language" target="_blank">Evaluation and Report Language</a>.</li>
 					</ul>
-					<p>By writing small summaries of theses technologies and rephrasing already existing articles, this helped us to have a clearer view.</p>
+					<p>By writing small summaries of these technologies and rephrasing already existing articles, we eventually got a clearer view.</p>
 				<p></p>
 				<h2>Existent</h2>
-					<p>We searched if other people have already done some work on WebID with Node. A Google research didn't gave any result, neither a search on GitHub, but someone mentioned an implementation on the WebID XG list. After contacting the author, <a href="http://antoniogarrote.wordpress.com/" target="_blank">Antonio Garrote</a>, he put <a href="https://github.com/antoniogarrote/NodeJS-WebID-demo" target="_blank">his code</a> on his <a href="https://github.com/antoniogarrote" target="_blank">GitHub account</a>. We have identified one main problem: the lack of RDF library in JavaScript.</p>
+					<p>We searched if other people had already done some work on WebID with Node. A Google search did not give any result, neither a search on GitHub, but someone mentioned an implementation on the WebID XG list. After contacting the author, <a href="http://antoniogarrote.wordpress.com/" target="_blank">Antonio Garrote</a>, he put <a href="https://github.com/antoniogarrote/NodeJS-WebID-demo" target="_blank">his code</a> on his <a href="https://github.com/antoniogarrote" target="_blank">GitHub account</a>. We have identified one main problem: the lack of RDF library in JavaScript.</p>
 					<h3>JavaScript RDF lib</h3>
 						<p>There are a few RDF libraries (in pure JavaScript or wrappers to other libs) available on the Internet. The following matrix shows RDF support for the main libraries.</p>
 						<table>
@@ -361,8 +360,8 @@
 							</tr>
 						</table>
 						<p>Even if it looks like that there are many libraries, many can be eliminated. RDFQuery is a <a href="http://jquery.com/" target="_blank">jQuery</a> plugin, and for now jQuery plugins are not compatible with Node (even if some project such as <a href="https://github.com/tmpvar/jsdom" target="_blank">jsdom</a> aims to implement the <abbr title="Document Object Model">DOM</abbr>, which is required by jQuery, to node.). RDF parser does not support SparQL which is required to verify the public key.</p>
-						<p>We have seen in the context that Node.js application have to do the least number of operation in the main thread. As a matter of fact the support of WebWorkers of <strong>rdfstore-js</strong> was decisive even if it does not support RDF/XML. Moreover this module is under development and RDF/XML could be implemented in a near future.</p>
-						<p>Because most profile on internet are in RDF/XML, we used a <span title="http://semola-rdf.appspot.com">web service</span> that translate RDF/XML to Turtle.</p>
+						<p>We have seen in context that Node.js application have to do the least number of operation in the main thread. As a matter of fact the support of WebWorkers of <strong>rdfstore-js</strong> was decisive even if it did not support RDF/XML. Moreover this module is under development and RDF/XML could be implemented in a near future.</p>
+						<p>Because most profiles on internet are in RDF/XML, we used a <span title="http://semola-rdf.appspot.com">web service</span> that translate RDF/XML to Turtle.</p>
 
 				<h2>Programming</h2>
 					<p>We started working with Node.Js 0.5.10 which didn't had the <em>Subject Alternative Name</em> available in the certificate. After a <a href="https://github.com/joyent/node/pull/1286">bug request</a> this as been added to Node for the 0.6.0 beta version.</p>
@@ -374,7 +373,7 @@
 						<li><a href="https://github.com/magnetik/node-earl" target="_blank">node-earl</a></li>
 					</ul>
 					<h3>node-webid</h3>
-						<p>This is our core implementation. It tries to follow the </p>
+						<p>This is our core implementation. It tries to follow the <!-- manque un mot--></p>
 						<p>Our public API is simple, example of basic usage:</p>
 						
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -419,14 +418,14 @@
 							<img src="img/node-webid.png" alt="Node WebID module" width="70%" />
 							<figcaption>How Node.js WebID module works.</figcaption>
 						</figure>
-						<p>We have published this module on npm (<a href="http://search.npmjs.org/#/webid">search.npmjs.org/#/webid</a>): developers who wants to use our code, just have to type : <code>npm install webid</code>, and the library (and its dependencies) will be installed on their working directory. They can also declare WebID as a dependency of their own package by declaring "webid" into the <code>package.json</code> file.</p>
+						<p>We have published this module on npm (<a href="http://search.npmjs.org/#/webid">search.npmjs.org/#/webid</a>): developers who want to use our code, just have to type : <code>npm install webid</code>, and the library (and its dependencies) will be installed on their working directory. They can also declare WebID as a dependency of their own package by declaring "webid" into the <code>package.json</code> file.</p>
 					<h3>node-webid-demo</h3>
 						<p>This is a simple demo of WebID login using our module.</p>
 						<p>This demo offers simple way to test WebID: </p>
 						<p>Using Node 0.6.x, installation is as simple as: <br /><code>git clone git://github.com/magnetik/node-webid-demo.git</code> to donwnload the code<br /> then: <br /><code>node src/server.js</code> to start the server<br />Then access with your favorite browser to: <a href="https://localhost:8081">https://localhost:8081</a>. </p>
 						<p>It was initially designed to be an EARL endpoint, but we didn't had enough time to implement all tests. Moreover we weren't able to use WebID java test suite correctly.</p>
 					<h3>passport-webid</h3>
-						<p>Almost all developers using Node.js for web usage use the framework <a href="http://expressjs.com/" target="_blank">express</a> framework, or at least the middleware <a href="http://www.senchalabs.org/connect/" target="_blank">Connect</a>. Theses framework/middleware helps developers to program their application without worrying of their underlying consideration such as routes mapping, sessions etc.</p>
+						<p>Almost all developers using Node.js for web usage use the <a href="http://expressjs.com/" target="_blank">express</a> framework, or at least the middleware <a href="http://www.senchalabs.org/connect/" target="_blank">Connect</a>. Theses framework/middleware helps developers to program their application without worrying of their underlying consideration such as routes mapping, sessions etc.</p>
 						<p>Passport is an identification middleware which can be used with connect or express. It's designed to handle many "strategies", from classic login/password, to OpenID, facebook connect, and now... WebID !</p>
 						<p>Our module is now available as a passport strategy which means that anyone can use it with even less line of code that our "standard" example.</p>
 						<p>For instance, a local username/password strategy usage using Passport looks like:</p>
@@ -448,7 +447,7 @@
 						<p>Of course, this code does not use the available FOAF file, but with minor adjustment it could be modified</p>
 					<h3>node-earl</h3>
 						<p>In order to implement EARL answer in our <em>node-webid module</em>, we created a module to help generating EARL report.</p>
-						<p>Via a simple API that we defined, developers can generate EARL document easily.</p>
+						<p>Via a simple API that we defined, developers can easily generate EARL document.</p>
 						<p>For instance:</p>
 
 <pre><span class="oper">var</span> <span class="var">earl</span> <span class="oper">=</span> <span class="func">require</span>('<span class="string">earl</span>');
@@ -474,7 +473,7 @@
 					<h3>Triple access control</h3>
 						<p>We started to study the Triple Access Control ontology to implement a server that could serve a different FOAF file depending on who (or which server) is asking.</p>
 						<p>With the SparQL query in appendix 2, we can construct a new FOAF file by just changing the name "example.com" in the query: it will only contain the field that are annotated as "readable" by "example.com".</p>
-						<p>The problem was precisely to identify <em>WHO</em> is asking. Indeed during the process, the WebID verifier simply download the FOAF file to a distant web server. In order to use our query, the WebID verifier would have to identify itself to the server where the FOAF file is embedded. In a nutshell, for the WebID process, the client identify himself through WebID to a server, and  this server would have to identify itself to another server (some kind of a "mutual identification").</p>
+						<p>The problem was precisely to identify <em>WHO</em> is asking. Indeed during the process, the WebID verifier simply downloads the FOAF file to a distant web server. In order to use our query, the WebID verifier would have to identify itself to the server where the FOAF file is embedded. In a nutshell, for the WebID process, the client identifies himself through WebID to a server, and  this server would have to identify itself to another server (some kind of a "mutual identification").</p>
 						<p>This problem was out of the scope of our project. After a discussion with <em>Andrei Sambra</em>, we decided to stop our investigation at this point.</p>
 
 					<h3>Git</h3>
@@ -495,7 +494,7 @@
 			<h1>Conclusion</h1>
 				<h2>Issues</h2>
 					<p>The main issue we had to face was the lack of good Node.js implementation for some standards: RDF and TLS. </p>
-					<p>Following the very first steps of a new W3C recommendation was quite exciting but reading more than 400 messages per month was hard, that's why we didn't participate much in the discussions.</p>
+					<p>Following the very first steps of a new W3C recommendation was quite exciting but reading more than 400 messages per month was time-consuming, that's why we did not participate much in the discussions.</p>
 				<h2></h2>
 					<p>Following the beginning of a future standard was exciting.</p>
 					<p>Learning a new language and perhaps more important </p>
