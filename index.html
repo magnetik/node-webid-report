@@ -162,32 +162,12 @@
 						
 					<h3>Requirements</h3>
 						<p>Despite the fact the client part of WebID is based on the quite old TLS client certificate, this may require some browser improvement in order to be more widely used.</p>
-						<p>In appendix 1, you can found screen capture of user certificate selection. Firefox is giving the most unreadable window with a lot of informations that are not very useful for the user, whereas Internet Explorer is showing a pretty nice window. Even if it looks like a detail, it's important to be used by the mass.</p>
+						<p>In appendix 1, you can found screen capture of user certificate selection. Firefox is giving the most unreadable window with a lot of informations that are not very useful for the user (there is an <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=396441">in going bug</a> which demands UI improvement), whereas Internet Explorer is showing a pretty nice window. Even if it looks like a detail, it's important to be used by the mass.</p>
 						<p>Another requirement is a way for the website to interact with the browser TLS stack. There is no clear standard to say what is possible: for instance it's currently possible to logout from WebID with Firefox or Internet Explorer but not with Chrome. Indeed the JavaScript object <code>window.crypto</code> (and in particular it's method <code>window.crypto.logout()</code>) is note standardized by any organization. This may change because there is an HTML5 related group, the <a href="http://www.w3.org/community/webcryptoapi/" target="_blank">Web Crypto API</a> community group which is working on this issue in order to formalize what functions the browser should provide. Results of this group, and quick implementation by most browser manufacturer will be decisive for WebID.</p>
 						
 					<h3>Comparison</h3>
 						<p>There are a few other ways to simplify and improve user login, some are standardized, some aren't.</p>
-						<table>
-							<caption>Matrix showing main differences / similarities between main identification standards</caption>
-							<tr>
-								<td></td>
-								<th>WebID</th>
-								<th>BrowserID</th>
-								<th>OpenID</th>
-							</tr>
-							<tr>
-								<th>Browser integration</th>
-								<td>Already</td>
-								<td>No</td>
-								<td>Not required</td>
-							</tr>
-							<tr>
-								<th>Identifier</th>
-								<td>URL</td>
-								<td>E-mail</td>
-								<td></td>
-							</tr>
-						</table>
+						<p>The closest implementation is <strong>BrowserID</strong>, currently developed through the Mozilla foundation. The main difference is that BrowserID uses Javascript and a JSON certificate in order to work (whereas WebID uses TLS) and it uses the e-mail as the identifier. BrowserID require modification in browser and support from email providers.</p>
 						<p>By the way, WebID is not opposed to this login system. For instance, OpenID could be used with WebID: for now, most OpenID providers uses classic login/password, but we can imagine that the user login to the OpenID endpoint with WebID, then the classic OpenID process continue. This could be useful in order to prepare the transition to WebID because OpenID is quite widely deployed on Internet (for instance all Google ID are OpenID too).</p>
 						
 					<h3>W3C</h3>
