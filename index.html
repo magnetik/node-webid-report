@@ -234,7 +234,7 @@
 					</figure>
 					<p>Node works differently: it mainly uses an event loop that executes your code in a single thread. This loop handles all incoming connections, that's why potentially long operations (such as network or disk I/O, database queries, etc) must be executed asynchronously (with the use of callback) on worker threads.</p>
 					<p>In order to defer long operations to other threads, Node supports the brand new <a href="http://dev.w3.org/html5/workers/" target="_blank">HTML5 Web Workers</a> to delegate work to other threads.</p>
-					<p>Many features of JavaScript help developers to write effective event-driven programs (with a minimum of lines of code). Moreover, the way that Node is coded allows to do <!-- il manque un mot --> painlessly: there is no thread management nor synchronization functions...</p>
+					<p>Many features of JavaScript help developers to write effective event-driven programs (with a minimum of lines of code). Moreover, the way that Node is coded allows to do this painlessly: there is no thread management nor synchronization functions...</p>
 					<p>Node is under heavy development: core <abbr title="Application Programming Interface">API</abbr>s may change at any time. It could even be an advantage or a problem. An advantage because if bugs are found or new features requested, development teams can react quickly. But it is also a problem when, for example, the number of arguments of a function changes from a version to another: it may require additional work to follow Node's quick development.</p>
 					<p><a href="http://npmjs.org" target="_blank">npm</a> is Node's package manager which allows to install packages (with the additional possibility to add your own c++ wrappers if needed), and even to publish your own package on a centralized platform. On January 7<sup>th</sup> 2012, there were more than six thousand packages available which were covering a wide range of functionalities such as template engines, web pages parsing, certificate management... Anyone can publish a package to npm registry with only a few lines.</p>
 			
@@ -493,11 +493,14 @@
 			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<h1>Conclusion</h1>
 				<h2>Issues</h2>
-					<p>The main issue we had to face was the lack of good Node.js implementations for some standards: RDF and TLS. </p>
-					<p>Following the very first steps of a new W3C recommendation was quite exciting but reading more than 400 messages per month was time-consuming, that's why we did not participate much in the discussions.</p>
+					<p>We spent a lot of time in research about RDF, TLS and JavaScript because we started with a 0 level on these technologies. We may have coded more impressive demo using an already known language such as Java. </p>
+					<p>The main issue we had to face was the lack of good Node.js implementations for RDF. Although this technology is quite old, it's not as widespread as XML for instance.</p>
+					<p>With more than 400 messages per month, following the mailing list daily was really time consuming, that's why we did not participate much in the discussions.</p>
 				<h2></h2>
-					<p>Following the beginning of a future standard was exciting.</p>
-					<p>Learning a new language and perhaps more important </p>
+					<p>Following the beginning of a future standard was exciting and a good opportunity to understand how a standard is written. Even more because this is the only part of the W3C process which is open to anyone.</p>
+					<p>Learning a new language and perhaps more important a new architecture (event-driven architecture) is interesting. Moreover JavaScript is more and more used on the web in one hand, with application which can be compared to desktop one (Gmail for instance). And on another hand outside the web as script tool in Gnome Shell or Microsoft Vista's gadget. JavaScript is the 10<sup>th</sup> most used language according to the <a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html">TIOBE index</a>, and it's more and more used..</p>
+					<p>Node.js technology looks promising. Even if we didn't had any benchmark on our own application, it permits to to highly scalable application without having to learn new syntax or operators. Learning Node is easy and the community already very active. For instance we reported a few bugs that have all been fixed within a few days.</p>
+					<p>WebID is a promising standard but there are a few barriers are still strong for end-users. For instance the concept of certificate for users, how to handle certificate when not at home? There is no blocking issue, but if an internet major company implement WebID (Google for instance has already implemented OpenID), it would be a great support for the standard. Anyway the recommendation is not quite ready and solutions will be found.</p>
 
 			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<h1>References</h1>
