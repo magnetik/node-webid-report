@@ -122,7 +122,7 @@
 					<h3>SSL/TLS security protocol</h3>
 						<p>We have already seen that WebID uses TLS protocol in order to verify both the server and the client, let's take a deeper look into TLS.</p>
 						<p>Transport Layer Security (TLS) <span class="ref">T. Dierks, E. Rescorla,<em>The Transport Layer Security (TLS) Protocol, Version 1.2</em>, August 2008; http://www.w3.org/wiki/WebID</span> and its predecessor, Secure Sockets Layer (SSL), are cryptographic protocols that provide communication security over the Internet.</p>
-						<p>The TLS protocol allows client/server applications to communicate across a network in a way designed to prevent eavesdropping and tampering. The goals of the TLS protocol is to provide: cryptographic security, interoperability, extensibility, relative efficiency. Therefore it provides these different security aspects<span class="ref">S. Thomas, <em>Ssl &amp; Tls Essentials: Securing the Web</em>. New York : Wiley Computer Publishing, 2000.</span>:</p>
+						<p>The TLS protocol allows client/server applications to communicate across a network in a way designed to prevent eavesdropping and tampering. The goals of the TLS protocol is to provide: cryptographic security, interoperability, extensibility, relative efficiency. Therefore it provides these different security aspects<span class="ref">S. Thomas, <em>Ssl &amp; Tls Essentials: Securing the Web</em>. New York: Wiley Computer Publishing, 2000.</span>:</p>
 						<ul>
 							<li>The authentication of the server</li>
 							<li>An encrypted session which allows secure data transmission</li>
@@ -144,7 +144,7 @@
 							<img src="img/foaf-spec.jpg" title="FOAF ontology" width="80%" />
 							<figcaption>Graph of FOAF ontology. a user can fill in all information or only some of it. </figcaption>
 						</figure>
-						<p>The FOAF Ontology is used in the WebID protocol with accordance to the following graph :</p>
+						<p>The FOAF Ontology is used in the WebID protocol with accordance to the following graph:</p>
 						<figure>
 							<img src="img/foafssl-graph.jpg" title="FOAF + SSL graph" width="80%"/>
 							<figcaption>Graph of a FOAF profile in WebID</figcaption>
@@ -400,7 +400,7 @@
       <span class="oper">var</span> <span class="var">foaf</span> <span class="oper">=</span> <span class="oper">new</span> <span class="var">webid</span>.<span class="func">Foaf</span>(<span class="var">result</span>);
       <span class="oper">var</span> <span class="var">foafFile</span> <span class="oper">=</span> <span class="var">foaf</span>.<span class="func">parse</span>();
       <span class="comment">// Another function of our module is to parse the FOAF</span>
-      <span class="comment">// then a few variable are available, such as :</span>
+      <span class="comment">// then a few variable are available, such as:</span>
       <span class="comment">// - foafFile.name: contain the name</span>
 	  <span class="comment">// - foafFile.knows: contain known people</span>
     } <span class="oper">else</span> {
@@ -417,7 +417,7 @@
 							<img src="img/node-webid.png" alt="Node WebID module" width="70%" />
 							<figcaption>How Node.js WebID module works.</figcaption>
 						</figure>
-						<p>We have published this module on npm (<a href="http://search.npmjs.org/#/webid">search.npmjs.org/#/webid</a>): developers who want to use our code, just have to type : <code>npm install webid</code>, and the library (and its dependencies) will be installed on their working directory. They can also declare WebID as a dependency of their own package by declaring "webid" into the <code>package.json</code> file.</p>
+						<p>We have published this module on npm (<a href="http://search.npmjs.org/#/webid">search.npmjs.org/#/webid</a>): developers who want to use our code, just have to type: <code>npm install webid</code>, and the library (and its dependencies) will be installed on their working directory. They can also declare WebID as a dependency of their own package by declaring "webid" into the <code>package.json</code> file.</p>
 					<h3>node-webid-demo</h3>
 						<p>This is a simple demo of WebID login using our module.</p>
 						<p>This demo offers a simple way to test WebID: </p>
@@ -452,7 +452,7 @@
 <pre><span class="oper">var</span> <span class="var">earl</span> <span class="oper">=</span> <span class="func">require</span>('<span class="string">earl</span>');
 <span class="comment">// Creating EARL document Object</span>
 <span class="oper">var</span> <span class="var">earlDocument</span> <span class="oper">=</span> <span class="oper">new</span> <span class="var">earl</span>.<span class="func">EarlDocument</span>();
-<span class="comment">// Create an assertion :</span>
+<span class="comment">// Create an assertion:</span>
 <span class="comment">// whose subject is the certificate</span>
 <span class="comment">// and whose name is wit:certificateProvidedSAN</span>
 <span class="var">earlDocument</span>.<span class="func">addAssertion</span>(&quot;<span class="string">:assert1</span>&quot;, &quot;<span class="string">:certificate</span>&quot;, &quot;<span class="string">wit:certificateProvidedSAN</span>&quot;);
